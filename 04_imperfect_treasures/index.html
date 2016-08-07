@@ -7,13 +7,21 @@
   </head>
   <body>
     <a-scene>
+      <a-assets>
+        <img id="grid" src="assets/grid.png">
+        <audio src="assets/cube_sound.ogg">
+      </a-assets>
       <a-camera id="player" position="0 1.8 0">
-        <a-cursor color="#ffffff">
+        <a-entity cursor="fuse: true; maxDistance: 30;"
+        geometry="primitive: ring"
+        material="color: white; shader: flat"
+        position ="0 0 -1"
+        scale="0.01 0.01 0.01"></a-entity>
       </a-camera>
-      <a-plane width="6" height="6" rotation="-90 0 0" src="assets/grid.png"></a-plane>
-      <a-cube id="cube" color="green" position="0 3 -5" size="1" sound="src: assets/cube_sound.ogg; autoplay: true; loop:true">
-        <a-mouseenter color="#FFC65D"></a-mouseenter>
-        <a-mouseleave color="green"></a-mouseleave>
+      <a-plane width="6" height="6" rotation="-90 0 0" src="#grid"></a-plane>
+      <a-box id="cube" color="green" position="0 3 -5" size="1" sound="src: assets/cube_sound.ogg; autoplay: true; loop:true">
+        <a-event name="mouseenter" color="#FFC65D"></a-event>
+        <a-event name="mouseleave" color="green"></a-event>
       </a-cube>
       <a-sky color="#023283">
     </a-scene>
