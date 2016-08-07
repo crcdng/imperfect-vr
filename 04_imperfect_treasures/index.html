@@ -15,14 +15,7 @@
         <a-mouseenter color="#FFC65D"></a-mouseenter>
         <a-mouseleave color="green"></a-mouseleave>
       </a-cube>
-      <!-- replacement for a-sky: color issue workaround for https://github.com/aframevr/aframe/issues/852 -->
-      <a-entity geometry="primitive: sphere;
-                            radius: 5000;
-                            segmentsWidth: 64;
-                            segmentsHeight: 64"
-                  material="color: #023283; fog: false"
-                  scale="-1 1 1">
-        </a-entity>
+      <a-sky color="#023283">
     </a-scene>
     <script>
       function newPosition() {
