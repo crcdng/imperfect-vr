@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>360 Degrees Around Us</title>
+    <!-- uncomment either
+    "video" + "a-videosphere" or "img" + "a-sky"
+    below to get a static 360 degrees image or a 360 degree video -->
+    <script src="aframe.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+      <img id="sky" src="sky.png">
+      <!-- <video id="video" src="city.mp4" autoplay loop></video> -->
+      </a-assets>
+      <a-sky src="#sky" rotation="0 -130 0"></a-sky>
+      <!-- <a-videosphere src="#video" rotation="0 180 0"></a-videosphere> -->
+    </a-scene>
+  </body>
+</html>

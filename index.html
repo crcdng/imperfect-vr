@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Imperfect VR</title>
+    <script src="aframe.js"></script>
+    <script src="aframe-layout-component.js"></script>
+    <script src="aframe-text-component.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+        <img id="sky" src="assets/sky.png">
+        <img id="img00" src="assets/img00.png">
+        <img id="img01" src="assets/img01.png">
+        <img id="img02" src="assets/img02.png">
+        <img id="img03" src="assets/img03.png">
+        <img id="img04" src="assets/img04.png">
+        <img id="img05" src="assets/img05.png">
+        <img id="img06" src="assets/img06.png">
+      </a-assets>
+      <a-entity text="text: Imperfect VR; color: ''#000000'" position="0 3.5 -4" size="2 2 2" ></a-entity>
+      <a-entity layout="type: circle; radius: 5" position="0 0.5 0">
+        <a-image class="scene" id="03_360_degrees" look-at="#player" src="#img03" scale="3 3"></a-image>
+        <a-image class="scene" id="04_imperfect_treasures" look-at="#player" src="#img04" scale="3 3"></a-image>
+        <a-image class="scene" id="05_reality_of_the_virtual" look-at="#player" src="#img05" scale="3 3"></a-image>
+        <a-image class="scene" id="06_rabbit_chicken_ak47" look-at="#player" src="#img06" scale="3 3"></a-image>
+        <a-image class="scene" id="00_do_it_yourself" look-at="#player" src="#img00" scale="3 3"></a-image>
+        <a-image class="scene" id="01_hello_vr_world" look-at="#player" src="#img01" scale="3 3"></a-image>
+        <a-image class="scene" id="02_basic_scene" look-at="#player" src="#img02" scale="3 3"></a-image>
+      </a-entity>
+      <a-camera id="player" position="0 1.8 0">
+        <a-cursor color="#2E3A87">
+      </a-camera>
+      <a-sky src="#sky"></a-sky>
+    </a-scene>
+    <script type="text/javascript">
+      var i, ln;
+      var els = document.querySelectorAll(".scene");
+      for (i = 0, ln = els.length; i < ln; i++) {
+        els[i].addEventListener("click", function(target) {
+          var newUrl = this.id + "/";
+          console.log("clicked" + newUrl);
+          window.location.href = newUrl;
+        });
+      }
+    </script>
+  </body>
+</html>

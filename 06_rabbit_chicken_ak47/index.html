@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Rabbit Chicken AK 47</title>
+    <script src="aframe.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <a-entity>
+        <a-camera position="0 1.8 0" ></a-camera>
+        <a-animation attribute="rotation" from="0 0 0" to="0 360 0" dur="100000" repeat="indefinite" easing="linear"></a-animation>
+      </a-entity>
+      <!-- <a-sky color="#023283"></a-sky> -->
+      <a-videosphere></a-videosphere>
+
+      <a-entity position="0 0 0" sound="src: assets/funnysong.ogg; autoplay: true; loop:true"></a-entity>
+
+      <a-plane width="6" height="6" rotation="-90 0 0" src="grid.png">
+        <a-animation attribute="position" from="0 0 0" to="0 0.5 0" direction="alternate" dur="10000" repeat="indefinite" easing="linear"></a-animation>
+      </a-plane>
+
+      <a-entity id="chicks">
+        <a-entity id="chick1"><a-model src="assets/chick/chick-lowpoly.dae"></a-model>
+          <a-animation attribute="scale" from="1 1 1" to="1.5 1.5 1.5" direction="alternate" repeat="indefinite" easing="ease-in-out-expo"></a-animation>
+        </a-entity>
+        <a-entity id="chick2"><a-model src="assets/chick/chick-lowpoly.dae"></a-model>
+          <a-animation attribute="scale" from="1 1 1" to="1.5 1.5 1.5" direction="alternate" repeat="indefinite" easing="ease-in-out-expo"></a-animation>
+        </a-entity>
+        <a-entity id="chick3"><a-model src="assets/chick/chick-lowpoly.dae"></a-model>
+          <a-animation attribute="scale" from="1 1 1" to="1.5 1.5 1.5" direction="alternate" repeat="indefinite" easing="ease-in-out-expo"></a-animation>
+        </a-entity>
+        <a-entity id="chick4"><a-model src="assets/chick/chick-lowpoly.dae"></a-model>
+          <a-animation attribute="scale" from="1 1 1" to="1.5 1.5 1.5" direction="alternate" repeat="indefinite" easing="ease-in-out-expo"></a-animation>
+        </a-entity>
+        <!-- <a-animation attribute="scale" from="1 1 1" to="1.5 1.5 1.5" direction="alternate" repeat="indefinite" easing="ease-in-out-expo"></a-animation> -->
+      </a-entity>
+
+      <a-model src="assets/spider/spider.obj" format="obj" scale="0.1 0.1 0.1" position="30 0 -30">
+        <a-animation attribute="scale" from="0.1 0.1 0.1" to="5 5 5" direction="alternate" repeat="indefinite" easing="ease-in-out-expo"></a-animation>
+      </a-model>
+
+    </a-scene>
+    <script>
+      function pos(degree, distance, height) {
+        var x, y, z;
+        x = Math.cos((degree*Math.PI/180)-Math.PI/2) * distance;
+        y = height;
+        z = Math.sin((degree*Math.PI/180)-Math.PI/2) * distance;
+        return "" + x + " " + y + " " + z;
+      }
+
+      function animate(id, attribute, to) {
+        anim1.setAttribute("to", "1 2 1");
+
+      }
+
+      function getCameraStream(params) {
+        // shimmed with adapter.js
+        navigator.mediaDevices.getUserMedia(params)
+        .then(function(stream) {
+          var video = document.querySelector('video');
+          // video.src = window.URL.createObjectURL(stream);
+          video.srcObject = stream;
+          stream.onloadedmetadata = function(bla) {
+          };
+        }).catch(function(err) { console.log(err.name); });
+
+        // document.querySelector('#videoplane').addEventListener('click', function () {
+        //   // this.setAttribute('src', window.URL.createObjectURL(stream));
+        // });
+      }
+
+      getCameraStream({ audio: false, video: true });
+
+      chick1.setAttribute('position', pos(0, 20, 0));
+      chick2.setAttribute('position', pos(90, 20, 0));
+      chick2.setAttribute('rotation', "0 -90 0");
+      chick3.setAttribute('position', pos(180, 20, 0));
+      chick3.setAttribute('rotation', "0 180 0");
+      chick4.setAttribute('position', pos(270, 20, 0));
+      chick4.setAttribute('rotation', "0 90 0");
+
+    </script>
+
+  </body>
+</html>

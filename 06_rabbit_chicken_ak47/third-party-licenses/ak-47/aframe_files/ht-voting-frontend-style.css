@@ -1,0 +1,47 @@
+/*------------------------------------------------------------------------------
+HT Voting Styles
+------------------------------------------------------------------------------*/
+.ht-voting .ht-voting-links {
+  display: inline-block;
+  margin: 0 0 5px; }
+  .ht-voting .ht-voting-links .ht-voting-upvote,
+  .ht-voting .ht-voting-links .ht-voting-downvote {
+    display: inline-block;
+    background: #919195;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 15px;
+    font-size: 95%;
+    line-height: 1;
+    border-radius: 99px;
+    -moz-border-radius: 99px;
+    -webkit-border-radius: 99px; }
+    .ht-voting .ht-voting-links .ht-voting-upvote i,
+    .ht-voting .ht-voting-links .ht-voting-downvote i {
+      margin: 0 5px 0 0; }
+  .ht-voting .ht-voting-links .ht-voting-upvote {
+    background: #9cc051; }
+  .ht-voting .ht-voting-links .ht-voting-downvote {
+    background: #d26a40; }
+  .ht-voting .ht-voting-links.ht-voting-up .ht-voting-upvote {
+    background: #919195;
+    cursor: not-allowed; }
+  .ht-voting .ht-voting-links.ht-voting-up .ht-voting-downvote:hover {
+    background: #de6f43; }
+  .ht-voting .ht-voting-links.ht-voting-down .ht-voting-downvote {
+    background: #919195;
+    cursor: not-allowed; }
+  .ht-voting .ht-voting-links.ht-voting-down .ht-voting-upvote:hover {
+    background: #a7cc56; }
+.ht-voting .ht-voting-login-required {
+  background-color: red;
+  color: white;
+  margin: 2px;
+  padding: 2px; }
+.ht-voting .ht-voting-how-helpful {
+  font-size: 80%;
+  display: inline-block;
+  margin: 0 0 0 5px; }
+.ht-voting .ht-voting-links br {
+  /* fix those annoying themes or other plugins that insist on adding wpautop filter to post shortcode content */
+  display: none; }
