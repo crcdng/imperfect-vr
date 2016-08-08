@@ -4,11 +4,15 @@
     <meta charset="utf-8">
     <title>The Reality of the Virtual</title>
     <script src="js/aframe.js"></script>
-    <!-- required for the template component http://handlebarsjs.com/ -->
+    <!-- required for the template component https://mozilla.github.io/nunjucks/ -->
     <script src="js/nunjucks.js"></script>
-    <!-- 3rd party components -->
+    <!-- components -->
     <script src="js/aframe-layout-component.js"></script>
     <script src="js/aframe-template-component.js"></script>
+    <script src="js/aframe-spawner-component.js"></script>
+    <script src="js/aframe-projectile-component.js"></script>
+    <script src="js/aframe-collider-component.js"></script>
+    <script src="js/aframe-click-listener-component.js"></script>
   </head>
   <body>
     <a-scene>
@@ -24,13 +28,26 @@
       </a-assets>
 
       <!-- replace the standard camera with a new one that supports a fusion cursor -->
-      <a-camera id="player" position="0 1.8 4">
-        <a-entity cursor="fuse: true; maxDistance: 30;"
+      <!-- then use our new components to fire lasers -->
+
+      <a-camera id="player" position="0 1.8 4" spawner="mixin: laser; on: click"
+      click-listener>
+        <a-entity id ="cursor"  cursor="fuse: true; maxDistance: 30;"
         geometry="primitive: ring"
         material="color: white; shader: flat"
-        position ="0 0 -1"
-        scale="0.01 0.01 0.01"></a-entity>
+        position ="0 -0.25 -1"
+        scale="0.01 0.01 0.01">
+        </a-entity>
       </a-camera>
+
+      <!-- Laser. -->
+      <a-mixin id="laser"
+        geometry="primitive: cylinder; radius: 0.05; translate: 0 -2 0"
+        material="color: green; metalness: 0.2; opacity: 0.4; roughness: 0.3"
+        rotation="90 0 0"
+        projectile="speed: -0.7"
+        collider="target: .enemy">
+      </a-mixin>
 
       <!-- some elements with different materials -->
       <a-sphere id="zizek_sphere" src="#zizek_texture" position="0 1.25 -1" radius="1.25" color="#FFFFFF">
@@ -51,7 +68,11 @@
         <a-entity layout="type: circle; radius: 5" position="0 1.5 1.5">
           <a-animation attribute="rotation" dur="30000" easing="linear" repeat="indefinite" to="0 360 0"></a-animation>
             {% for x in range(num) %}
-              <a-plane look-at="#player" height="3" width="1.5" src="#drumpf_texture" transparent="true"></a-plane>
+              <a-plane class="enemy" look-at="#player" height="3" width="1.5" src="#drumpf_texture" transparent="true">
+              <!-- collision handler animations. -->
+                <a-animation attribute="opacity" begin="collider-hit" dur="400" ease="linear" from="1" to="0"></a-animation>
+                <a-animation attribute="scale" begin="collider-hit" dur="400" ease="linear" to="0 0 0"></a-animation>
+              </a-plane>
             {% endfor %}
         </a-entity>
       </script>
@@ -69,7 +90,7 @@
 
       <!-- some lights -->
       <a-light type="directional" color="#fff" intensity="0.43" position="-1 0 1"></a-light>
-      <a-light type="spot" color="#333" position="-1 0 1" look-at="#virilo_box"></a-light>
+      <a-light type="spot" color="#333" position="-1 0 1" look-at="#virilio_box"></a-light>
       <a-light type="point" color="#AAA" position="0 5 0"></a-light>
 
     </a-scene>

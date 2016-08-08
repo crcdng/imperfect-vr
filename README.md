@@ -13,12 +13,12 @@ Imperfect VR is inspired by ["Imperfect Cinema"](http://www.imperfectcinema.com/
 * 02 A Basic Scene, based on the [A-Frame Basic Scene](https://aframe.io/docs/0.2.0/guide/building-a-basic-scene.html)
 * 03 360 Degrees - 360 Image / Video
 * 04 Imperfect Treasures, based on the [Google Cardboard example](https://developers.google.com/vr/android/get-started)
-* 05 The Reality of the Virtual featuring Slavoj Žižek (work in progress)
-* 06 Rabbit Chicken, AK 47 (work in progress)
+* 05 The Reality of the Virtual featuring Slavoj Žižek (work in progress, uses the [A-Frame Advanced Scene](https://aframe.io/docs/0.2.0/guide/building-an-advanced-scene.html))
+* 06 Rabbit Chicken, AK 47 (work in progress, currently broken)
 
 [A-Frame](https://aframe.io/) is a beginner-friendly, but capable framework by the Mozilla people to create VR experiences from markup and code. Everyone who can slide a smartphone into a [Google Cardboard](https://vr.google.com/cardboard/) can make VR experiences with A-Frame. VR Scenes in A-Frame are described with HTML tags and scripted with JavaScript.
 
-Each example is self-contained and has all the files it needs in its directory structure (including movies). Therefore the repo has grown quite large. This is intended, as in workshops there might not be an internet connection available. 
+Each example is self-contained and has all the files it needs in its directory structure (including movies). Therefore the repo has grown quite large. This is intended, as in workshops there might not be an internet connection available.
 
 ## Third-Party Licenses
 
