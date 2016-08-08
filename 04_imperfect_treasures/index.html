@@ -7,10 +7,17 @@
   </head>
   <body>
     <a-scene>
+
+      <!-- preload scene assets-->
       <a-assets>
         <img id="grid" src="assets/grid.png">
         <audio src="assets/cube_sound.ogg">
       </a-assets>
+
+      <!-- a plane where you "stand on" -->
+      <a-plane width="6" height="6" rotation="-90 0 0" src="#grid"></a-plane>
+
+      <!-- replace the standard camera with a new one that has a fuse cursor -->
       <a-camera id="player" position="0 1.8 0">
         <a-entity cursor="fuse: true; maxDistance: 30;"
         geometry="primitive: ring"
@@ -18,14 +25,20 @@
         position ="0 0 -1"
         scale="0.01 0.01 0.01"></a-entity>
       </a-camera>
-      <a-plane width="6" height="6" rotation="-90 0 0" src="#grid"></a-plane>
-      <a-box id="cube" color="green" position="0 3 -5" size="1" sound="src: assets/cube_sound.ogg; autoplay: true; loop:true">
+
+      <!-- a box that changes color when you look at it -->
+      <!-- it has sound attached to it -->
+      <a-box id="box" color="green" position="0 3 -5" size="1" sound="src: assets/cube_sound.ogg; autoplay: true; loop:true">
         <a-event name="mouseenter" color="#FFC65D"></a-event>
         <a-event name="mouseleave" color="green"></a-event>
       </a-cube>
+
+      <!-- a sky around the scene -->
       <a-sky color="#023283">
+
     </a-scene>
     <script>
+      // compute a random new position around you, with a little bit of maths
       function newPosition() {
         var angle = Math.random() * Math.PI * 2;
         var radius = Math.random() * 3 + 4;
@@ -33,10 +46,11 @@
         var result = { x: Math.cos(angle)*radius, y: height, z: -Math.sin(angle)*radius };
         return result;
       }
-      document.querySelector('#cube').addEventListener('click', function () {
-        var newPos = newPosition();
-        this.setAttribute('color', 'red');
-        setTimeout(function() {
+      // tell the box to react to clicks
+      document.querySelector('#box').addEventListener('click', function () {
+        var newPos = newPosition(); // compute the new position
+        this.setAttribute('color', 'red'); // change color
+        setTimeout(function() { // wait a little then change color again and move the box to its new position
           this.setAttribute('color', 'green');
           this.setAttribute('position', "" + newPos.x + " " + newPos.y + " " + newPos.z);
         }.bind(this), 90);
