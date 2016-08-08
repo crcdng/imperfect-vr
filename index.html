@@ -30,7 +30,11 @@
         <a-image class="scene" id="02_basic_scene" look-at="#player" src="#img02" scale="3 3"></a-image>
       </a-entity>
       <a-camera id="player" position="0 1.8 0">
-        <a-cursor color="#2E3A87">
+        <a-entity cursor="fuse: true; maxDistance: 30;"
+        geometry="primitive: ring"
+        material="color: white; shader: flat"
+        position ="0 0 -1"
+        scale="0.01 0.01 0.01"></a-entity>
       </a-camera>
       <a-sky src="#sky"></a-sky>
     </a-scene>
