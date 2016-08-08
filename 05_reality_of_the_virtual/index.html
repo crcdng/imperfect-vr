@@ -10,23 +10,26 @@
   <body>
     <a-scene>
 
-      <!-- preload scene assets with a 20 second timeout (default: 3) -->
-      <a-assets timeout="20000">
+      <!-- preload scene assets with a 10 second timeout (default: 3) -->
+      <a-assets timeout="10000">
         <img id="cardboardvr" src="assets/vr.jpg">
         <img id="texture" src="assets/texture.png">
-        <img id="zizture" src="assets/zizture.png">
+        <img id="zizek_texture" src="assets/zizek.png">
+        <img id="virilio_texture" src="assets/virilio.jpg">
         <video id="zizek" src="assets/zizek.mp4" loop></video>
         <a-asset-item id="dude" src="assets/man.dae"></a-asset-item>
         <img id="video-play-image" src="assets/play.png">
         <img id="video-pause-image" src="assets/pause.png">
       </a-assets>
 
-      <!-- replace the standard camera with a new one that supports a cursor -->
-      <a-entity position="0 1.8 4">
-        <a-camera id="camera">
-          <a-cursor color="#4CC3D9"></a-cursor>
-        </a-camera>
-      </a-entity>
+      <!-- replace the standard camera with a new one that supports a fusion cursor -->
+      <a-camera id="player" position="0 1.8 0">
+        <a-entity cursor="fuse: true; maxDistance: 30;"
+        geometry="primitive: ring"
+        material="color: white; shader: flat"
+        position ="0 0 -1"
+        scale="0.01 0.01 0.01"></a-entity>
+      </a-camera>
 
       <!-- show the standard scene elements with some different materials -->
       <a-sphere position="0 1.25 -1" radius="1.25" color="#EF2D5E"></a-sphere>
@@ -45,7 +48,7 @@
       </a-entity>
 
       <!-- these elements react to interaction-->
-      <a-box id="orange-cube" position="0 3.5 -2" rotation="30 30 0" width="2" depth="2" height="2" color="#F16745" roughness="0.8">
+      <a-box id="orange-cube" src="#virilio_texture" position="0 3.5 -2" rotation="30 30 0" width="2" depth="2" height="2" color="#F16745" roughness="0.8">
         <a-event name="mouseenter" rotation="0 90 0"></a-event>
         <a-event name="mouseleave" rotation="0 0 0"></a-event>
       </a-box>
