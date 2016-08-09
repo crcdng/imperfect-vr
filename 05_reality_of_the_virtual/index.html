@@ -19,18 +19,19 @@
 
       <!-- preload scene assets with a 5 second timeout (default: 3) -->
       <a-assets timeout="5000">
+        <audio id="shoot" src="assets/Laser_Shoot40.ogg">
+        <video id="zizek" src="assets/zizek.mp4" autoplay="false"></video>
+        <a-asset-item id="dude" src="assets/man.dae"></a-asset-item>
         <img id="cardboardvr" src="assets/vr.jpg">
         <img id="drumpf_texture" src="assets/drumpfdrumpf.png">
         <img id="zizek_texture" src="assets/zizek.png">
         <img id="virilio_texture" src="assets/virilio.jpg">
-        <video id="zizek" src="assets/zizek.mp4" autoplay="false"></video>
-        <a-asset-item id="dude" src="assets/man.dae"></a-asset-item>
       </a-assets>
 
       <!-- replace the standard camera with a new one that supports a fusion cursor -->
       <!-- then use our new components to fire lasers -->
 
-      <a-camera id="player" position="0 1.8 4" spawner="mixin: laser; on: click"
+      <a-camera id="player" position="0 1.8 4" spawner="mixin: laser; on: click" sound="src: assets/Laser_Shoot40.ogg; on: click"
       click-listener>
         <a-entity id ="cursor"  cursor="fuse: true; maxDistance: 30;"
         geometry="primitive: ring"
@@ -68,7 +69,8 @@
         <a-entity layout="type: circle; radius: 5" position="0 1.5 1.5">
           <a-animation attribute="rotation" dur="30000" easing="linear" repeat="indefinite" to="0 360 0"></a-animation>
             {% for x in range(num) %}
-              <a-plane class="enemy" look-at="#player" height="3" width="1.5" src="#drumpf_texture" transparent="true">
+              <a-plane class="enemy" look-at="#player" height="3" width="1.5" src="#drumpf_texture"
+              transparent="true" sound="src: assets/Explosion43.ogg; autoplay: false">
               <!-- collision handler animations. -->
                 <a-animation attribute="opacity" begin="collider-hit" dur="400" ease="linear" from="1" to="0"></a-animation>
                 <a-animation attribute="scale" begin="collider-hit" dur="400" ease="linear" to="0 0 0"></a-animation>
@@ -76,7 +78,7 @@
             {% endfor %}
         </a-entity>
       </script>
-      <a-entity template="src: #enemies" data-num="10"></a-entity>
+      <a-entity template="src: #enemies" data-num="12"></a-entity>
 
       <!-- other elements: videosphere, curved image, animated 3D model -->
       <a-curvedimage src="#cardboardvr" radius="7.7" theta-length="28" height="5" opacity="0.8" position="0 2 0"></a-curvedimage>
@@ -100,14 +102,13 @@
       var zizek_sphere = document.querySelector('#zizek_sphere');
       var virilio_box = document.querySelector('#virilio_box');
       var drumpf_cylinder = document.querySelector('#drumpf_cylinder');
-      var plane = document.querySelector('#plane');
 
       // elements react to clicks
       zizek_sphere.addEventListener('click', function () {
-        if (video.readyState > 0) { video.play() };
+        if (video.readyState > 0 && !video.isPlaying) { video.play() };
       });
       virilio_box.addEventListener('click', function () {
-        if (video.readyState > 0) { video.pause() };
+        if (video.isPlaying) { video.pause() };
       });
       drumpf_cylinder.addEventListener('click', function () {
         console.log("cylinder");
