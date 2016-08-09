@@ -68,23 +68,7 @@
         anim1.setAttribute("to", "1 2 1");
       }
 
-      function getCameraStream(params) {
-        // shimmed with adapter.js
-        navigator.mediaDevices.getUserMedia(params)
-        .then(function(stream) {
-          var video = document.querySelector('video');
-          video.src = window.URL.createObjectURL(stream);
-          video.srcObject = stream;
-          stream.onloadedmetadata = function(bla) {
-          };
-        }).catch(function(err) { console.log(err); });
-
-        // document.querySelector('#videoplane').addEventListener('click', function () {
-        //   // this.setAttribute('src', window.URL.createObjectURL(stream));
-        // });
-      }
-
-      getCameraStream({ audio: false, video: true });
+      
 
       chick1.setAttribute('position', pos(0, 20, 0));
       chick2.setAttribute('position', pos(90, 20, 0));
