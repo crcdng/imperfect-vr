@@ -19,7 +19,7 @@
 
       <!-- preload scene assets with a 5 second timeout (default: 3) -->
       <a-assets timeout="5000">
-        <audio id="shoot" src="assets/Laser_Shoot40.ogg">
+        <audio id="shoot" src="assets/Laser_Shoot40.mp3">
         <video id="zizek" src="assets/zizek.mp4" autoplay="false"></video>
         <a-asset-item id="dude" src="assets/man.dae"></a-asset-item>
         <img id="cardboardvr" src="assets/vr.jpg">
@@ -31,7 +31,7 @@
       <!-- replace the standard camera with a new one that supports a fusion cursor -->
       <!-- then use our new components to fire lasers -->
 
-      <a-camera id="player" position="0 1.8 4" spawner="mixin: laser; on: click" sound="src: assets/Laser_Shoot40.ogg; on: click"
+      <a-camera id="player" position="0 1.8 4" spawner="mixin: laser; on: click" sound="src: assets/Laser_Shoot40.mp3; on: click"
       click-listener>
         <a-entity id ="cursor"  cursor="fuse: true; maxDistance: 30;"
         geometry="primitive: ring"
@@ -57,7 +57,9 @@
       <a-cylinder id="drumpf_cylinder" position="1 0.75 1" radius="0.5" height="1.5" src="#drumpf_texture">
         <a-animation attribute="rotation" from="0 -30 0" to="0 330 0" dur="15000" easing="linear" repeat="infinite"></a-animation>
       </a-cylinder>
-      <a-plane id="plane" src="#cardboardvr" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+      <a-plane id="plane" src="#cardboardvr" rotation="-90 0 0" width="4" height="4" color="">
+        <a-animation attribute="material.opacity" dur="4500" direction="alternate" from="1" to="0" repeat="indefinite"></a-animation>
+      </a-plane>
       <a-box id="virilio_box" src="#virilio_texture" position="-1 0.5 1" rotation="0 45 0" width="1" height="1" depth="1" color="#F16745" roughness="0.8">
         <a-event name="mouseenter" rotation="0 90 0"></a-event>
         <a-event name="mouseleave" rotation="0 45 0"></a-event>
@@ -70,7 +72,7 @@
           <a-animation attribute="rotation" dur="30000" easing="linear" repeat="indefinite" to="0 360 0"></a-animation>
             {% for x in range(num) %}
               <a-plane class="enemy" look-at="#player" height="3" width="1.5" src="#drumpf_texture"
-              transparent="true" sound="src: assets/Explosion43.ogg; autoplay: false">
+              transparent="true">
               <!-- collision handler animations. -->
                 <a-animation attribute="opacity" begin="collider-hit" dur="400" ease="linear" from="1" to="0"></a-animation>
                 <a-animation attribute="scale" begin="collider-hit" dur="400" ease="linear" to="0 0 0"></a-animation>
@@ -91,8 +93,8 @@
       <a-videosphere src="#zizek"></a-videosphere>
 
       <!-- some lights -->
-      <a-light type="directional" color="#fff" intensity="0.43" position="-1 0 1"></a-light>
-      <a-light type="spot" color="#333" position="-1 0 1" look-at="#virilio_box"></a-light>
+      <a-light type="directional" color="#fff" intensity="0.43" position="-1 1 0"></a-light>
+      <a-light type="spot" color="#FF0000" position="-1 0.5 2" intensity="2.5" look-at="#virilio_box"></a-light>
       <a-light type="point" color="#AAA" position="0 5 0"></a-light>
 
     </a-scene>
