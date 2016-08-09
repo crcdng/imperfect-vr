@@ -2,43 +2,57 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Rabbit Chicken AK 47</title>
-    <script src="aframe.js"></script>
+    <title>Rabbit Chicken AK47</title>
+    <script src="js/adapter.js"></script>
+    <script src="js/aframe.js"></script>
   </head>
   <body>
     <a-scene>
-      <a-entity>
-        <a-camera position="0 1.8 0" ></a-camera>
+      <a-assets>
+        <audio id="funny" src="assets/funnysong.ogg">
+        <a-asset-item id="chick_model" src="assets/chick/chick-lowpoly.dae"></a-asset-item>
+        <a-asset-item id="spider_model" src="assets/spider/spider.obj"></a-asset-item>
+        <img id="grid" src="assets/grid.png">
+      </a-assets>
+
+      <a-camera id="player" position="0 1.8 4">
+        <a-entity id ="cursor"  cursor="fuse: true; maxDistance: 30;"
+        geometry="primitive: ring"
+        material="color: white; shader: flat"
+        position ="0 -0.25 -1"
+        scale="0.01 0.01 0.01">
+        </a-entity>
         <a-animation attribute="rotation" from="0 0 0" to="0 360 0" dur="100000" repeat="indefinite" easing="linear"></a-animation>
-      </a-entity>
+      </a-camera>
+
       <!-- <a-sky color="#023283"></a-sky> -->
       <a-videosphere></a-videosphere>
 
       <a-entity position="0 0 0" sound="src: assets/funnysong.ogg; autoplay: true; loop:true"></a-entity>
 
-      <a-plane width="6" height="6" rotation="-90 0 0" src="grid.png">
+      <a-plane width="6" height="6" rotation="-90 0 0" src="#grid">
         <a-animation attribute="position" from="0 0 0" to="0 0.5 0" direction="alternate" dur="10000" repeat="indefinite" easing="linear"></a-animation>
       </a-plane>
 
       <a-entity id="chicks">
-        <a-entity id="chick1"><a-model src="assets/chick/chick-lowpoly.dae"></a-model>
+        <a-entity id="chick1"><a-collada-model src="#chick_model"></a-collada-model>
           <a-animation attribute="scale" from="1 1 1" to="1.5 1.5 1.5" direction="alternate" repeat="indefinite" easing="ease-in-out-expo"></a-animation>
         </a-entity>
-        <a-entity id="chick2"><a-model src="assets/chick/chick-lowpoly.dae"></a-model>
+        <a-entity id="chick2"><a-collada-model src="assets/chick/chick-lowpoly.dae"></a-collada-model>
           <a-animation attribute="scale" from="1 1 1" to="1.5 1.5 1.5" direction="alternate" repeat="indefinite" easing="ease-in-out-expo"></a-animation>
         </a-entity>
-        <a-entity id="chick3"><a-model src="assets/chick/chick-lowpoly.dae"></a-model>
+        <a-entity id="chick3"><a-collada-model src="assets/chick/chick-lowpoly.dae"></a-collada-model>
           <a-animation attribute="scale" from="1 1 1" to="1.5 1.5 1.5" direction="alternate" repeat="indefinite" easing="ease-in-out-expo"></a-animation>
         </a-entity>
-        <a-entity id="chick4"><a-model src="assets/chick/chick-lowpoly.dae"></a-model>
+        <a-entity id="chick4"><a-collada-model src="assets/chick/chick-lowpoly.dae"></a-collada-model>
           <a-animation attribute="scale" from="1 1 1" to="1.5 1.5 1.5" direction="alternate" repeat="indefinite" easing="ease-in-out-expo"></a-animation>
         </a-entity>
         <!-- <a-animation attribute="scale" from="1 1 1" to="1.5 1.5 1.5" direction="alternate" repeat="indefinite" easing="ease-in-out-expo"></a-animation> -->
       </a-entity>
 
-      <a-model src="assets/spider/spider.obj" format="obj" scale="0.1 0.1 0.1" position="30 0 -30">
+      <a-obj-model src="#spider_model" format="obj" scale="0.1 0.1 0.1" position="30 0 -30">
         <a-animation attribute="scale" from="0.1 0.1 0.1" to="5 5 5" direction="alternate" repeat="indefinite" easing="ease-in-out-expo"></a-animation>
-      </a-model>
+      </a-obj-model>
 
     </a-scene>
     <script>
@@ -52,7 +66,6 @@
 
       function animate(id, attribute, to) {
         anim1.setAttribute("to", "1 2 1");
-
       }
 
       function getCameraStream(params) {
@@ -64,7 +77,7 @@
           video.srcObject = stream;
           stream.onloadedmetadata = function(bla) {
           };
-        }).catch(function(err) { console.log(err.name); });
+        }).catch(function(err) { console.log(err); });
 
         // document.querySelector('#videoplane').addEventListener('click', function () {
         //   // this.setAttribute('src', window.URL.createObjectURL(stream));
