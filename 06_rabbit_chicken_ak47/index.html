@@ -3,15 +3,17 @@
   <head>
     <meta charset="utf-8">
     <title>Rabbit Chicken AK47</title>
-    <script src="js/adapter.js"></script>
     <script src="js/aframe.js"></script>
-  </head>
+    <!-- required for the template component https://mozilla.github.io/nunjucks/ -->
+    <script src="js/nunjucks.js"></script>
+    <!-- components -->
+    <script src="js/aframe-layout-component.js"></script>
+    <script src="js/aframe-template-component.js"></script>  </head>
   <body>
     <a-scene>
       <a-assets>
         <audio id="funny" src="assets/funnysong.ogg">
         <a-asset-item id="chick_model" src="assets/chick/chick-lowpoly.dae"></a-asset-item>
-        <a-asset-item id="spider_model" src="assets/spider/spider.obj"></a-asset-item>
         <img id="grid" src="assets/grid.png">
       </a-assets>
 
@@ -25,34 +27,23 @@
         <a-animation attribute="rotation" from="0 0 0" to="0 360 0" dur="100000" repeat="indefinite" easing="linear"></a-animation>
       </a-camera>
 
-      <!-- <a-sky color="#023283"></a-sky> -->
-      <a-videosphere></a-videosphere>
-
-      <a-entity position="0 0 0" sound="src: assets/funnysong.ogg; autoplay: true; loop:true"></a-entity>
+      <a-entity position="0 4 0" sound="src: assets/funnysong.ogg; autoplay: true; loop:true"></a-entity>
 
       <a-plane width="6" height="6" rotation="-90 0 0" src="#grid">
         <a-animation attribute="position" from="0 0 0" to="0 0.5 0" direction="alternate" dur="10000" repeat="indefinite" easing="linear"></a-animation>
       </a-plane>
 
-      <a-entity id="chicks">
-        <a-entity id="chick1"><a-collada-model src="#chick_model"></a-collada-model>
-          <a-animation attribute="scale" from="1 1 1" to="1.5 1.5 1.5" direction="alternate" repeat="indefinite" easing="ease-in-out-expo"></a-animation>
+      <script id="chicks" type="text/x-nunjucks-template">
+        {% for x in range(num) %}
+          <a-entity id="chick{{ x }}"><a-collada-model src="#chick_model"></a-collada-model>
+            <a-animation attribute="scale" from="1 1 1" to="1.5 1.5 1.5" direction="alternate" repeat="indefinite" easing="ease-in-out-expo"></a-animation>
+          </a-entity>
+        {% endfor %}
         </a-entity>
-        <a-entity id="chick2"><a-collada-model src="assets/chick/chick-lowpoly.dae"></a-collada-model>
-          <a-animation attribute="scale" from="1 1 1" to="1.5 1.5 1.5" direction="alternate" repeat="indefinite" easing="ease-in-out-expo"></a-animation>
-        </a-entity>
-        <a-entity id="chick3"><a-collada-model src="assets/chick/chick-lowpoly.dae"></a-collada-model>
-          <a-animation attribute="scale" from="1 1 1" to="1.5 1.5 1.5" direction="alternate" repeat="indefinite" easing="ease-in-out-expo"></a-animation>
-        </a-entity>
-        <a-entity id="chick4"><a-collada-model src="assets/chick/chick-lowpoly.dae"></a-collada-model>
-          <a-animation attribute="scale" from="1 1 1" to="1.5 1.5 1.5" direction="alternate" repeat="indefinite" easing="ease-in-out-expo"></a-animation>
-        </a-entity>
-        <!-- <a-animation attribute="scale" from="1 1 1" to="1.5 1.5 1.5" direction="alternate" repeat="indefinite" easing="ease-in-out-expo"></a-animation> -->
-      </a-entity>
+      </script>
+      <a-entity template="src: #chicks" data-num="4"></a-entity>
 
-      <a-obj-model src="#spider_model" format="obj" scale="0.1 0.1 0.1" position="30 0 -30">
-        <a-animation attribute="scale" from="0.1 0.1 0.1" to="5 5 5" direction="alternate" repeat="indefinite" easing="ease-in-out-expo"></a-animation>
-      </a-obj-model>
+      <a-sky color="#023283"></a-sky>
 
     </a-scene>
     <script>
@@ -68,15 +59,13 @@
         anim1.setAttribute("to", "1 2 1");
       }
 
-      
-
-      chick1.setAttribute('position', pos(0, 20, 0));
-      chick2.setAttribute('position', pos(90, 20, 0));
-      chick2.setAttribute('rotation', "0 -90 0");
-      chick3.setAttribute('position', pos(180, 20, 0));
-      chick3.setAttribute('rotation', "0 180 0");
-      chick4.setAttribute('position', pos(270, 20, 0));
-      chick4.setAttribute('rotation', "0 90 0");
+      chick0.setAttribute('position', pos(0, 20, 0));
+      chick1.setAttribute('position', pos(90, 20, 0));
+      chick1.setAttribute('rotation', "0 -90 0");
+      chick2.setAttribute('position', pos(180, 20, 0));
+      chick2.setAttribute('rotation', "0 180 0");
+      chick3.setAttribute('position', pos(270, 20, 0));
+      chick3.setAttribute('rotation', "0 90 0");
 
     </script>
 
