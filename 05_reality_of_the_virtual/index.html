@@ -18,9 +18,10 @@
     <a-scene>
       <!-- preload scene assets with a 5 second timeout (default: 3) -->
       <a-assets timeout="5000">
-        <audio id="shoot" src="assets/Laser_Shoot40.mp3">
         <video id="zizek" src="assets/zizek.mp4" autoplay="false"></video>
-        <a-asset-item id="dude" src="assets/man.dae"></a-asset-item>
+        <a-asset-item id="dude_model" src="assets/man.dae"></a-asset-item>
+        <a-asset-item id="nyan_model" src="assets/nyancat.dae"></a-asset-item>
+        <audio id="shoot" src="assets/Laser_Shoot40.mp3">
         <img id="cardboardvr" src="assets/vr.jpg">
         <img id="drumpf_texture" src="assets/drumpfdrumpf.png">
         <img id="zizek_texture" src="assets/zizek.png">
@@ -32,7 +33,7 @@
 
       <a-camera id="player" position="0 1.8 4" spawner="mixin: laser; on: click" sound="src: assets/Laser_Shoot40.mp3; on: click"
       click-listener>
-        <a-entity id ="cursor"  cursor="fuse: true; maxDistance: 30;"
+        <a-entity id ="cursor" cursor="fuse: true; maxDistance: 30;"
         geometry="primitive: ring"
         material="color: white; shader: flat"
         position ="0 -0.25 -1"
@@ -46,7 +47,7 @@
         material="color: green; metalness: 0.2; opacity: 0.4; roughness: 0.3"
         rotation="90 0 0"
         projectile="speed: -0.7"
-        collider="target: .enemy">
+        collider="target: .enemy #zizek_dome">
       </a-mixin>
 
       <!-- some elements with different materials -->
@@ -81,15 +82,31 @@
       </script>
       <a-entity template="src: #enemies" data-num="12"></a-entity>
 
-      <!-- other elements: videosphere, curved image, animated 3D model -->
-      <a-curvedimage src="#cardboardvr" radius="7.7" theta-length="28" height="5" opacity="0.8" position="0 2 0"></a-curvedimage>
+      <!-- other elements: videosphere, curved image, animated 3D models -->
+      <a-curvedimage id="vr_curved" src="#cardboardvr" radius="7.7" theta-length="28" height="5" opacity="0.8" position="0 2 0"></a-curvedimage>
+
+      <a-entity id="nyan" position="-8 3 -15" rotate="0 180 0">
+        <a-collada-model src="#nyan_model"></a-collada-model>
+        <a-animation attribute="position" from="-8 3 -15" to="-8 5 -15" dur="3000" direction="alternate" easing="ease-in-out-cubic" repeat="infinite"></a-animation>
+      </a-entity>
+
+      <a-entity id="nyan1" position="0.5 -1 12" rotate="0 180 0">
+        <a-collada-model src="#nyan_model"></a-collada-model>
+        <a-animation attribute="position" from="0.5 -1 12" to="0.5 8 12" dur="3300" direction="alternate" easing="ease-in-out-cubic" repeat="infinite"></a-animation>
+      </a-entity>
+
+      <a-entity id="nyan2" position="14 3 -7" rotate="0 180 0">
+        <a-collada-model src="#nyan_model"></a-collada-model>
+        <a-animation attribute="position" from="14 0.5 -7" to="14 4.5 -7" dur="2100" direction="alternate" easing="ease-in-out-cubic" repeat="infinite"></a-animation>
+      </a-entity>
+
       <a-entity id="model" position="-3 0 5">
         <a-animation attribute="rotation" from="0 -30 0" to="0 330 0" dur="15000" easing="linear" repeat="infinite"></a-animation>
         <a-event name="mouseleave">
         </a-event>
-        <a-collada-model position="-.35 0 .55" rotation="0 -20 0" scale="1.5 1.5 1.5" src="#dude"></a-collada-model>
+        <a-collada-model position="-.35 0 .55" rotation="0 -20 0" scale="1.5 1.5 1.5" src="#dude_model"></a-collada-model>
       </a-entity>
-      <a-videosphere src="#zizek"></a-videosphere>
+      <a-videosphere id="zizek_dome" src="#zizek"></a-videosphere>
 
       <!-- some lights -->
       <a-light type="directional" color="#fff" intensity="0.43" position="-1 1 0"></a-light>
@@ -99,20 +116,24 @@
     </a-scene>
     <script>
       // get the elements of the scene we want to control
-      var video = document.querySelector('#zizek');
-      var zizek_sphere = document.querySelector('#zizek_sphere');
-      var virilio_box = document.querySelector('#virilio_box');
       var drumpf_cylinder = document.querySelector('#drumpf_cylinder');
+      var video = document.querySelector('#zizek');
+      var virilio_box = document.querySelector('#virilio_box');
+      var vr_curved = document.querySelector('#vr_curved');
+      var zizek_sphere = document.querySelector('#zizek_sphere');
 
       // elements react to clicks
-      zizek_sphere.addEventListener('click', function () {
-        if (video.readyState > 0 && !video.isPlaying) { video.play() };
+      drumpf_cylinder.addEventListener('click', function () {
+        console.log("cylinder");
       });
       virilio_box.addEventListener('click', function () {
         if (video.isPlaying) { video.pause() };
       });
-      drumpf_cylinder.addEventListener('click', function () {
-        console.log("cylinder");
+      zizek_sphere.addEventListener('click', function () {
+        if (video.readyState > 0 && !video.isPlaying) { video.play() };
+      });
+      vr_curved.addEventListener('click', function () {
+        console.log("vr_curved");
       });
     </script>
   </body>
