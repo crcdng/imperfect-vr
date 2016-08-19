@@ -3,7 +3,9 @@
   <head>
     <meta charset="utf-8">
     <title>Basic Scene</title>
-    <script src="aframe.js"></script>
+    <script src="aframe.min.js"></script>    
+	<script src="aframe-look-at-component.js"></script>
+	<script src="aframe-event-set-component.js"></script>
   </head>
   <body>
     <a-scene>
@@ -12,17 +14,17 @@
       </a-assets>
       <a-box color="#FFF" width="5" height="5" depth="5"
              position="-10 2 -12" rotation="0 0 45" scale="1 1 1"
-             src="#texture">
+             src="#texture"
+			 event-set__1="_event: mouseenter; scale: 2 2 2"
+			 event-set__2="_event: mouseleave; scale: 1 1 1">
         <!-- Animation will only play when the box is clicked. -->
         <a-animation attribute="rotation" begin="click" to="0 360 0"></a-animation>
-        <a-event name="mouseenter" scale="2 2 2"></a-event>
-        <a-event name="mouseleave" scale="1 1 1"></a-event>
       </a-box>
       <!-- New lights. -->
       <a-light type="spot" color="#333" position="-20 0 0" look-at="a-box"></a-light>
       <a-light type="point" color="#AAA" position="0 5 0"></a-light>
       <a-sky color="#73F7DD"></a-sky>
-      <a-camera position="0 1.8 0">
+      <a-camera position="0 1.6 0">
         <a-cursor color="#2E3A87">
       </a-camera>
     </a-scene>

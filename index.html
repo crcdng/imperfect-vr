@@ -3,8 +3,9 @@
   <head>
     <meta charset="utf-8">
     <title>Imperfect VR</title>
-    <script src="js/aframe.js"></script>
+    <script src="js/aframe.min.js"></script>
     <script src="js/aframe-layout-component.js"></script>
+    <script src="js/aframe-look-at-component.js"></script>
     <script src="js/aframe-text-component.js"></script>
   </head>
   <body>
@@ -19,7 +20,7 @@
         <img id="img05" src="assets/img05.png">
         <img id="img06" src="assets/img06.png">
       </a-assets>
-      <a-entity text="text: Imperfect VR; color: ''#000000'" position="0 3.5 -4" size="2 2 2" ></a-entity>
+      <a-entity text="text: Imperfect VR" color="#000000" position="0 3.5 -4" size="2 2 2" ></a-entity>
       <a-entity layout="type: circle; radius: 5" position="0 0.5 0">
         <a-image class="scene" id="03_360_degrees" look-at="#player" src="#img03" scale="3 3"></a-image>
         <a-image class="scene" id="04_imperfect_treasures" look-at="#player" src="#img04" scale="3 3"></a-image>
@@ -29,8 +30,8 @@
         <a-image class="scene" id="01_hello_vr_world" look-at="#player" src="#img01" scale="3 3"></a-image>
         <a-image class="scene" id="02_basic_scene" look-at="#player" src="#img02" scale="3 3"></a-image>
       </a-entity>
-      <a-camera id="player" position="0 1.8 0">
-        <a-entity cursor="fuse: true; timeout: 2500; maxDistance: 30;"
+      <a-camera id="player" position="0 1.6 0">
+        <a-entity cursor="fuse: true; fuseTimeout: 2500;"
         geometry="primitive: ring"
         material="color: white; shader: flat"
         position ="0 0 -1"

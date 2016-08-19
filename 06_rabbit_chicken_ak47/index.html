@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Rabbit Chicken AK47</title>
-    <script src="js/aframe.js"></script>
+    <script src="js/aframe.min.js"></script>
     <!-- required for the template component https://mozilla.github.io/nunjucks/ -->
     <script src="js/nunjucks.js"></script>
     <!-- components -->
@@ -18,7 +18,7 @@
       </a-assets>
 
       <a-camera id="player" position="0 1.8 4">
-        <a-entity id ="cursor"  cursor="fuse: true; maxDistance: 30;"
+        <a-entity id ="cursor" cursor="fuse: true;"
         geometry="primitive: ring"
         material="color: white; shader: flat"
         position ="0 -0.25 -1"
@@ -27,7 +27,7 @@
         <a-animation attribute="rotation" from="0 0 0" to="0 360 0" dur="100000" repeat="indefinite" easing="linear"></a-animation>
       </a-camera>
 
-      <a-entity position="0 4 0" sound="src: assets/funnysong.ogg; autoplay: true; loop:true"></a-entity>
+      <a-entity position="0 4 0" sound="src: #funny; autoplay: true; loop:true"></a-entity>
 
       <a-plane width="6" height="6" rotation="-90 0 0" src="#grid">
         <a-animation attribute="position" from="0 0 0" to="0 0.5 0" direction="alternate" dur="10000" repeat="indefinite" easing="linear"></a-animation>
@@ -47,6 +47,11 @@
 
     </a-scene>
     <script>
+      var scene = document.querySelector('a-scene');
+
+      function animate(id, attribute, to) {
+        anim1.setAttribute("to", "1 2 1");
+      }
       function pos(degree, distance, height) {
         var x, y, z;
         x = Math.cos((degree*Math.PI/180)-Math.PI/2) * distance;
@@ -54,18 +59,22 @@
         z = Math.sin((degree*Math.PI/180)-Math.PI/2) * distance;
         return "" + x + " " + y + " " + z;
       }
-
-      function animate(id, attribute, to) {
-        anim1.setAttribute("to", "1 2 1");
+      function run() {
+        chick0.setAttribute('position', pos(0, 20, 0));
+        chick1.setAttribute('position', pos(90, 20, 0));
+        chick1.setAttribute('rotation', "0 -90 0");
+        chick2.setAttribute('position', pos(180, 20, 0));
+        chick2.setAttribute('rotation', "0 180 0");
+        chick3.setAttribute('position', pos(270, 20, 0));
+        chick3.setAttribute('rotation', "0 90 0");
       }
 
-      chick0.setAttribute('position', pos(0, 20, 0));
-      chick1.setAttribute('position', pos(90, 20, 0));
-      chick1.setAttribute('rotation', "0 -90 0");
-      chick2.setAttribute('position', pos(180, 20, 0));
-      chick2.setAttribute('rotation', "0 180 0");
-      chick3.setAttribute('position', pos(270, 20, 0));
-      chick3.setAttribute('rotation', "0 90 0");
+      if (scene.hasLoaded) {
+        run();
+      } else {
+        scene.addEventListener('loaded', run);
+      }
+
 
     </script>
 

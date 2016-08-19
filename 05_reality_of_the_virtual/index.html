@@ -3,12 +3,14 @@
   <head>
     <meta charset="utf-8">
     <title>The Reality of the Virtual</title>
-    <script src="js/aframe.js"></script>
+    <script src="js/aframe.min.js"></script>
     <!-- required for the template component https://mozilla.github.io/nunjucks/ -->
     <script src="js/nunjucks.js"></script>
-    <!-- components -->
+    <!-- third party components -->
     <script src="js/aframe-layout-component.js"></script>
     <script src="js/aframe-template-component.js"></script>
+	<script src="js/aframe-look-at-component.js"></script>
+    <!-- our components -->
     <script src="js/aframe-spawner-component.js"></script>
     <script src="js/aframe-projectile-component.js"></script>
     <script src="js/aframe-collider-component.js"></script>
@@ -17,7 +19,7 @@
   <body>
     <a-scene>
       <!-- preload scene assets with a 5 second timeout (default: 3) -->
-      <a-assets timeout="5000">
+      <a-assets timeout="7000">
         <video id="zizek" src="assets/zizek.mp4" autoplay="false"></video>
         <a-asset-item id="dude_model" src="assets/man.dae"></a-asset-item>
         <a-asset-item id="nyan_model" src="assets/nyancat.dae"></a-asset-item>
@@ -31,79 +33,74 @@
       <!-- replace the standard camera with a new one that supports a fusion cursor -->
       <!-- then use our new components to fire lasers -->
 
-      <a-camera id="player" position="0 1.8 4" spawner="mixin: laser; on: click" sound="src: assets/Laser_Shoot40.mp3; on: click"
-      click-listener>
-        <a-entity id ="cursor" cursor="fuse: true; maxDistance: 30;"
+      <a-entity id="player" position="0 1.6 4" spawner="mixin: laser; on: click" sound="src: #shoot; on: click" click-listener>
+      	<a-camera></a-camera>
+        <a-entity id ="cursor" cursor="fuse: true;"
         geometry="primitive: ring"
         material="color: white; shader: flat"
         position ="0 -0.25 -1"
         scale="0.01 0.01 0.01">
         </a-entity>
-      </a-camera>
+      </a-entity>
 
-      <!-- Laser. -->
+      <!-- laser -->
       <a-mixin id="laser"
-        geometry="primitive: cylinder; radius: 0.05; translate: 0 -2 0"
+        geometry="primitive: cylinder; radius: 0.05; buffer: false" pivot="0 -2 0"
         material="color: green; metalness: 0.2; opacity: 0.4; roughness: 0.3"
         rotation="90 0 0"
         projectile="speed: -0.7"
-        collider="target: .enemy #zizek_dome">
+        collider="target: .drumpf #zizek_dome">
       </a-mixin>
 
       <!-- some elements with different materials -->
       <a-sphere id="zizek_sphere" src="#zizek_texture" position="0 1.25 -1" radius="1.25" color="#FFFFFF">
-        <a-animation attribute="rotation" from="0 330 0" to="0 -30 0" dur="15000" easing="linear" repeat="infinite"></a-animation>
+        <a-animation attribute="rotation" from="0 330 0" to="0 -30 0" dur="15000" easing="linear" repeat="indefinite"></a-animation>
       </a-sphere>
       <a-cylinder id="drumpf_cylinder" position="1 0.75 1" radius="0.5" height="1.5" src="#drumpf_texture">
-        <a-animation attribute="rotation" from="0 -30 0" to="0 330 0" dur="15000" easing="linear" repeat="infinite"></a-animation>
+        <a-animation attribute="rotation" from="0 -30 0" to="0 330 0" dur="15000" easing="linear" repeat="indefinite"></a-animation>
       </a-cylinder>
       <a-plane id="plane" src="#cardboardvr" rotation="-90 0 0" width="4" height="4" color="">
         <a-animation attribute="material.opacity" dur="4500" direction="alternate" from="1" to="0" repeat="indefinite"></a-animation>
       </a-plane>
-      <a-box id="virilio_box" src="#virilio_texture" position="-1 0.5 1" rotation="0 45 0" width="1" height="1" depth="1" color="#F16745" roughness="0.8">
-        <a-event name="mouseenter" rotation="0 90 0"></a-event>
-        <a-event name="mouseleave" rotation="0 45 0"></a-event>
-      </a-box>
+      <a-box id="virilio_box" src="#virilio_texture" position="-1 0.5 1" rotation="0 45 0" width="1" height="1" depth="1" color="#F16745" roughness="0.8"
+	 event-set__1="_event: mouseenter; rotation: 0 90 0" event-set__2="_event: mouseleave; rotation: 0 45 0"></a-box>
 
       <!-- the drumpfs -->
       <!-- layout with templates -->
-      <script id="enemies" type="text/x-nunjucks-template">
+      <script id="drumpfs" type="text/x-nunjucks-template">
         <a-entity layout="type: circle; radius: 5" position="0 1.5 1.5">
           <a-animation attribute="rotation" dur="30000" easing="linear" repeat="indefinite" to="0 360 0"></a-animation>
-            {% for x in range(num) %}
-              <a-plane class="enemy" look-at="#player" height="3" width="1.5" src="#drumpf_texture"
-              transparent="true">
+          {% for x in range(num) %}
+              <a-plane class="drumpf" look-at="#player" height="3" width="1.5" src="#drumpf_texture" transparent="true">
               <!-- collision handler animations. -->
                 <a-animation attribute="opacity" begin="collider-hit" dur="400" ease="linear" from="1" to="0"></a-animation>
                 <a-animation attribute="scale" begin="collider-hit" dur="400" ease="linear" to="0 0 0"></a-animation>
               </a-plane>
-            {% endfor %}
+          {% endfor %}
         </a-entity>
       </script>
-      <a-entity template="src: #enemies" data-num="12"></a-entity>
+      <a-entity template="src: #drumpfs" data-num="12"></a-entity>
 
       <!-- other elements: videosphere, curved image, animated 3D models -->
       <a-curvedimage id="vr_curved" src="#cardboardvr" radius="7.7" theta-length="28" height="5" opacity="0.8" position="0 2 0"></a-curvedimage>
 
       <a-entity id="nyan" position="-8 3 -15" rotate="0 180 0">
         <a-collada-model src="#nyan_model"></a-collada-model>
-        <a-animation attribute="position" from="-8 3 -15" to="-8 5 -15" dur="3000" direction="alternate" easing="ease-in-out-cubic" repeat="infinite"></a-animation>
+        <a-animation attribute="position" from="-8 3 -15" to="-8 5 -15" dur="3000" direction="alternate" easing="ease-in-out-cubic" repeat="indefinite"></a-animation>
       </a-entity>
 
       <a-entity id="nyan1" position="0.5 -1 12" rotate="0 180 0">
         <a-collada-model src="#nyan_model"></a-collada-model>
-        <a-animation attribute="position" from="0.5 -1 12" to="0.5 8 12" dur="3300" direction="alternate" easing="ease-in-out-cubic" repeat="infinite"></a-animation>
+        <a-animation attribute="position" from="0.5 -1 12" to="0.5 8 12" dur="3300" direction="alternate" easing="ease-in-out-cubic" repeat="indefinite"></a-animation>
       </a-entity>
 
       <a-entity id="nyan2" position="14 3 -7" rotate="0 180 0">
         <a-collada-model src="#nyan_model"></a-collada-model>
-        <a-animation attribute="position" from="14 0.5 -7" to="14 4.5 -7" dur="2100" direction="alternate" easing="ease-in-out-cubic" repeat="infinite"></a-animation>
+        <a-animation attribute="position" from="14 0.5 -7" to="14 4.5 -7" dur="2100" direction="alternate" easing="ease-in-out-cubic" repeat="indefinite"></a-animation>
       </a-entity>
 
       <a-entity id="model" position="-3 0 5">
-        <a-animation attribute="rotation" from="0 -30 0" to="0 330 0" dur="15000" easing="linear" repeat="infinite"></a-animation>
-        <a-event name="mouseleave">
-        </a-event>
+        <a-animation attribute="rotation" from="0 -30 0" to="0 330 0" dur="15000" easing="linear" repeat="indefinite"></a-animation>
         <a-collada-model position="-.35 0 .55" rotation="0 -20 0" scale="1.5 1.5 1.5" src="#dude_model"></a-collada-model>
       </a-entity>
       <a-videosphere id="zizek_dome" src="#zizek"></a-videosphere>

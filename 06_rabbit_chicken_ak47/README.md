@@ -1,4 +1,4 @@
-# The rabbit, the chicken, the AK-47.
+ # The rabbit, the chicken, the AK-47.
 
 Playing around with [A-Frame](https://aframe.io/).
 

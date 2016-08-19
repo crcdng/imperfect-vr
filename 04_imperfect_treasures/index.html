@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8">
     <title>Imperfect Treasure Hunt</title>
-    <script src="aframe.js"></script>
+    <script src="js/aframe.min.js"></script>
+	<script src="js/aframe-event-set-component.js"></script>
   </head>
   <body>
     <a-scene>
@@ -11,15 +12,15 @@
       <!-- preload scene assets-->
       <a-assets>
         <img id="grid" src="assets/grid.png">
-        <audio src="assets/cube_sound.ogg">
+        <audio id="cube_sound" src="assets/cube_sound.ogg">
       </a-assets>
 
       <!-- a plane where you "stand on" -->
       <a-plane width="6" height="6" rotation="-90 0 0" src="#grid"></a-plane>
 
       <!-- replace the standard camera with a new one that has a fuse cursor -->
-      <a-camera id="player" position="0 1.8 0">
-        <a-entity cursor="fuse: true; maxDistance: 30;"
+      <a-camera id="player" position="0 1.6 0">
+        <a-entity cursor="fuse: true; fuseTimeout: 500;"
         geometry="primitive: ring"
         material="color: white; shader: flat"
         position ="0 0 -1"
@@ -28,10 +29,10 @@
 
       <!-- a box that changes color when you look at it -->
       <!-- it has sound attached to it -->
-      <a-box id="box" color="green" position="0 3 -5" size="1" sound="src: assets/cube_sound.ogg; autoplay: true; loop:true">
-        <a-event name="mouseenter" color="#FFC65D"></a-event>
-        <a-event name="mouseleave" color="green"></a-event>
-      </a-cube>
+      <a-box id="box" color="green" position="0 3 -5" size="1" sound="src: #cube_sound; autoplay: true; loop:true"
+	 	event-set__1="_event: mouseenter; material.color: #FFC65D"
+	 	event-set__2="_event: mouseleave; color: green">
+	  </a-box>
 
       <!-- a sky around the scene -->
       <a-sky color="#023283">
