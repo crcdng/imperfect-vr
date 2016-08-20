@@ -8,7 +8,7 @@ Imperfect VR: We are not aiming for a perfect reality but will have fun in the v
 
 Imperfect VR is inspired by ["Imperfect Cinema"](http://www.imperfectcinema.com/) by Allister Gall / Dan Paolantonio which in turn is inspired by the essay ["For an imperfect cinema"](http://www.ejumpcut.org/archive/onlinessays/JC20folder/ImperfectCinema.html) by Julio García Espinosa.
 
-* 00 Do it Yourself - empty HTML file for the coding exercise
+* 00 Do it Yourself - empty HTML file for our coding exercise
 * 01 Hello VR World
 * 02 A Basic Scene, based on [Build with Basic HTML](https://aframe.io/docs/0.3.0/guides/)
 * 03 360 Degrees - 360 Image / Video
@@ -16,7 +16,7 @@ Imperfect VR is inspired by ["Imperfect Cinema"](http://www.imperfectcinema.com/
 * 05 The Reality of the Virtual featuring Slavoj Žižek (work in progress)
 * 06 Rabbit Chicken, AK 47 (work in progress)
 
-[A-Frame](https://aframe.io/) is a beginner-friendly, but capable framework by the Mozilla people to create VR experiences from markup and code. Everyone who can slide a smartphone into a [Google Cardboard](https://vr.google.com/cardboard/) can make VR experiences with A-Frame. VR Scenes in A-Frame are described through HTML tags and brought to life with JavaScript.
+[A-Frame](https://aframe.io/) is a beginner-friendly, but capable framework by the Mozilla people to create Virtual Reality experiences from markup and code. VR Scenes in A-Frame are described by HTML tags and brought to life with JavaScript. Everyone who can slide a smartphone into a [Google Cardboard](https://vr.google.com/cardboard/) can make VR experiences with A-Frame, even if yo havent't written a single line of code before. In the workshop I teach the bascis and help advanced participants to realize their ideas.
 
 Each example is self-contained and has all the files it needs in its directory structure (including movies). Therefore this repository has grown quite large. This is intended, as in workshops there might not be an internet connection available.
 
