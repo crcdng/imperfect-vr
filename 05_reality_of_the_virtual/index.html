@@ -34,13 +34,14 @@
       <!-- then use our new components to fire lasers -->
 
       <a-entity id="player" position="0 1.6 4" spawner="mixin: laser; on: click" sound="src: #shoot; on: click" click-listener>
-      	<a-camera></a-camera>
-        <a-entity id ="cursor" cursor="fuse: true;"
-        geometry="primitive: ring"
-        material="color: white; shader: flat"
-        position ="0 -0.25 -1"
-        scale="0.01 0.01 0.01">
-        </a-entity>
+      	<a-camera>
+          <a-entity id ="cursor" cursor="fuse: true;"
+            geometry="primitive: ring"
+            material="color: white; shader: flat"
+            position ="0 -0.25 -1"
+            scale="0.01 0.01 0.01">
+          </a-entity>
+        </a-camera>
       </a-entity>
 
       <!-- laser -->

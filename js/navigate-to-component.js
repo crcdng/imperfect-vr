@@ -1,8 +1,8 @@
 AFRAME.registerComponent('navigate-to', {
   // Define component properties.
   schema: {
-    on: {type: 'string'},
-  	to: {type: 'src'}
+    on: { type: 'string' }, // alternative: { default: 'click' }
+  	to: { type: 'src' }
   },
   init: function () {
 	 this.el.addEventListener(this.data.on, function () {
