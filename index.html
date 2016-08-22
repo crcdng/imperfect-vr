@@ -4,9 +4,15 @@
     <meta charset="utf-8">
     <title>Imperfect VR</title>
     <script src="js/aframe.min.js"></script>
+    <script src="js/nunjucks.js"></script>
+    <script src="js/aframe-template-component.js"></script>
     <script src="js/aframe-layout-component.js"></script>
     <script src="js/aframe-look-at-component.js"></script>
     <script src="js/aframe-text-component.js"></script>
+    <script src="js/aframe-event-set-component.js"></script>
+    <script src="js/aframe-animation-component.js"></script>
+    <script src="js/update-raycaster-component.js"></script>
+    <script src="js/navigate-to-component.js"></script>
   </head>
   <body>
     <a-scene>
@@ -19,36 +25,38 @@
         <img id="img04" src="assets/img04.png">
         <img id="img05" src="assets/img05.png">
         <img id="img06" src="assets/img06.png">
+        <audio id="click-sound" src="assets/click.ogg"></audio>		
+        <script id="linktemplate" type="text/x-nunjucks-template">
+          <a-plane height="2" width="3" 
+            material="shader: flat; src: {{ thumb }}"
+            event-set__1="_event: mousedown; scale: 1 1 1"
+            event-set__2="_event: mouseup; scale: 1.2 1.2 1"
+            event-set__3="_event: mouseenter; scale: 1.1 1.1 1"
+            event-set__4="_event: mouseleave; scale: 1 1 1"
+            sound="on: click; src: #click-sound"
+			      update-raycaster="#cursor"
+            navigate-to="on: click; to: {{ to }}">
+			</a-plane>
+        </script>
       </a-assets>
       <a-entity text="text: Imperfect VR" color="#000000" position="0 3.5 -4" size="2 2 2" ></a-entity>
-      <a-entity layout="type: circle; radius: 5" position="0 0.5 0">
-        <a-image class="scene" id="03_360_degrees" look-at="#player" src="#img03" scale="3 3"></a-image>
-        <a-image class="scene" id="04_imperfect_treasures" look-at="#player" src="#img04" scale="3 3"></a-image>
-        <a-image class="scene" id="05_reality_of_the_virtual" look-at="#player" src="#img05" scale="3 3"></a-image>
-        <a-image class="scene" id="06_rabbit_chicken_ak47" look-at="#player" src="#img06" scale="3 3"></a-image>
-        <a-image class="scene" id="00_do_it_yourself" look-at="#player" src="#img00" scale="3 3"></a-image>
-        <a-image class="scene" id="01_hello_vr_world" look-at="#player" src="#img01" scale="3 3"></a-image>
-        <a-image class="scene" id="02_basic_scene" look-at="#player" src="#img02" scale="3 3"></a-image>
+	  <a-entity layout="type: circle; radius: 5" position="0 0.5 0">
+        <a-entity template="src: #linktemplate" class="scene" data-to="url(03_360_degrees)" data-thumb="#img03" look-at="#player"></a-entity>
+        <a-entity template="src: #linktemplate" class="scene" data-to="url(04_imperfect_treasures)" data-thumb="#img04" look-at="#player"></a-entity>
+        <a-entity template="src: #linktemplate" class="scene" data-to="url(05_reality_of_the_virtual)" data-thumb="#img05" look-at="#player"></a-entity>
+        <a-entity template="src: #linktemplate" class="scene" data-to="url(06_rabbit_chicken_ak47)" data-thumb="#img06" look-at="#player"></a-entity>
+        <a-entity template="src: #linktemplate" class="scene" data-to="url(00_do_it_yourself)" data-thumb="#img00" look-at="#player"></a-entity>
+        <a-entity template="src: #linktemplate" class="scene" data-to="url(01_hello_vr_world)" data-thumb="#img01" look-at="#player"></a-entity>
+        <a-entity template="src: #linktemplate" class="scene" data-to="url(02_basic_scene)" data-thumb="#img02" look-at="#player"></a-entity>
       </a-entity>
-      <a-camera id="player" position="0 1.6 0">
-        <a-entity cursor="fuse: true; fuseTimeout: 2500;"
-        geometry="primitive: ring"
-        material="color: white; shader: flat"
-        position ="0 0 -1"
-        scale="0.01 0.01 0.01"></a-entity>
-      </a-camera>
+      <a-entity camera look-controls id="player">
+        <a-cursor fuse id="cursor" raycaster="objects: .scene"
+        animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
+        animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
+        event-set__1="_event: mouseenter; color: limegreen"
+        event-set__2="_event: mouseleave; color: black"></a-cursor>
+      </a-entity>
       <a-sky src="#sky"></a-sky>
     </a-scene>
-    <script type="text/javascript">
-      var i, ln;
-      var els = document.querySelectorAll(".scene");
-      for (i = 0, ln = els.length; i < ln; i++) {
-        els[i].addEventListener("click", function(target) {
-          var newUrl = this.id + "/";
-          console.log("clicked" + newUrl);
-          window.location.href = newUrl;
-        });
-      }
-    </script>
   </body>
 </html>
