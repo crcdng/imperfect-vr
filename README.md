@@ -2,7 +2,7 @@
 
 This is a collection of examples for my "Imperfect VR" workshop, built with A-Frame.
 
-[Github Repository](https://github.com/i3games/imperfect-vr) - [See it online](https://i3games.github.io/imperfect-vr/)
+[The Imperfect VR Manifesto](https://github.com/i3games/imperfect-vr/blob/master/Imperfect%20VR%20Manifesto.pdf) - [Github Repository](https://github.com/i3games/imperfect-vr) - [See it online](https://i3games.github.io/imperfect-vr/)
 
 Imperfect VR: We are not aiming for a perfect reality but will have fun in the virtual. Cheap 3D assets. Blocky textures. Weird sounds. We want to stumble around with smartphones strapped to our faces. Forget VR mainstream. Motion sickness will not be avoided but guaranteed.
 
