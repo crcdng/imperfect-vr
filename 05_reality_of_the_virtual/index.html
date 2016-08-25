@@ -19,6 +19,7 @@
   </head>
   <body>
     <a-scene>
+      
       <!-- preload scene assets -->
       <a-assets timeout="5000">
         <video id="zizek_video" src="assets/zizek.mp4" autoplay="false"></video>
@@ -27,11 +28,10 @@
         <img id="cardboardvr" src="assets/vr.jpg">
         <img id="drumpf_texture" src="assets/drumpfdrumpf.png">
         <img id="zizek_texture" src="assets/zizek.png">
-        <img id="virilio_texture" src="assets/virilio.jpg">
-        
+        <img id="virilio_texture" src="assets/virilio.jpg">  
         <!-- layout with templates -->
-        <script id="drumpfs" type="text/x-nunjucks-template">
-          <a-entity layout="type: circle; radius: 10" position="0 1.5 1.5">
+        <script id="drumpf_template" type="text/x-nunjucks-template">
+          <a-entity id="drumpfs" layout="type: circle; radius: 10" position="0 1.5 1.5" visible="false">
             <a-animation attribute="rotation" dur="30000" easing="linear" repeat="indefinite" to="0 360 0"></a-animation>
             {% for x in range(num) %}
                 <a-plane class="drumpf" look-at="#player" height="5" width="2.5" src="#drumpf_texture" transparent="true">
@@ -42,7 +42,6 @@
             {% endfor %}
           </a-entity>
         </script>
-        
         <!-- our laser is a "mixin" combining several components -->
         <a-mixin id="laser"
           geometry="primitive: cylinder; radius: 0.05; buffer: false" pivot="0 0 0"
@@ -51,15 +50,12 @@
           projectile="speed: -0.7"
           collider="target: .drumpf">
         </a-mixin>
- 
       </a-assets>
 
       <!-- replace the standard camera with a new one that supports a fusion cursor -->
-        
       <a-entity id="player" position="0 1.6 4">
         <a-camera>
           <a-cursor fuse id="cursor" raycaster="objects: .scene"
-          animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
           animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
           event-set__1="_event: mouseenter; color: limegreen"
           event-set__2="_event: mouseleave; color: white"></a-cursor>
@@ -82,7 +78,7 @@
 	    event-set__1="_event: mouseenter; rotation: 0 90 0" event-set__2="_event: mouseleave; rotation: 0 45 0"></a-box>
 
       <!-- the drumpfs -->
-      <a-entity template="src: #drumpfs" data-num="12"></a-entity>
+      <a-entity template="src: #drumpf_template" data-num="12"></a-entity>
 
       <!-- other elements: a videosphere, a curved image, some animated 3D models -->
       <a-videosphere id="zizek_dome" src="#zizek_video"></a-videosphere>
@@ -111,26 +107,45 @@
 
     </a-scene>
     <script>
-      // get the elements of the scene we want to control
-      var drumpf_cylinder = document.querySelector('#drumpf_cylinder');
-      var video = document.querySelector('#zizek_video');
-      var virilio_box = document.querySelector('#virilio_box');
-      var vr_curved = document.querySelector('#vr_curved');
-      var zizek_sphere = document.querySelector('#zizek_sphere');
+      var scene = document.querySelector('a-scene');
       
-      // elements react to clicks
-      drumpf_cylinder.addEventListener('click', function () {
-        console.log("cylinder");
-      });
-      virilio_box.addEventListener('click', function () {
-        if (video.isPlaying) { video.pause() };
-      });
-      zizek_sphere.addEventListener('click', function () {
-        if (video.readyState > 0 && !video.isPlaying) { video.play() };
-      });
-      vr_curved.addEventListener('click', function () {
-        console.log("vr_curved");
-      });
+      if (scene.hasLoaded) {
+        run();
+      } else {
+        scene.addEventListener('loaded', run);
+      }
+      
+      function run() {
+        // get the elements of the scene we want to control
+        var drumpf_cylinder = document.querySelector('#drumpf_cylinder');
+        var drumpfs = document.querySelector('#drumpfs');
+        var video = document.querySelector('#zizek_video');
+        var virilio_box = document.querySelector('#virilio_box');
+        var vr_curved = document.querySelector('#vr_curved');
+        var zizek_sphere = document.querySelector('#zizek_sphere');
+
+        // elements react to clicks
+        drumpf_cylinder.addEventListener('click', function() {
+          var visible = drumpfs.getAttribute("visible");
+          visible = !visible;
+          drumpfs.setAttribute("visible", visible);
+          console.log("clicked drumpf_cylinder");
+        });
+        virilio_box.addEventListener('click', function() {
+          if (video.isPlaying) {
+            video.pause()
+          };
+        });
+        zizek_sphere.addEventListener('click', function() {
+          if (video.readyState > 0 && !video.isPlaying) {
+            video.play()
+          };
+        });
+        vr_curved.addEventListener('click', function() {
+          console.log("vr_curved");
+        });
+      }
+
     </script>
   </body>
 </html>
