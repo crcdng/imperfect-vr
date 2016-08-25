@@ -3,15 +3,9 @@ AFRAME.registerComponent('spawner', {
     on: { default: 'click' },
     mixin: { default: '' }
   },
-  /**
-   * Add event listener.
-   */
-  update: function (oldData) {
+  init: function (oldData) {
     this.el.addEventListener(this.data.on, this.spawn.bind(this));
   },
-  /**
-   * Spawn new entity at entity's current position.
-   */
   spawn: function () {
     var el = this.el;
     var entity = document.createElement('a-entity');
