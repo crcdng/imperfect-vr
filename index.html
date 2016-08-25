@@ -35,12 +35,11 @@
             event-set__4="_event: mouseleave; scale: 1 1 1"
             sound="on: click; src: #click-sound"
 			      update-raycaster="#cursor"
-            navigate-to="on: click; to: {{ to }}">
-			</a-plane>
+            navigate-to="on: click; to: {{ to }}"></a-plane>
         </script>
       </a-assets>
       <a-entity text="text: Imperfect VR" color="#000000" position="0 3.5 -4" size="2 2 2" ></a-entity>
-	  <a-entity layout="type: circle; radius: 5" position="0 0.5 0">
+	    <a-entity layout="type: circle; radius: 5" position="0 0.5 0">
         <a-entity template="src: #linktemplate" class="scene" data-to="url(03_360_degrees)" data-thumb="#img03" look-at="#player"></a-entity>
         <a-entity template="src: #linktemplate" class="scene" data-to="url(04_imperfect_treasures)" data-thumb="#img04" look-at="#player"></a-entity>
         <a-entity template="src: #linktemplate" class="scene" data-to="url(05_reality_of_the_virtual)" data-thumb="#img05" look-at="#player"></a-entity>
