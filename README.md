@@ -20,6 +20,8 @@ Imperfect VR is inspired by ["Imperfect Cinema"](http://www.imperfectcinema.com/
 
 Each example is self-contained and has all the files it needs in its directory structure (including movies). Therefore this repository has grown quite large. This is intended, as in workshops there might not be an internet connection available.
 
+The main scene used to navigate to the individual scenes currently only makes sense on a desktop browser. On a mobile device, the fullscreen VR mode must be triggered by an user action. This means you have to the phone out of the cardboard and tap on the VR symbol each time.  
+
 ## Third-Party Licenses
 
 * A-Frame: Copyright (c) 2015 A-Frame Authors, MIT License

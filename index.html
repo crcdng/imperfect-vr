@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<!--
+From this scene you can navigate to the other VR scenes. Currently this only makes sense
+when you look at them on a desktop browser. On a mobile device, you have to open the cardboard
+and tap on the VR symbol to trigger VR mode.
+-->
 <html>
   <head>
     <meta charset="utf-8">
@@ -20,22 +25,27 @@
         <img id="img05" src="assets/img05.png">
         <img id="img06" src="assets/img06.png">
         <audio id="click-sound" src="assets/click.mp3"></audio>
+        <!-- the third-party template component -->
+        <!-- it is also using the third party event set component -->
+        <!-- and the navigate-to component which takes care of going to other scenes -->
         <script id="linktemplate" type="text/x-nunjucks-template">
           <a-plane height="2" width="3"
             material="shader: flat; src: {{ thumb }}"
             event-set__1="_event: mousedown; scale: 1 1 1"
             event-set__2="_event: mouseup; scale: 1.2 1.2 1"
-            event-set__3="_event: mouseenter; scale: 1.1 1.1 1"
+            event-set__3="_event: mouseenter; scale: 1.2 1.2 1"
             event-set__4="_event: mouseleave; scale: 1 1 1"
             sound="on: click; src: #click-sound"
 			      update-raycaster="#cursor"
-            navigate-to="on: click; to: {{ to }}"></a-plane>
+            navigate-to="on: click; to: {{ to }}">
+          </a-plane>
         </script>
       </a-assets>
       <a-sun-sky></a-sun-sky>
       <a-mountain color="#55fe32"></a-mountain>
       <a-entity text="text: Imperfect VR" color="black" position="0 2 -4" size="2 2 2" ></a-entity>
-	    <a-entity layout="type: circle; radius: 4" position="0 0 0" rotation="0 10 0">
+      <!-- the layout component with templates, also using the look-at component -->
+      <a-entity layout="type: circle; radius: 4" position="0 0 0" rotation="0 10 0">
         <a-entity template="src: #linktemplate" class="scene" data-to="url(03_360_degrees)" data-thumb="#img03" look-at="#player"></a-entity>
         <a-entity template="src: #linktemplate" class="scene" data-to="url(04_imperfect_treasures)" data-thumb="#img04" look-at="#player"></a-entity>
         <a-entity template="src: #linktemplate" class="scene" data-to="url(05_reality_of_the_virtual)" data-thumb="#img05" look-at="#player"></a-entity>
@@ -45,11 +55,14 @@
         <a-entity template="src: #linktemplate" class="scene" data-to="url(02_basic_scene)" data-thumb="#img02" look-at="#player"></a-entity>
       </a-entity>
       <a-entity camera look-controls id="player">
+        <!-- the cursor element is also using the third party event set and animation components -->
+        <!-- the raycaster checks for intersections with objects that have the scene class -->
         <a-cursor fuse id="cursor" raycaster="objects: .scene"
-        animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
-        animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
-        event-set__1="_event: mouseenter; color: limegreen"
-        event-set__2="_event: mouseleave; color: black"></a-cursor>
+          animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
+          animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
+          event-set__1="_event: mouseenter; color: limegreen"
+          event-set__2="_event: mouseleave; color: black">
+        </a-cursor>
       </a-entity>
     </a-scene>
   </body>
