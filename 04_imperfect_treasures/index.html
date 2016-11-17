@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Imperfect Treasure Hunt</title>
     <script src="js/aframe.js"></script>
-	<script src="js/aframe-event-set-component.js"></script>
+    <script src="js/kframe.js"></script>
   </head>
   <body>
     <a-scene>
@@ -18,13 +18,13 @@
       <!-- a plane where you "stand on" -->
       <a-plane width="6" height="6" rotation="-90 0 0" src="#grid"></a-plane>
 
-      <!-- replace the standard <p> camera </p> with a new one that has a fuse cursor -->    
+      <!-- replace the standard <p> camera </p> with a new one that has a fuse cursor -->
       <a-camera id="player">
         <a-entity cursor="fuse: true; fuseTimeout: 500;" geometry="primitive: ring" material="color: white;
-      shader: flat" position ="0 0 -1" scale="0.01 0.01 0.01"></a-entity> 
-      </a-camera> 
-      
-      <!-- a box that changes color when you look at it --> <!-- it has sound attached to it -->       
+      shader: flat" position ="0 0 -1" scale="0.01 0.01 0.01"></a-entity>
+      </a-camera>
+
+      <!-- a box that changes color when you look at it --> <!-- it has sound attached to it -->
       <a-box id="box" color="green" position="0 3 -5" size="1" sound="src: #cube_sound;
       autoplay: true; loop:true" event-set__1="_event: mouseenter; material.color: #FFC65D" event-set__2="_event: mouseleave; color:
       green"></a-box>

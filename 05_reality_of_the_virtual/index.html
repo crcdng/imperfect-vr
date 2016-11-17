@@ -7,11 +7,8 @@
     <!-- required for the template component https://mozilla.github.io/nunjucks/ -->
     <script src="js/nunjucks.js"></script>
     <!-- third party components -->
-    <script src="js/aframe-layout-component.js"></script>
-    <script src="js/aframe-event-set-component.js"></script>
-    <script src="js/aframe-template-component.js"></script>
-	  <script src="js/aframe-look-at-component.js"></script>
-    <!-- our components -->
+    <script src="js/kframe.js"></script>
+    <!-- our own components -->
     <script src="js/aframe-spawner-component.js"></script>
     <script src="js/aframe-projectile-component.js"></script>
     <script src="js/aframe-collider-component.js"></script>
@@ -19,16 +16,15 @@
   </head>
   <body>
     <a-scene>
-      
       <!-- preload scene assets -->
       <a-assets timeout="5000">
-        <video id="zizek_video" src="assets/zizek.mp4" autoplay="false"></video>
+        <video id="zizek_video" autoplay="false" src="assets/zizek.mp4"></video>
         <a-asset-item id="nyan_model" src="assets/nyancat.dae"></a-asset-item>
         <audio id="shoot" src="assets/Laser_Shoot40.mp3">
         <img id="cardboardvr" src="assets/vr.jpg">
         <img id="drumpf_texture" src="assets/drumpfdrumpf.png">
         <img id="zizek_texture" src="assets/zizek.png">
-        <img id="virilio_texture" src="assets/virilio.jpg">  
+        <img id="virilio_texture" src="assets/virilio.jpg">
         <!-- layout with templates -->
         <script id="drumpf_template" type="text/x-nunjucks-template">
           <a-entity id="drumpfs" layout="type: circle; radius: 10" position="0 1.5 0" visible="false">
@@ -50,8 +46,8 @@
               <a-collada-model src="#nyan_model">
                 <a-animation attribute="position" from="-8 3 -15" to="-8 5 -15" dur="3000" direction="alternate" easing="ease-in-out-cubic" repeat="indefinite"></a-animation>
               </a-collada-model>
-            </a-entity>     
-          {% endfor %}          
+            </a-entity>
+          {% endfor %}
           </a-entity>
         </script>
 
@@ -68,25 +64,25 @@
       <!-- replace the standard camera with a new one that supports a fusion cursor -->
       <a-entity id="player" position="0 1.6 4">
         <a-camera>
-          <a-cursor fuse id="cursor" raycaster="objects: .scene"
+          <a-cursor fuse id="cursor" raycaster="objects: .clickable"
           event-set__1="_event: mouseenter; color: limegreen"
           event-set__2="_event: mouseleave; color: white"></a-cursor>
         </a-camera>
       </a-entity>
 
       <!-- some elements with different materials -->
-      <a-sphere id="zizek_sphere" src="#zizek_texture" position="0 1.25 -1" radius="1.25" color="#FFFFFF"
+      <a-sphere id="zizek_sphere" class="clickable" src="#zizek_texture" position="0 1.25 -1" radius="1.25" color="#FFFFFF"
       event-set__1="_event: mouseenter; scale: 1.1 1.1 1.1"
       event-set__2="_event: mouseleave; scale: 1 1 1">
         <a-animation attribute="rotation" from="0 330 0" to="0 -30 0" dur="15000" easing="linear" repeat="indefinite"></a-animation>
       </a-sphere>
-      <a-cylinder id="drumpf_cylinder" position="1 0.75 1" radius="0.5" height="1.5" src="#drumpf_texture">
+      <a-cylinder id="drumpf_cylinder" class="clickable" position="1 0.75 1" radius="0.5" height="1.5" src="#drumpf_texture">
         <a-animation attribute="rotation" from="0 -30 0" to="0 330 0" dur="15000" easing="linear" repeat="indefinite"></a-animation>
       </a-cylinder>
-      <a-plane id="plane" src="#cardboardvr" rotation="-90 0 0" width="4" height="4" color="">
+      <a-plane id="plane" src="#cardboardvr" class="clickable" rotation="-90 0 0" width="4" height="4" color="">
         <a-animation attribute="material.opacity" dur="4500" direction="alternate" from="0.9" to="0.1" repeat="indefinite"></a-animation>
       </a-plane>
-      <a-box id="virilio_box" src="#virilio_texture" position="-1 0.5 1" rotation="0 45 0" width="1" height="1" depth="1" color="#F16745" roughness="0.8"
+      <a-box id="virilio_box" class="clickable" src="#virilio_texture" position="-1 0.5 1" rotation="0 45 0" width="1" height="1" depth="1" color="#F16745" roughness="0.8"
 	    event-set__1="_event: mouseenter; rotation: 0 90 0" event-set__2="_event: mouseleave; rotation: 0 45 0"></a-box>
 
       <!-- the drumpfs -->
@@ -107,13 +103,13 @@
     </a-scene>
     <script>
       var scene = document.querySelector('a-scene');
-      
+
       if (scene.hasLoaded) {
         run();
       } else {
         scene.addEventListener('loaded', run);
       }
-      
+
       function run() {
         // get the elements of the scene we want to control
         var drumpf_cylinder = document.querySelector('#drumpf_cylinder');
@@ -125,19 +121,24 @@
 
         // elements react to clicks
         drumpf_cylinder.addEventListener('click', function() {
+          console.log("clicked drumpf_cylinder");
           var visible = drumpfs.getAttribute("visible");
           visible = !visible;
           drumpfs.setAttribute("visible", visible);
           console.log("clicked drumpf_cylinder");
         });
         virilio_box.addEventListener('click', function() {
+          console.log("clicked virilio_box");
           if (video.isPlaying) {
             video.pause()
           };
         });
         zizek_sphere.addEventListener('click', function() {
-          if (video.readyState > 0 && !video.isPlaying) {
-            video.play()
+          console.log("clicked zizek_sphere");
+          if (video.isPlaying) {
+            video.pause();
+          } else if (video.readyState > 0 && !video.isPlaying) {
+            video.play();
           };
         });
         vr_curved.addEventListener('click', function() {

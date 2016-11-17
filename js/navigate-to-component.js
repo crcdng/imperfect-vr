@@ -6,7 +6,7 @@ AFRAME.registerComponent('navigate-to', {
   },
   init: function () {
 	 this.el.addEventListener(this.data.on, function () {
-	  var data = this.data;     
+	  var data = this.data;
 	  var newUrl = data.to + "/";
     window.location.href = newUrl;
     }.bind(this));
