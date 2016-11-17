@@ -8,7 +8,7 @@
     <script src="js/nunjucks.js"></script>
     <!-- third party components -->
     <script src="js/kframe.js"></script>
-    <!-- our own components -->
+    <script src="js/aframe-alongpath-component.js"></script>
     <script src="js/aframe-spawner-component.js"></script>
     <script src="js/aframe-projectile-component.js"></script>
     <script src="js/aframe-collider-component.js"></script>
@@ -17,18 +17,20 @@
   <body>
     <a-scene>
       <!-- preload scene assets -->
-      <a-assets>
-        <video id="zizek_video" autoplay="false" src="assets/zizek.mp4"></video>
+      <a-assets timeout="6000">
+        <audio id="zizek_audio" autoplay="false" src="assets/zizek.mp3"></video>
         <a-asset-item id="nyan_model" src="assets/nyancat.dae"></a-asset-item>
         <audio id="shoot" src="assets/Laser_Shoot40.mp3">
+        <audio id="dubstep" src="assets/bensound-dubstep-compressed.mp3">
         <img id="cardboardvr" src="assets/vr.jpg">
         <img id="drumpf_texture" src="assets/drumpfdrumpf.png">
         <img id="zizek_texture" src="assets/zizek.png">
         <img id="virilio_texture" src="assets/virilio.jpg">
+        <img id="hell_texture" src="assets/hell_square.jpg">
       </a-assets>
 
       <!-- replace the standard camera with a new one that supports a fusion cursor -->
-      <a-entity id="player" position="0 0 3.8">
+      <a-entity id="player" position="0 0 4">
         <a-camera>
           <a-cursor id="cursor" raycaster="objects: .clickable"
           event-set__1="_event: mouseenter; color: limegreen"
@@ -36,10 +38,14 @@
         </a-camera>
       </a-entity>
 
-      <!-- some elements with different materials -->
+      <!-- box we stand on -->
+      <a-box id="stand_on" src="#hell_texture" depth="4" height="100" width="4" position="0 -50 4"></a-box>
+
+      <!-- some interactive elements -->
       <a-sphere id="zizek_sphere" class="clickable" src="#zizek_texture" position="0 1.25 -1" radius="1.25" color="#FFFFFF"
       event-set__1="_event: mouseenter; scale: 1.1 1.1 1.1"
-      event-set__2="_event: mouseleave; scale: 1 1 1">
+      event-set__2="_event: mouseleave; scale: 1 1 1"
+      sound="src: #zizek_audio; autoplay: true">
         <a-animation attribute="rotation" from="0 330 0" to="0 -30 0" dur="15000" easing="linear" repeat="indefinite"></a-animation>
       </a-sphere>
       <a-cylinder id="drumpf_cylinder" class="clickable" position="1 0.75 1" radius="0.5" height="1.5" src="#drumpf_texture">
@@ -51,10 +57,21 @@
       <a-box id="virilio_box" class="clickable" src="#virilio_texture" position="-1 0.5 1" rotation="0 45 0" width="1" height="1" depth="1" color="#F16745" roughness="0.8"
 	    event-set__1="_event: mouseenter; rotation: 0 90 0" event-set__2="_event: mouseleave; rotation: 0 45 0"></a-box>
 
+      <!-- the nyan -->
+      <a-entity id="nyan" sound="src: #dubstep; autoplay: false; loop: true">
+        <a-collada-model
+          src="#nyan_model"
+          alongpath="path:0,20,40 -8,5,-1 5,5,-10; loop:true; closed:true; dur:17000; delay:4000">
+        </a-collada-model>
+      </a-entity>
+
       <!-- the drumpfs -->
 
       <!-- other elements: a videosphere, a curved image, ... -->
-      <a-videosphere id="zizek_dome" src="#zizek_video"></a-videosphere>
+      <a-sky
+        id="zizek_sky"
+        src="#zizek_texture">
+      </a-sky>
 
     </a-scene>
     <script>
@@ -70,35 +87,32 @@
         // get the elements of the scene we want to control
         var drumpf_cylinder = document.querySelector('#drumpf_cylinder');
         var drumpfs = document.querySelector('#drumpfs');
-        var video = document.querySelector('#zizek_video');
+        var nyan = document.querySelector('#nyan');
         var virilio_box = document.querySelector('#virilio_box');
         var vr_curved = document.querySelector('#vr_curved');
+        var zizek_audio = document.querySelector('#zizek_audio');
         var zizek_sphere = document.querySelector('#zizek_sphere');
+        var zizek_sky = document.querySelector('#zizek_sky');
 
         // elements react to clicks
         drumpf_cylinder.addEventListener('click', function() {
           console.log("clicked drumpf_cylinder");
-          var visible = drumpfs.getAttribute("visible");
-          visible = !visible;
-          drumpfs.setAttribute("visible", visible);
-          console.log("clicked drumpf_cylinder");
         });
         virilio_box.addEventListener('click', function() {
           console.log("clicked virilio_box");
-          if (video.isPlaying) {
-            video.pause()
-          };
+          if (nyan.isPlaying) {
+            nyan.pause();
+          } else {
+            nyan.play();
+          }
         });
         zizek_sphere.addEventListener('click', function() {
           console.log("clicked zizek_sphere");
-          if (!video.paused) {
-            video.pause();
-          } else if (video.readyState > 0 && video.paused) {
-            video.play();
+          if (!zizek_audio.paused) {
+            zizek_audio.pause();
+          } else if (zizek_audio.paused) {
+            zizek_audio.play();
           };
-        });
-        vr_curved.addEventListener('click', function() {
-          console.log("vr_curved");
         });
       }
 
