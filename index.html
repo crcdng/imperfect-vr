@@ -11,7 +11,6 @@ and tap on the VR symbol to trigger VR mode.
     <script src="js/aframe.js"></script>
     <script src="js/nunjucks.js"></script>
     <script src="js/kframe.js"></script>
-    <script src="js/update-raycaster-component.js"></script>
     <script src="js/navigate-to-component.js"></script>
   </head>
   <body>
@@ -36,7 +35,6 @@ and tap on the VR symbol to trigger VR mode.
             event-set__3="_event: mouseenter; scale: 1.2 1.2 1"
             event-set__4="_event: mouseleave; scale: 1 1 1"
             sound="on: click; src: #click-sound"
-			      update-raycaster="#cursor"
             navigate-to="on: click; to: {{ to }}">
           </a-plane>
         </script>
