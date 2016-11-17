@@ -17,7 +17,7 @@
   <body>
     <a-scene>
       <!-- preload scene assets -->
-      <a-assets timeout="5000">
+      <a-assets>
         <video id="zizek_video" autoplay="false" src="assets/zizek.mp4"></video>
         <a-asset-item id="nyan_model" src="assets/nyancat.dae"></a-asset-item>
         <audio id="shoot" src="assets/Laser_Shoot40.mp3">
@@ -25,46 +25,12 @@
         <img id="drumpf_texture" src="assets/drumpfdrumpf.png">
         <img id="zizek_texture" src="assets/zizek.png">
         <img id="virilio_texture" src="assets/virilio.jpg">
-        <!-- layout with templates -->
-        <script id="drumpf_template" type="text/x-nunjucks-template">
-          <a-entity id="drumpfs" layout="type: circle; radius: 10" position="0 1.5 0" visible="false">
-            <a-animation attribute="rotation" dur="30000" easing="linear" repeat="indefinite" to="0 360 0"></a-animation>
-            {% for x in range(num) %}
-                <a-plane class="drumpf" look-at="#player" height="5" width="2.5" src="#drumpf_texture" transparent="true">
-                <!-- collision handler animations. -->
-                  <a-animation attribute="opacity" begin="collider-hit" dur="400" ease="linear" from="1" to="0"></a-animation>
-                  <a-animation attribute="scale" begin="collider-hit" dur="400" ease="linear" to="0 0 0"></a-animation>
-                </a-plane>
-            {% endfor %}
-          </a-entity>
-        </script>
-
-        <script id="nyan_template" type="text/x-nunjucks-template">
-          <a-entity id="nyans" layout="type: line" visible="true">
-          {% for y in range(numb) %}
-            <a-entity id="nyan">
-              <a-collada-model src="#nyan_model">
-                <a-animation attribute="position" from="-8 3 -15" to="-8 5 -15" dur="3000" direction="alternate" easing="ease-in-out-cubic" repeat="indefinite"></a-animation>
-              </a-collada-model>
-            </a-entity>
-          {% endfor %}
-          </a-entity>
-        </script>
-
-        <!-- the laser is a "mixin" combining several components -->
-        <a-mixin id="laser"
-          geometry="primitive: cylinder; radius: 0.05; buffer: false" pivot="0 0 0"
-          material="color: #fe0209; metalness: 0.2; opacity: 0.8; roughness: 0.7"
-          rotation="90 0 0"
-          projectile="speed: -0.7"
-          collider="target: .drumpf">
-        </a-mixin>
       </a-assets>
 
       <!-- replace the standard camera with a new one that supports a fusion cursor -->
-      <a-entity id="player" position="0 1.6 4">
+      <a-entity id="player" position="0 0 3.8">
         <a-camera>
-          <a-cursor fuse id="cursor" raycaster="objects: .clickable"
+          <a-cursor id="cursor" raycaster="objects: .clickable"
           event-set__1="_event: mouseenter; color: limegreen"
           event-set__2="_event: mouseleave; color: white"></a-cursor>
         </a-camera>
@@ -86,19 +52,9 @@
 	    event-set__1="_event: mouseenter; rotation: 0 90 0" event-set__2="_event: mouseleave; rotation: 0 45 0"></a-box>
 
       <!-- the drumpfs -->
-      <a-entity template="src: #drumpf_template" data-num="12"></a-entity>
-
-      <!-- the nyan cats -->
-      <a-entity template="src: #nyan_template" data-numb="5"></a-entity>
 
       <!-- other elements: a videosphere, a curved image, ... -->
       <a-videosphere id="zizek_dome" src="#zizek_video"></a-videosphere>
-      <a-curvedimage id="vr_curved" src="#cardboardvr" radius="7.7" theta-length="28" height="5" opacity="0.8" position="0 4 0"></a-curvedimage>
-
-      <!-- some lights -->
-      <a-light type="directional" color="#fff" intensity="0.43" position="-1 1 0"></a-light>
-      <a-light type="spot" color="#FF0000" position="-1 0.5 2" intensity="2.5" look-at="#virilio_box"></a-light>
-      <a-light type="point" color="#AAA" position="0 5 0"></a-light>
 
     </a-scene>
     <script>
@@ -135,9 +91,9 @@
         });
         zizek_sphere.addEventListener('click', function() {
           console.log("clicked zizek_sphere");
-          if (video.isPlaying) {
+          if (!video.paused) {
             video.pause();
-          } else if (video.readyState > 0 && !video.isPlaying) {
+          } else if (video.readyState > 0 && video.paused) {
             video.play();
           };
         });
