@@ -67,7 +67,7 @@
 
       <!-- the drumpfs -->
 
-      <!-- other elements: a videosphere, a curved image, ... -->
+      <!-- other elements: a sky dome ... -->
       <a-sky
         id="zizek_sky"
         src="#zizek_texture">
@@ -96,7 +96,9 @@
         const zizek_sky = document.querySelector('#zizek_sky');
 
         // elements react to clicks
-        drumpf_cylinder.addEventListener('click', () => { console.log("clicked drumpf_cylinder"); });
+        drumpf_cylinder.addEventListener('click', () => {
+          console.log("clicked drumpf_cylinder");
+        });
         virilio_box.addEventListener('click', () => {
           console.log("clicked virilio_box");
           (!nyan_audio.paused) ? nyan_audio.pause() : nyan_audio.play();
