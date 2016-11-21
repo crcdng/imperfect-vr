@@ -85,34 +85,24 @@
 
       function run() {
         // get the elements of the scene we want to control
-        var drumpf_cylinder = document.querySelector('#drumpf_cylinder');
-        var drumpfs = document.querySelector('#drumpfs');
-        var nyan = document.querySelector('#nyan');
-        var virilio_box = document.querySelector('#virilio_box');
-        var vr_curved = document.querySelector('#vr_curved');
-        var zizek_audio = document.querySelector('#zizek_audio');
-        var zizek_sphere = document.querySelector('#zizek_sphere');
-        var zizek_sky = document.querySelector('#zizek_sky');
+        const drumpf_cylinder = document.querySelector('#drumpf_cylinder');
+        const drumpfs = document.querySelector('#drumpfs');
+        const nyan = document.querySelector('#nyan');
+        const virilio_box = document.querySelector('#virilio_box');
+        const vr_curved = document.querySelector('#vr_curved');
+        const zizek_audio = document.querySelector('#zizek_audio');
+        const zizek_sphere = document.querySelector('#zizek_sphere');
+        const zizek_sky = document.querySelector('#zizek_sky');
 
         // elements react to clicks
-        drumpf_cylinder.addEventListener('click', function() {
-          console.log("clicked drumpf_cylinder");
-        });
-        virilio_box.addEventListener('click', function() {
+        drumpf_cylinder.addEventListener('click', () => { console.log("clicked drumpf_cylinder"); });
+        virilio_box.addEventListener('click', () => {
           console.log("clicked virilio_box");
-          if (nyan.isPlaying) {
-            nyan.pause();
-          } else {
-            nyan.play();
-          }
+          nyan.isPlaying ? nyan.pause() : nyan.play();;
         });
-        zizek_sphere.addEventListener('click', function() {
+        zizek_sphere.addEventListener('click', () => {
           console.log("clicked zizek_sphere");
-          if (!zizek_audio.paused) {
-            zizek_audio.pause();
-          } else if (zizek_audio.paused) {
-            zizek_audio.play();
-          };
+          (!zizek_audio.paused) ? zizek_audio.pause() : zizek_audio.play();
         });
       }
 
