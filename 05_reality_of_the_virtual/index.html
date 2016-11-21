@@ -18,8 +18,8 @@
     <a-scene>
       <!-- preload scene assets -->
       <a-assets timeout="6000">
-        <audio id="zizek_audio" autoplay="false" src="assets/zizek.mp3"></video>
         <a-asset-item id="nyan_model" src="assets/nyancat.dae"></a-asset-item>
+        <audio id="zizek_talk" src="assets/zizek.mp3"></video>
         <audio id="shoot" src="assets/Laser_Shoot40.mp3">
         <audio id="dubstep" src="assets/bensound-dubstep-compressed.mp3">
         <img id="cardboardvr" src="assets/vr.jpg">
@@ -45,7 +45,7 @@
       <a-sphere id="zizek_sphere" class="clickable" src="#zizek_texture" position="0 1.25 -1" radius="1.25" color="#FFFFFF"
       event-set__1="_event: mouseenter; scale: 1.1 1.1 1.1"
       event-set__2="_event: mouseleave; scale: 1 1 1"
-      sound="src: #zizek_audio; autoplay: true">
+      sound="src: #zizek_audio; autoplay: false; loop: true">
         <a-animation attribute="rotation" from="0 330 0" to="0 -30 0" dur="15000" easing="linear" repeat="indefinite"></a-animation>
       </a-sphere>
       <a-cylinder id="drumpf_cylinder" class="clickable" position="1 0.75 1" radius="0.5" height="1.5" src="#drumpf_texture">
@@ -88,9 +88,10 @@
         const drumpf_cylinder = document.querySelector('#drumpf_cylinder');
         const drumpfs = document.querySelector('#drumpfs');
         const nyan = document.querySelector('#nyan');
+        const nyan_audio = document.querySelector('#dubstep');
         const virilio_box = document.querySelector('#virilio_box');
         const vr_curved = document.querySelector('#vr_curved');
-        const zizek_audio = document.querySelector('#zizek_audio');
+        const zizek_audio = document.querySelector('#zizek_talk');
         const zizek_sphere = document.querySelector('#zizek_sphere');
         const zizek_sky = document.querySelector('#zizek_sky');
 
@@ -98,7 +99,7 @@
         drumpf_cylinder.addEventListener('click', () => { console.log("clicked drumpf_cylinder"); });
         virilio_box.addEventListener('click', () => {
           console.log("clicked virilio_box");
-          nyan.isPlaying ? nyan.pause() : nyan.play();;
+          (!nyan_audio.paused) ? nyan_audio.pause() : nyan_audio.play();
         });
         zizek_sphere.addEventListener('click', () => {
           console.log("clicked zizek_sphere");
