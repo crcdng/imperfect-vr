@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Basic Scene</title>
     <script src="aframe.js"></script>
-    <script src="kframe.js"></script>    
+    <script src="kframe.js"></script>
   </head>
   <body>
     <a-scene>
@@ -23,9 +23,11 @@
       <a-light type="spot" color="#333" position="-20 0 0" look-at="a-box"></a-light>
       <a-light type="point" color="#AAA" position="0 5 0"></a-light>
       <a-sky color="#73F7DD"></a-sky>
-      <a-camera>
-        <a-cursor color="#2E3A87">
-      </a-camera>
+      <a-entity position="0 0 3.8">
+        <a-camera>
+          <a-cursor color="#2E3A87">
+        </a-camera>
+      </a-entity>
     </a-scene>
   </body>
 </html>

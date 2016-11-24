@@ -16,9 +16,9 @@
         <a-asset-item id="chick_model" src="assets/chick/chick-lowpoly.dae"></a-asset-item>
         <img id="grid" src="assets/grid.png">
       </a-assets>
-      
-      <a-entity id="player">
-        <a-camera> 
+
+      <a-entity id="player" position="0 0 3.8">
+        <a-camera>
           <a-entity id ="cursor" cursor="fuse: true;"
             geometry="primitive: ring"
             material="color: white; shader: flat"
@@ -26,7 +26,7 @@
             scale="0.01 0.01 0.01">
           </a-entity>
         <a-animation attribute="rotation" from="0 0 0" to="0 360 0" dur="100000" repeat="indefinite" easing="linear"></a-animation>
-        <a-camera> 
+        <a-camera>
       </a-entity>
 
       <a-entity position="0 4 0" sound="src: #funny; autoplay: true; loop:true"></a-entity>

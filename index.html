@@ -41,9 +41,9 @@ and tap on the VR symbol to trigger VR mode.
       </a-assets>
       <a-sun-sky></a-sun-sky>
       <a-mountain color="#55fe32"></a-mountain>
-      <a-entity text="text: Imperfect VR" color="black" position="0 2 -4" size="2 2 2" ></a-entity>
+      <a-entity text="text: Imperfect VR" color="black" position="0 4 -4" size="2 2 2" ></a-entity>
       <!-- the layout component with templates, also using the look-at component -->
-      <a-entity layout="type: circle; radius: 4" position="0 0 0" rotation="0 10 0">
+      <a-entity layout="type: circle; radius: 4" position="0 0.5 0" rotation="0 10 0">
         <a-entity template="src: #linktemplate" class="scene" data-to="url(03_360_degrees)" data-thumb="#img03" look-at="#player"></a-entity>
         <a-entity template="src: #linktemplate" class="scene" data-to="url(04_imperfect_treasures)" data-thumb="#img04" look-at="#player"></a-entity>
         <a-entity template="src: #linktemplate" class="scene" data-to="url(05_reality_of_the_virtual)" data-thumb="#img05" look-at="#player"></a-entity>
@@ -52,15 +52,15 @@ and tap on the VR symbol to trigger VR mode.
         <a-entity template="src: #linktemplate" class="scene" data-to="url(01_hello_vr_world)" data-thumb="#img01" look-at="#player"></a-entity>
         <a-entity template="src: #linktemplate" class="scene" data-to="url(02_basic_scene)" data-thumb="#img02" look-at="#player"></a-entity>
       </a-entity>
-      <a-entity camera look-controls id="player">
-        <!-- the cursor element is also using the third party event set and animation components -->
-        <!-- the raycaster checks for intersections with objects that have the scene class -->
-        <a-cursor fuse id="cursor" raycaster="objects: .scene"
-          animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
-          animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
-          event-set__1="_event: mouseenter; color: limegreen"
-          event-set__2="_event: mouseleave; color: black">
-        </a-cursor>
+      <a-entity position="0 0 0" id="player">
+        <a-camera>
+          <a-cursor fuse id="cursor" raycaster="objects: .scene"
+            animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
+            animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
+            event-set__1="_event: mouseenter; color: limegreen"
+            event-set__2="_event: mouseleave; color: black">
+          </a-cursor>
+        </a-camera>
       </a-entity>
     </a-scene>
   </body>
