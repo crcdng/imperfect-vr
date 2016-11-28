@@ -41,15 +41,14 @@
       <a-box id="stand_on" src="#hell_texture" depth="4" height="100" width="4" position="0 -50 4"></a-box>
 
       <a-plane id="plane" src="#cardboardvr" class="clickable" rotation="-90 0 0" width="4" height="4" color="">
-        <a-animation attribute="material.opacity" dur="4500" direction="alternate" from="0.9" to="0.1" repeat="indefinite"></a-animation>
       </a-plane>
 
       <!-- interaction 1 - zizek -->
-      <a-sphere id="zizek_sphere" class="clickable" src="#zizek_texture" position="0 1.25 -1" radius="1.25" color="#FFFFFF"
+      <a-sphere id="zizek_sphere" class="clickable" src="#zizek_texture" position="0 1.25 -1" rotation="0 330 0" radius="1.25" color="#FFFFFF"
       event-set__1="_event: mouseenter; scale: 1.1 1.1 1.1"
       event-set__2="_event: mouseleave; scale: 1 1 1"
-      sound="src: #zizek_audio; autoplay: false; loop: true">
-        <a-animation attribute="rotation" from="0 330 0" to="0 -30 0" dur="15000" easing="linear" repeat="indefinite"></a-animation>
+      sound="src: #zizek_audio; autoplay: false; loop: true"
+      animation="property: rotation; dur: 15000; easing: linear; loop: true; to: 0 -30 0">
       </a-sphere>
 
       <a-sky
@@ -61,19 +60,15 @@
       <a-box id="virilio_box" class="clickable" src="#virilio_texture" position="-1 0.5 1" rotation="0 45 0" width="1" height="1" depth="1" color="#F16745" roughness="0.8"
 	    event-set__1="_event: mouseenter; rotation: 0 90 0" event-set__2="_event: mouseleave; rotation: 0 45 0"></a-box>
 
-      <a-entity
-      id="nyan"
-      position="0 5 -14"
-      rotation="0 180 0"
-      animation__move="property: position; dir: alternate; dur: 7000;
-        loop: true; to: 10 3 3"
+      <a-entity id="nyan" position="0 5 -14" rotation="0 180 0"
+      animation="property: position; dir: alternate; dur: 7000; loop: true; to: 10 3 3"
       sound="src: #dubstep; autoplay: false; loop: true">
         <a-collada-model src="#nyan_model"></a-collada-model>
       </a-entity>
 
-      <!-- the drumpfs -->
-      <a-cylinder id="drumpf_cylinder" class="clickable" position="1 0.75 1" radius="0.5" height="1.5" src="#drumpf_texture">
-        <a-animation attribute="rotation" from="0 -30 0" to="0 330 0" dur="15000" easing="linear" repeat="indefinite"></a-animation>
+      <!-- interaction 3 - the drumpfs -->
+      <a-cylinder id="drumpf_cylinder" class="clickable" position="1 0.75 1" rotation="0 -30 0" radius="0.5" height="1.5" src="#drumpf_texture"
+      animation="property: rotation; dur: 15000; easing:linear; loop: true; to: 0 330 0">
       </a-cylinder>
 
     </a-scene>
