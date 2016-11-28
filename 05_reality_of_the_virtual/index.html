@@ -38,26 +38,30 @@
         </a-camera>
       </a-entity>
 
-      <!-- box we stand on -->
+      <!-- the ground box and plane -->
       <a-box id="stand_on" src="#hell_texture" depth="4" height="100" width="4" position="0 -50 4"></a-box>
 
-      <!-- some interactive elements -->
+      <a-plane id="plane" src="#cardboardvr" class="clickable" rotation="-90 0 0" width="4" height="4" color="">
+        <a-animation attribute="material.opacity" dur="4500" direction="alternate" from="0.9" to="0.1" repeat="indefinite"></a-animation>
+      </a-plane>
+
+      <!-- interaction 1 - zizek -->
       <a-sphere id="zizek_sphere" class="clickable" src="#zizek_texture" position="0 1.25 -1" radius="1.25" color="#FFFFFF"
       event-set__1="_event: mouseenter; scale: 1.1 1.1 1.1"
       event-set__2="_event: mouseleave; scale: 1 1 1"
       sound="src: #zizek_audio; autoplay: false; loop: true">
         <a-animation attribute="rotation" from="0 330 0" to="0 -30 0" dur="15000" easing="linear" repeat="indefinite"></a-animation>
       </a-sphere>
-      <a-cylinder id="drumpf_cylinder" class="clickable" position="1 0.75 1" radius="0.5" height="1.5" src="#drumpf_texture">
-        <a-animation attribute="rotation" from="0 -30 0" to="0 330 0" dur="15000" easing="linear" repeat="indefinite"></a-animation>
-      </a-cylinder>
-      <a-plane id="plane" src="#cardboardvr" class="clickable" rotation="-90 0 0" width="4" height="4" color="">
-        <a-animation attribute="material.opacity" dur="4500" direction="alternate" from="0.9" to="0.1" repeat="indefinite"></a-animation>
-      </a-plane>
+
+      <a-sky
+        id="zizek_sky"
+        src="#zizek_texture">
+      </a-sky>
+
+      <!-- interaction 2 - virilio / nyan -->
       <a-box id="virilio_box" class="clickable" src="#virilio_texture" position="-1 0.5 1" rotation="0 45 0" width="1" height="1" depth="1" color="#F16745" roughness="0.8"
 	    event-set__1="_event: mouseenter; rotation: 0 90 0" event-set__2="_event: mouseleave; rotation: 0 45 0"></a-box>
 
-      <!-- the nyan -->
       <a-entity id="nyan" sound="src: #dubstep; autoplay: false; loop: true">
         <a-collada-model
           src="#nyan_model"
@@ -66,14 +70,12 @@
       </a-entity>
 
       <!-- the drumpfs -->
-
-      <!-- other elements: a sky dome ... -->
-      <a-sky
-        id="zizek_sky"
-        src="#zizek_texture">
-      </a-sky>
+      <a-cylinder id="drumpf_cylinder" class="clickable" position="1 0.75 1" radius="0.5" height="1.5" src="#drumpf_texture">
+        <a-animation attribute="rotation" from="0 -30 0" to="0 330 0" dur="15000" easing="linear" repeat="indefinite"></a-animation>
+      </a-cylinder>
 
     </a-scene>
+
     <script>
       var scene = document.querySelector('a-scene');
 
