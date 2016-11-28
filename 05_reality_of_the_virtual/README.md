@@ -11,4 +11,4 @@ This is part of my "Imperfect VR" workshop [https://github.com/i3games/imperfect
 * Paul Virilio painted portrait, Thierry Ehrmann, https://www.flickr.com/photos/home_of_chaos/2612721179, (CC BY 2.0)
 * VR portrait, Kin Design
 * Dubstep [http://www.bensound.com/](http://www.bensound.com/)
-* Nyan Cat, http://www.blendswap.com/blends/view/54942,Public, (CC0 1.0) 
+* Nyan Cat, http://www.blendswap.com/blends/view/54942,Public, (CC0 1.0)
