@@ -14,21 +14,21 @@
       <!-- preload scene assets -->
       <a-assets timeout="6000">
         <a-asset-item id="nyan_model" src="assets/nyancat_simple.dae"></a-asset-item>
-        <audio id="zizek_talk" src="assets/zizek.mp3"></video>
+        <audio id="zizek_talk" src="assets/zizek.mp3">
         <audio id="dubstep" src="assets/bensound-dubstep-compressed.mp3">
         <audio id="carolina" src="assets/carolina.mp3">
+        <audio id="virilio_talk" src="assets/virilio.mp3">
         <img id="cardboardvr_texture" src="assets/vr.jpg">
         <img id="drumpf_texture" src="assets/drumpfdrumpf.png">
         <img id="zizek_texture" src="assets/zizek.png">
         <img id="virilio_texture" src="assets/virilio.jpg">
         <img id="hell_texture" src="assets/hell_square.jpg">
         <script id="drumpf_template" type="text/x-nunjucks-template">
-          <a-entity id="drumpfs" layout="type: circle; radius: 10" position="0 1 3.8" visible="false">
-            <a-animation attribute="rotation" dur="30000" easing="linear" repeat="indefinite" to="0 360 0"></a-animation>
+          <a-entity id="drumpfs" layout="type: circle; radius: 10" position="0 1 3.8" visible="false"
+            animation="property: rotation; dur: 30000; easing: linear; loop: true; to: 0 360 0">
             {% for x in range(num) %}
                 <a-plane class="drumpf" look-at="#player" height="5" width="2.5"
-                src="#drumpf_texture" transparent="true">
-                </a-plane>
+                src="#drumpf_texture" transparent="true"></a-plane>
             {% endfor %}
           </a-entity>
         </script>
@@ -37,7 +37,7 @@
       <!-- replace the standard camera with a new one that supports a fusion cursor -->
       <a-entity id="player" position="0 0 3.8">
         <a-camera>
-          <a-entity id="cursor" cursor="maxDistance: 30; fuseTimeout: 1500"
+          <a-entity id="cursor" cursor="fuseTimeout: 1500"
                     raycaster="objects: .clickable"
                     position="0 0 -1"
                     geometry="primitive: ring; radiusOuter: 0.03; radiusInner: 0.02;"
@@ -56,24 +56,24 @@
       <a-plane id="plane" src="#cardboardvr_texture" rotation="-90 0 0" width="4" height="4" color=""></a-plane>
 
       <!-- interaction 1 - zizek -->
-      <a-sphere id="zizek_sphere" class="clickable" src="#zizek_texture" position="0 1.25 -1" rotation="0 330 0" radius="1.25" color="#FFFFFF"
-      event-set__1="_event: mouseenter; scale: 1.1 1.1 1.1"
-      event-set__2="_event: mouseleave; scale: 1 1 1"
+      <a-entity id="zizek_sphere" class="clickable"
+      position="0 1.25 -1" rotation="0 330 0"
+      geometry="primitive: sphere; radius: 1.25"
+      material="src: #zizek_texture; opacity: 0.65"
+      event-set__1="_event: mouseenter; material.opacity: 1"
+      event-set__2="_event: mouseleave; material.opacity: 0.65"
       sound="src: #zizek_talk; on: click; autoplay: false"
       animation="property: rotation; dur: 15000; easing: linear; loop: true; to: 0 -30 0">
-      </a-sphere>
+      </a-entity>
 
-      <a-sky
-        id="zizek_sky"
-        segments-height="40"
-        segments-width="128"
-        src="#zizek_texture"
-        color="#FFFFFF">
-      </a-sky>
+      <a-sky id="zizek_sky" segments-height="40" segments-width="128" src="#zizek_texture" color="#FFFFFF"></a-sky>
 
       <!-- interaction 2 - virilio / nyan -->
-      <a-box id="virilio_box" class="clickable" src="#virilio_texture" position="-1 0.5 1" rotation="0 45 0" width="1" height="1" depth="1" color="#F16745" roughness="0.8"
-	    event-set__1="_event: mouseenter; rotation: 0 90 0" event-set__2="_event: mouseleave; rotation: 0 45 0"></a-box>
+      <a-box id="virilio_box" class="clickable" src="#virilio_texture" position="-1 0.5 1" rotation="0 45 0"
+        width="1" height="1" depth="1" color="#F16745" roughness="0.8"
+        animation="property: position; dur: 2000; dir: alternate; easing: easeInOutQuad; loop: false; to: -1 8 1; startEvents: click"
+        sound="src: #virilio_talk; on: click; autoplay: false">
+      </a-box>
 
       <a-entity id="nyan" class="clickable" position="0 5 -14" rotation="0 180 0"
       animation="property: position; dir: alternate; dur: 7000; loop: true; to: 10 3 3"
@@ -133,7 +133,6 @@
           }
         });
       }
-
     </script>
   </body>
 </html>
