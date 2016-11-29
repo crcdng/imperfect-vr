@@ -1,4 +1,4 @@
- # The rabbit, the chicken, the AK-47.
+# The Rabbit, the Chicken, the AK-47.
 
 Playing around with [A-Frame](https://aframe.io/).
 
@@ -11,6 +11,8 @@ Motion sickness? Probably. Browser crashes? Yes. Runs over https (because so wei
 (see third-party-licenses)
 
 * A-Frame: Copyright (c) 2015 A-Frame
+* Uses [k-frame components](https://github.com/ngokevin/k-frame): Copyright (c) 2016 Kevin Ngo, MIT License
+* uses components from https://github.com/dmarcos/a-invaders by Diego Marcos
 
 ## 3D-Models
 * spider: by slippy0, Copyright (c) 2015 Turbosquid

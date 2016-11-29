@@ -13,7 +13,7 @@ Imperfect VR is inspired by ["Imperfect Cinema"](http://www.imperfectcinema.com/
 * 02 A Basic Scene, based on [Build with Basic HTML](https://aframe.io/docs/0.3.0/guides/)
 * 03 360 Degrees - 360 Image / Video
 * 04 Imperfect Treasures, based on the [Google Cardboard example](https://developers.google.com/vr/android/get-started)
-* 05 The Reality of the Virtual featuring Slavoj Žižek (work in progress)
+* 05 The Reality of the Virtual featuring Slavoj Žižek 
 * 06 Rabbit Chicken, AK 47 (work in progress)
 
 [A-Frame](https://aframe.io/) is a beginner-friendly, but capable framework by the Mozilla people to create Virtual Reality experiences from markup and code. VR Scenes in A-Frame are described by HTML tags and brought to life with JavaScript. Everyone who can slide a smartphone into a [Google Cardboard](https://vr.google.com/cardboard/) can make VR experiences with A-Frame, even if yo havent't written a single line of code before. In the workshop I teach the bascis and help advanced participants to realize their ideas.

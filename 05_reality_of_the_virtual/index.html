@@ -8,10 +8,6 @@
     <script src="js/nunjucks.js"></script>
     <!-- third party components -->
     <script src="js/kframe.js"></script>
-    <script src="js/aframe-spawner-component.js"></script>
-    <script src="js/aframe-projectile-component.js"></script>
-    <script src="js/aframe-collider-component.js"></script>
-    <script src="js/aframe-click-listener-component.js"></script>
   </head>
   <body>
     <a-scene>
@@ -21,11 +17,20 @@
         <audio id="zizek_talk" src="assets/zizek.mp3"></video>
         <audio id="shoot" src="assets/Laser_Shoot40.mp3">
         <audio id="dubstep" src="assets/bensound-dubstep-compressed.mp3">
-        <img id="cardboardvr" src="assets/vr.jpg">
+        <img id="cardboardvr_texture" src="assets/vr.jpg">
         <img id="drumpf_texture" src="assets/drumpfdrumpf.png">
         <img id="zizek_texture" src="assets/zizek.png">
         <img id="virilio_texture" src="assets/virilio.jpg">
         <img id="hell_texture" src="assets/hell_square.jpg">
+        <script id="drumpf_template" type="text/x-nunjucks-template">
+          <a-entity id="drumpfs" layout="type: circle; radius: 10" position="0 1 0" visible="false">
+            <a-animation attribute="rotation" dur="30000" easing="linear" repeat="indefinite" to="0 360 0"></a-animation>
+            {% for x in range(num) %}
+                <a-plane class="drumpf" look-at="#player" height="5" width="2.5" src="#drumpf_texture" transparent="true">
+                </a-plane>
+            {% endfor %}
+          </a-entity>
+        </script>
       </a-assets>
 
       <!-- replace the standard camera with a new one that supports a fusion cursor -->
@@ -40,14 +45,13 @@
       <!-- the ground box and plane -->
       <a-box id="stand_on" src="#hell_texture" depth="4" height="100" width="4" position="0 -50 4"></a-box>
 
-      <a-plane id="plane" src="#cardboardvr" class="clickable" rotation="-90 0 0" width="4" height="4" color="">
-      </a-plane>
+      <a-plane id="plane" src="#cardboardvr_texture" rotation="-90 0 0" width="4" height="4" color=""></a-plane>
 
       <!-- interaction 1 - zizek -->
       <a-sphere id="zizek_sphere" class="clickable" src="#zizek_texture" position="0 1.25 -1" rotation="0 330 0" radius="1.25" color="#FFFFFF"
       event-set__1="_event: mouseenter; scale: 1.1 1.1 1.1"
       event-set__2="_event: mouseleave; scale: 1 1 1"
-      sound="src: #zizek_audio; autoplay: false; loop: true"
+      sound="src: #zizek_talk; autoplay: false; loop: true"
       animation="property: rotation; dur: 15000; easing: linear; loop: true; to: 0 -30 0">
       </a-sphere>
 
@@ -71,21 +75,19 @@
       animation="property: rotation; dur: 15000; easing:linear; loop: true; to: 0 330 0">
       </a-cylinder>
 
+      <a-entity template="src: #drumpf_template" data-num="12"></a-entity>
+
+
+
     </a-scene>
 
     <script>
-      var scene = document.querySelector('a-scene');
+      const scene = document.querySelector('a-scene');
 
       if (scene.hasLoaded) {
-        init():
         run();
       } else {
         scene.addEventListener('loaded', run);
-      }
-
-      function init() {
-        const nyan = document.querySelector('#nyan');
-        nyan.pause();
       }
 
       function run() {
@@ -103,10 +105,13 @@
         // elements react to clicks
         drumpf_cylinder.addEventListener('click', () => {
           console.log("clicked drumpf_cylinder");
+          let visible = drumpfs.getAttribute("visible");
+          visible = !visible;
+          drumpfs.setAttribute("visible", visible);
         });
         virilio_box.addEventListener('click', () => {
           console.log("clicked virilio_box");
-          (!nyan.paused) ? nyan.pause() : nyan.play();
+          (!nyan_audio.paused) ? nyan_audio.pause() : nyan_audio.play();
         });
         zizek_sphere.addEventListener('click', () => {
           console.log("clicked zizek_sphere");
