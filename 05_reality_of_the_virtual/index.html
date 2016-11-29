@@ -60,7 +60,7 @@
       <a-sphere id="zizek_sphere" class="clickable" src="#zizek_texture" position="0 1.25 -1" rotation="0 330 0" radius="1.25" color="#FFFFFF"
       event-set__1="_event: mouseenter; scale: 1.1 1.1 1.1"
       event-set__2="_event: mouseleave; scale: 1 1 1"
-      sound="src: #zizek_talk; autoplay: false; loop: true"
+      sound="src: #zizek_talk; on: click; autoplay: false"
       animation="property: rotation; dur: 15000; easing: linear; loop: true; to: 0 -30 0">
       </a-sphere>
 
@@ -75,14 +75,14 @@
 
       <a-entity id="nyan" class="clickable" position="0 5 -14" rotation="0 180 0"
       animation="property: position; dir: alternate; dur: 7000; loop: true; to: 10 3 3"
-      sound="src: #dubstep; autoplay: false; loop: true">
+      sound="src: #dubstep; on: click; autoplay: false">
         <a-collada-model src="#nyan_model"></a-collada-model>
       </a-entity>
 
       <!-- interaction 3 - the drumpfs -->
       <a-cylinder id="drumpf_cylinder" class="clickable" position="1 0.75 1" rotation="0 -30 0" radius="0.5" height="1.5" src="#drumpf_texture"
       animation="property: rotation; dur: 15000; easing:linear; loop: true; to: 0 330 0"
-      sound="src: #carolina; autoplay: false; loop: true">
+      sound="src: #carolina; on: click; autoplay: false">
       </a-cylinder>
 
       <a-entity template="src: #drumpf_template" data-num="12"></a-entity>
@@ -117,15 +117,6 @@
           let visible = drumpfs.getAttribute("visible");
           visible = !visible;
           drumpfs.setAttribute("visible", visible);
-          (!carolina_audio.paused) ? carolina_audio.pause() : carolina_audio.play();
-        });
-        nyan.addEventListener('click', () => {
-          console.log("clicked nyan");
-          (!nyan_audio.paused) ? nyan_audio.pause() : nyan_audio.play();
-        });
-        zizek_sphere.addEventListener('click', () => {
-          console.log("clicked zizek_sphere");
-          (!zizek_audio.paused) ? zizek_audio.pause() : zizek_audio.play();
         });
       }
 
