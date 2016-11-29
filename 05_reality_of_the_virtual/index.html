@@ -17,16 +17,18 @@
         <audio id="zizek_talk" src="assets/zizek.mp3"></video>
         <audio id="shoot" src="assets/Laser_Shoot40.mp3">
         <audio id="dubstep" src="assets/bensound-dubstep-compressed.mp3">
+        <audio id="carolina" src="assets/carolina.mp3">
         <img id="cardboardvr_texture" src="assets/vr.jpg">
         <img id="drumpf_texture" src="assets/drumpfdrumpf.png">
         <img id="zizek_texture" src="assets/zizek.png">
         <img id="virilio_texture" src="assets/virilio.jpg">
         <img id="hell_texture" src="assets/hell_square.jpg">
         <script id="drumpf_template" type="text/x-nunjucks-template">
-          <a-entity id="drumpfs" layout="type: circle; radius: 10" position="0 1 0" visible="false">
+          <a-entity id="drumpfs" layout="type: circle; radius: 10" position="0 1 3.8" visible="false">
             <a-animation attribute="rotation" dur="30000" easing="linear" repeat="indefinite" to="0 360 0"></a-animation>
             {% for x in range(num) %}
-                <a-plane class="drumpf" look-at="#player" height="5" width="2.5" src="#drumpf_texture" transparent="true">
+                <a-plane class="drumpf" look-at="#player" height="5" width="2.5"
+                src="#drumpf_texture" transparent="true">
                 </a-plane>
             {% endfor %}
           </a-entity>
@@ -72,12 +74,11 @@
 
       <!-- interaction 3 - the drumpfs -->
       <a-cylinder id="drumpf_cylinder" class="clickable" position="1 0.75 1" rotation="0 -30 0" radius="0.5" height="1.5" src="#drumpf_texture"
-      animation="property: rotation; dur: 15000; easing:linear; loop: true; to: 0 330 0">
+      animation="property: rotation; dur: 15000; easing:linear; loop: true; to: 0 330 0"
+      sound="src: #carolina; autoplay: false; loop: true">
       </a-cylinder>
 
       <a-entity template="src: #drumpf_template" data-num="12"></a-entity>
-
-
 
     </a-scene>
 
@@ -94,7 +95,8 @@
         // get the elements of the scene we want to control
         const drumpf_cylinder = document.querySelector('#drumpf_cylinder');
         const drumpfs = document.querySelector('#drumpfs');
-        const nyan = document.querySelector('#nyan');
+        const drumpf_items = document.querySelector('.drumpf');
+        const carolina_audio = document.querySelector('#carolina');
         const nyan_audio = document.querySelector('#dubstep');
         const virilio_box = document.querySelector('#virilio_box');
         const vr_curved = document.querySelector('#vr_curved');
@@ -108,6 +110,7 @@
           let visible = drumpfs.getAttribute("visible");
           visible = !visible;
           drumpfs.setAttribute("visible", visible);
+          (!carolina_audio.paused) ? carolina_audio.pause() : carolina_audio.play();
         });
         virilio_box.addEventListener('click', () => {
           console.log("clicked virilio_box");
