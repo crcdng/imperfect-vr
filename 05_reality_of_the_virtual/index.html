@@ -73,7 +73,7 @@
       <a-box id="virilio_box" class="clickable" src="#virilio_texture" position="-1 0.5 1" rotation="0 45 0" width="1" height="1" depth="1" color="#F16745" roughness="0.8"
 	    event-set__1="_event: mouseenter; rotation: 0 90 0" event-set__2="_event: mouseleave; rotation: 0 45 0"></a-box>
 
-      <a-entity id="nyan" position="0 5 -14" rotation="0 180 0"
+      <a-entity id="nyan" class="clickable" position="0 5 -14" rotation="0 180 0"
       animation="property: position; dir: alternate; dur: 7000; loop: true; to: 10 3 3"
       sound="src: #dubstep; autoplay: false; loop: true">
         <a-collada-model src="#nyan_model"></a-collada-model>
@@ -104,9 +104,9 @@
         const drumpfs = document.querySelector('#drumpfs');
         const drumpf_items = document.querySelector('.drumpf');
         const carolina_audio = document.querySelector('#carolina');
+        const nyan = document.querySelector('#nyan');
         const nyan_audio = document.querySelector('#dubstep');
         const virilio_box = document.querySelector('#virilio_box');
-        const vr_curved = document.querySelector('#vr_curved');
         const zizek_audio = document.querySelector('#zizek_talk');
         const zizek_sphere = document.querySelector('#zizek_sphere');
         const zizek_sky = document.querySelector('#zizek_sky');
@@ -119,8 +119,8 @@
           drumpfs.setAttribute("visible", visible);
           (!carolina_audio.paused) ? carolina_audio.pause() : carolina_audio.play();
         });
-        virilio_box.addEventListener('click', () => {
-          console.log("clicked virilio_box");
+        nyan.addEventListener('click', () => {
+          console.log("clicked nyan");
           (!nyan_audio.paused) ? nyan_audio.pause() : nyan_audio.play();
         });
         zizek_sphere.addEventListener('click', () => {
