@@ -15,7 +15,6 @@
       <a-assets timeout="6000">
         <a-asset-item id="nyan_model" src="assets/nyancat_simple.dae"></a-asset-item>
         <audio id="zizek_talk" src="assets/zizek.mp3"></video>
-        <audio id="shoot" src="assets/Laser_Shoot40.mp3">
         <audio id="dubstep" src="assets/bensound-dubstep-compressed.mp3">
         <audio id="carolina" src="assets/carolina.mp3">
         <img id="cardboardvr_texture" src="assets/vr.jpg">
@@ -42,7 +41,7 @@
                     raycaster="objects: .clickable"
                     position="0 0 -1"
                     geometry="primitive: ring; radiusOuter: 0.03; radiusInner: 0.02;"
-                    material="color: black< shader: flat"
+                    material="color: black; shader: flat"
                     event-set__1="_event: mouseenter; material.color: limegreen"
                     event-set__2="_event: mouseleave; material.color: black">
                     <a-animation begin="click" easing="ease-in" attribute="scale" fill="backwards" dur="200" from="0.2 0.2 0.2" to="1 1 1"></a-animation>
@@ -66,7 +65,10 @@
 
       <a-sky
         id="zizek_sky"
-        src="#zizek_texture">
+        segments-height="40"
+        segments-width="128"
+        src="#zizek_texture"
+        color="#FFFFFF">
       </a-sky>
 
       <!-- interaction 2 - virilio / nyan -->
@@ -99,7 +101,7 @@
       }
 
       function run() {
-        // get the elements of the scene we want to control
+        // get elements of the scene we want to control
         const drumpf_cylinder = document.querySelector('#drumpf_cylinder');
         const drumpfs = document.querySelector('#drumpfs');
         const drumpf_items = document.querySelector('.drumpf');
@@ -117,6 +119,18 @@
           let visible = drumpfs.getAttribute("visible");
           visible = !visible;
           drumpfs.setAttribute("visible", visible);
+        });
+        zizek_sphere.addEventListener('click', () => {
+          let currentColor = zizek_sky.getComputedAttribute("color");
+          if(currentColor === "#FFFFFF") {
+            zizek_sky.setAttribute("color", "#FF2384")
+          } else if(currentColor === "#FF2384") {
+            zizek_sky.setAttribute("color", "#11FE23")
+          } else if(currentColor === "#11FE23") {
+            zizek_sky.setAttribute("color", "#0056FC")
+          } else if(currentColor === "#0056FC") {
+            zizek_sky.setAttribute("color", "#FFFFFF")
+          }
         });
       }
 
