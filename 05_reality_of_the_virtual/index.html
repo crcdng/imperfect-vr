@@ -12,7 +12,7 @@
   <body>
     <a-scene>
       <!-- preload scene assets -->
-      <a-assets timeout="6000">
+      <a-assets timeout="8000">
         <a-asset-item id="nyan_model" src="assets/nyancat_simple.dae"></a-asset-item>
         <audio id="zizek_talk" src="assets/zizek.mp3">
         <audio id="dubstep" src="assets/bensound-dubstep-compressed.mp3">
@@ -121,6 +121,7 @@
           drumpfs.setAttribute("visible", visible);
         });
         zizek_sphere.addEventListener('click', () => {
+          console.log("clicked zizek_sphere");
           let currentColor = zizek_sky.getAttribute("color");
           if(currentColor === "#FFFFFF") {
             zizek_sky.setAttribute("color", "#FF2384")
