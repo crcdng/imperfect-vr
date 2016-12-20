@@ -154,6 +154,7 @@
 	  },
 
 	  remove: function () {
+			console.log("animation component: remove");
 	    this.pauseAnimation();
 	    this.removeEventListeners();
 	  },
@@ -211,7 +212,10 @@
 
 	  pauseAnimation: function () {
 	    if (!this.animation) { return; }
-	    var updateConfig = configDefault;
+
+			console.log("animation component: pauseAnimation");
+
+			var updateConfig = configDefault;
 	    var propType = getPropertyType(this.el, this.data.property);
 	    if (propType === 'vec2' || propType === 'vec3' || propType === 'vec4') {
 	      updateConfig = configVector;
@@ -674,7 +678,9 @@
 	    var props = [];
 	    var els = [];
 	    anim.tweens.forEach(function(tween) {
-	      if (tween.type === 'css' || tween.type === 'transform' ) {
+				console.dir(tween.type)
+				// tween.type === 'object' ||  breaks
+				if (tween.type === 'object' || tween.type === 'css' || tween.type === 'transform' ) {
 	        props.push(tween.type === 'css' ? stringToHyphens(tween.name) : 'transform');
 	        tween.animatables.forEach(function(animatable) { els.push(animatable.target); });
 	      }
@@ -688,14 +694,19 @@
 	  var setWillChange = function(anim) {
 	    var willChange = getWillChange(anim);
 	    willChange.elements.forEach(function(element) {
+				if (element && element.style) {
 	      element.style.willChange = willChange.properties;
+			}
 	    });
 	  }
 
 	  var removeWillChange = function(anim) {
 	    var willChange = getWillChange(anim);
+			console.log(willChange)
 	    willChange.elements.forEach(function(element) {
+				if (element && element.style) {
 	      element.style.removeProperty('will-change');
+			}
 	    });
 	  }
 
@@ -841,7 +852,8 @@
 	    }
 
 	    anim.pause = function() {
-	      removeWillChange(anim);
+				console.log("anim.pause:");
+				removeWillChange(anim);
 	      var i = animations.indexOf(anim);
 	      if (i > -1) animations.splice(i, 1);
 	    }

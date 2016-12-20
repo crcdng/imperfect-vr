@@ -121,7 +121,7 @@
           drumpfs.setAttribute("visible", visible);
         });
         zizek_sphere.addEventListener('click', () => {
-          let currentColor = zizek_sky.getComputedAttribute("color");
+          let currentColor = zizek_sky.getAttribute("color");
           if(currentColor === "#FFFFFF") {
             zizek_sky.setAttribute("color", "#FF2384")
           } else if(currentColor === "#FF2384") {
