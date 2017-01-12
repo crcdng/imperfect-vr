@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Imperfect Treasure Hunt</title>
     <script src="js/aframe-v0.4.0.js"></script>
-    <script src="js/kframe.js"></script>
+    <script src="js/aframe-event-set-component.js"></script>
   </head>
   <body>
     <a-scene>
@@ -19,7 +19,7 @@
       <a-plane width="6" height="6" rotation="-90 0 0" src="#grid"></a-plane>
 
       <!-- replace the standard <p> camera </p> with a new one that has a fuse cursor -->
-      <a-entity position="0 0 3.8">
+      <a-entity position="0 0 0">
         <a-camera id="player">
           <a-entity cursor="fuse: true; fuseTimeout: 500;" geometry="primitive: ring" material="color: white;
             shader: flat" position ="0 0 -1" scale="0.01 0.01 0.01"></a-entity>

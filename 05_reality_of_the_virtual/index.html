@@ -11,6 +11,7 @@
     <script src="js/aframe-event-set-component.js"></script>
     <script src="js/aframe-layout-component.js"></script>
     <script src="js/aframe-template-component.js"></script>
+    <script src="js/aframe-look-at-component.js"></script>
   </head>
   <body>
     <a-scene>
@@ -65,7 +66,7 @@
       material="src: #zizek_texture; opacity: 0.65"
       event-set__1="_event: mouseenter; material.opacity: 1"
       event-set__2="_event: mouseleave; material.opacity: 0.65"
-      sound="src: #zizek_talk; on: click; autoplay: false"
+        sound="src: #zizek_talk; on: click; autoplay: false"
       animation="property: rotation; dur: 15000; easing: linear; loop: true; to: 0 -30 0">
       </a-entity>
 
