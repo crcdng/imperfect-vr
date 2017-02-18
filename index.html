@@ -8,7 +8,7 @@ and tap on the VR symbol to trigger VR mode.
   <head>
     <meta charset="utf-8">
     <title>Imperfect VR</title>
-    <script src="js/aframe-v0.4.0.js"></script>
+    <script src="js/aframe-v0.5.0.js"></script>
     <script src="js/nunjucks.js"></script>
     <script src="js/aframe-layout-component.js"></script>
     <script src="js/aframe-template-component.js"></script>
@@ -23,8 +23,8 @@ and tap on the VR symbol to trigger VR mode.
       <a-assets>
         <img id="img00" src="assets/img00.png">
         <img id="img01" src="assets/img01.png">
-        <img id="img02" src="assets/img02.png">
-        <img id="img03" src="assets/img03.png">
+        <img id="img02" src="assets/img03.png">
+        <img id="img03" src="assets/img02.png">
         <img id="img04" src="assets/img04.png">
         <img id="img05" src="assets/img05.png">
         <img id="img06" src="assets/img06.png">
@@ -47,13 +47,13 @@ and tap on the VR symbol to trigger VR mode.
       <a-entity text="text: Imperfect VR" color="black" position="0 4 -4" size="2 2 2" ></a-entity>
       <!-- the layout component with templates, also using the look-at component -->
       <a-entity layout="type: circle; radius: 4" position="0 0.5 0" rotation="0 10 0">
-        <a-entity template="src: #linktemplate" class="scene" data-to="url(03_360_degrees)" data-thumb="#img03" look-at="#player"></a-entity>
+        <a-entity template="src: #linktemplate" class="scene" data-to="url(03_interaction)" data-thumb="#img03" look-at="#player"></a-entity>
         <a-entity template="src: #linktemplate" class="scene" data-to="url(04_imperfect_treasures)" data-thumb="#img04" look-at="#player"></a-entity>
         <a-entity template="src: #linktemplate" class="scene" data-to="url(05_reality_of_the_virtual)" data-thumb="#img05" look-at="#player"></a-entity>
         <a-entity template="src: #linktemplate" class="scene" data-to="url(06_rabbit_chicken_ak47)" data-thumb="#img06" look-at="#player"></a-entity>
         <a-entity template="src: #linktemplate" class="scene" data-to="url(00_do_it_yourself)" data-thumb="#img00" look-at="#player"></a-entity>
         <a-entity template="src: #linktemplate" class="scene" data-to="url(01_hello_vr_world)" data-thumb="#img01" look-at="#player"></a-entity>
-        <a-entity template="src: #linktemplate" class="scene" data-to="url(02_basic_scene)" data-thumb="#img02" look-at="#player"></a-entity>
+        <a-entity template="src: #linktemplate" class="scene" data-to="url(02_360_degrees)" data-thumb="#img02" look-at="#player"></a-entity>
       </a-entity>
       <a-entity position="0 0 0" id="player">
         <a-camera>
