@@ -15,7 +15,6 @@ and tap on the VR symbol to trigger VR mode.
     <script src="js/aframe-look-at-component.js"></script>
     <script src="js/aframe-sun-sky.js"></script>
     <script src="js/aframe-mountain-component.js"></script>
-    <script src="js/aframe-text-component.js"></script>
     <script src="js/navigate-to-component.js"></script>
   </head>
   <body>
@@ -44,7 +43,7 @@ and tap on the VR symbol to trigger VR mode.
       </a-assets>
       <a-sun-sky></a-sun-sky>
       <a-mountain color="#55fe32"></a-mountain>
-      <a-entity text="text: Imperfect VR" color="black" position="0 4 -4" size="2 2 2" ></a-entity>
+      <a-entity text="value: Imperfect VR; color: green; font: assets/Monoid.fnt; fontImage: assets/Monoid.png" position="8 4 -4" scale="20 20 20" ></a-entity>
       <!-- the layout component with templates, also using the look-at component -->
       <a-entity layout="type: circle; radius: 4" position="0 0.5 0" rotation="0 10 0">
         <a-entity template="src: #linktemplate" class="scene" data-to="url(03_interaction)" data-thumb="#img03" look-at="#player"></a-entity>
