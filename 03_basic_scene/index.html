@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Basic Scene</title>
+    <!-- This scene is based on https://aframe.io/docs/0.5.0/guides/
+    I do some things differently, described in the comments below. -->
+    <script src="aframe-v0.5.0.js"></script>
+    <script src="aframe-event-set-component.js"></script>
+    <script src="aframe-animation-component.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+        <!-- I am loading everything from the local directory instead of fetching it over the net. -->
+        <img id="boxTexture" src="texture.jpg">
+        <!-- I use a different background image. -->
+        <img id="skyTexture" src="sechelt.jpg">
+        <img id="groundTexture" src="floor.jpg">
+        <!-- I am positiong the sound at the box (see below) -->
+        <audio id="backgroundNoise" src="backgroundnoise.mp3"></audio>
+      </a-assets>
+      <a-box src="#boxTexture" position="0 2 -5" rotation="0 45 45" scale="2 2 2"
+          sound="src: #backgroundNoise; autoplay: true; loop: true">
+          <a-animation attribute="position" to="0 2.2 -5" direction="alternate" dur="2000"
+          repeat="indefinite"></a-animation>
+          <a-animation attribute="scale" begin="mouseenter" dur="300" to="2.3 2.3 2.3"></a-animation>
+          <a-animation attribute="scale" begin="mouseleave" dur="300" to="2 2 2"></a-animation>
+          <a-animation attribute="rotation" begin="click" dur="2000" to="360 405 45"></a-animation>
+      </a-box>
+      <a-sky src="#skyTexture"></a-sky>
+      <a-light type="ambient" color="#445451"></a-light>
+      <a-light type="point" intensity="2" position="2 4 4"></a-light>
+      <a-text value="Hello, A-Frame!" color="#BBB"
+        position="-0.9 0.2 -3" scale="1.5 1.5 1.5"></a-text>
+      <!-- I don't use a floor, but you can put it back in: -->
+      <!-- <a-plane src="#groundTexture" rotation="-90 0 0" width="30" height="30" repeat="10 10"></a-plane> -->
+      <!-- I position myself (the camera) a bit back from the center -->
+      <a-entity position="0 0 3.8">
+        <a-camera>
+          <a-cursor color="#2E3A87">
+        </a-camera>
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
