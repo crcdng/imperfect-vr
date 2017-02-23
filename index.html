@@ -10,6 +10,7 @@ and tap on the VR symbol to trigger VR mode.
     <title>Imperfect VR</title>
     <script src="js/aframe-v0.5.0.js"></script>
     <script src="js/nunjucks.js"></script>
+    <script src="js/aframe-animation-component.js"></script>
     <script src="js/aframe-event-set-component.js"></script>
     <script src="js/aframe-layout-component.js"></script>
     <script src="js/aframe-look-at-component.js"></script>
@@ -38,13 +39,22 @@ and tap on the VR symbol to trigger VR mode.
             event-set__3="_event: mouseenter; scale: 1.2 1.2 1"
             event-set__4="_event: mouseleave; scale: 1 1 1"
             sound="on: click; src: #click-sound"
-            navigate-to="on: click; to: {{ to }}">
+            navigate-to="on: click; to: {{ to }}"
+            >
           </a-plane>
         </script>
       </a-assets>
       <a-sun-sky></a-sun-sky>
       <a-mountain color="#55fe32"></a-mountain>
-      <a-entity text="value: Imperfect VR; color: green; font: assets/Monoid.fnt; fontImage: assets/Monoid.png" position="8 4 -4" scale="20 20 20" ></a-entity>
+      <a-entity position="8 4 -4">
+        <a-entity
+            scale="20 20 20"
+            text="value: Imperfect VR; color: #21FE77; font: assets/Monoid.fnt; fontImage: assets/Monoid.png"
+            animation__position="property: position; to: 0 0 -0.1; dir: alternate; dur: 500; loop: true"
+            animation__color="property: text.color; to: #FE0011; dir: alternate; easing: easeInSine; dur: 5000; loop: true"
+            >
+        </a-entity>
+      ></a-entity>
       <!-- the layout component with templates, also using the look-at component -->
       <a-entity layout="type: circle; radius: 4" position="0 0.5 0" rotation="0 10 0">
         <a-entity template="src: #linktemplate" class="scene" data-to="url(03_basic_scene)" data-thumb="#img03" look-at="#player"></a-entity>
