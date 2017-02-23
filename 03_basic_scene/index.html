@@ -17,18 +17,16 @@
         <!-- I use a different background image. -->
         <img id="skyTexture" src="sechelt.jpg">
         <img id="groundTexture" src="floor.jpg">
-        <!-- I am positiong the sound at the box (see below) -->
-        <audio id="backgroundNoise" src="backgroundnoise.mp3"></audio>
+        <audio id="backgroundNoise" src="backgroundnoise.mp3" autoplay="true" loop="true"></audio>
       </a-assets>
       <a-box src="#boxTexture" position="0 2 -5" rotation="0 45 45" scale="2 2 2"
-          sound="src: #backgroundNoise; autoplay: true; loop: true"
           animation__position="property: position; to: 0 2.2 -5; dir: alternate; dur: 2000; loop: true"
           animation__grow="property: scale; startEvents: mouseenter; dur: 300; to: 2.3 2.3 2.3"
           animation__shrink="property: scale; startEvents: mouseleave; dur: 300; to: 2 2 2"
           animation__rotate="property: rotation; startEvents: click; dur: 2000; to: 360 405 45"
           >
           <!-- I am using the animation component above instead of the animation elements below
-          This is mentioned here: https://aframe.io/docs/0.5.0/guides/#adding-animation -->          
+          This is mentioned here: https://aframe.io/docs/0.5.0/guides/#adding-animation -->
           <!-- <a-animation attribute="position" to="0 2.2 -5" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
           <a-animation attribute="scale" begin="mouseenter" dur="300" to="2.3 2.3 2.3"></a-animation>
           <a-animation attribute="scale" begin="mouseleave" dur="300" to="2 2 2"></a-animation>
@@ -37,7 +35,7 @@
       <a-sky src="#skyTexture"></a-sky>
       <a-light type="ambient" color="#445451"></a-light>
       <a-light type="point" intensity="2" position="2 4 4"></a-light>
-      <a-text value="Hello, A-Frame!" color="#BBB" position="-0.9 0.2 -3" scale="1.5 1.5 1.5"></a-text>
+      <a-text value="Now Make a VR!" color="#BBB" position="-0.9 0.2 -3" scale="1.5 1.5 1.5"></a-text>
       <!-- I don't use a floor, but you can put it back in: -->
       <!-- <a-plane src="#groundTexture" rotation="-90 0 0" width="30" height="30" repeat="10 10"></a-plane> -->
       <!-- I position myself (the camera) a bit back from the center -->

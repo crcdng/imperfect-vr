@@ -8,15 +8,15 @@
   </head>
   <body>
     <a-scene>
-
       <!-- preload scene assets-->
-      <a-assets>
-        <img id="grid" src="assets/grid.png">
+      <a-assets timeout="7000">
+        <a-asset-item id="mod_chick" src="assets/chick-lowpoly.dae"></a-asset-item>
+        <img id="floor" src="assets/floor.jpg">
         <audio id="cube_sound" src="assets/cube_sound.mp3">
       </a-assets>
 
       <!-- a plane where you "stand on" -->
-      <a-plane width="6" height="6" rotation="-90 0 0" src="#grid"></a-plane>
+      <a-plane width="6" height="6" rotation="-90 0 0" src="#floor"></a-plane>
 
       <!-- replace the standard <p> camera </p> with a new one that has a fuse cursor -->
       <a-entity position="0 0 0">
@@ -26,11 +26,12 @@
         </a-camera>
       </a-entity>
 
-      <!-- a box that changes color when you look at it -->
+      <!-- a figure that changes color when you look at it -->
       <!-- it has sound attached to it -->
-      <a-box id="box" color="green" position="0 3 -5" size="1" sound="src: #cube_sound;
-      autoplay: true; loop:true" event-set__1="_event: mouseenter; material.color: #FFC65D" event-set__2="_event: mouseleave; color:
-      green"></a-box>
+      <a-entity id="chicken" color="green" position="0 3 -15"
+      collada-model="#mod_chick" sound="src: #cube_sound; loop: true; autoplay: true; poolsize: 5"
+      event-set__1="_event: mouseenter; material.color: #FFC65D"
+      event-set__2="_event: mouseleave; color: green"></a-entity>
 
       <!-- a sky around the scene -->
       <a-sky color="#023283">
@@ -40,13 +41,13 @@
       // compute a random new position around you, with a little bit of maths
       function newPosition() {
         var angle = Math.random() * Math.PI * 2;
-        var radius = Math.random() * 3 + 4;
+        var radius = Math.random() * 3 + 13;
         var height = Math.random() * 3 + 1;
         var result = { x: Math.cos(angle)*radius, y: height, z: -Math.sin(angle)*radius };
         return result;
       }
       // tell the box to change its position when triggered
-      document.querySelector('#box').addEventListener('click', function () {
+      document.querySelector('#chicken').addEventListener('click', function () {
         var newPos = newPosition(); // compute the new position
         this.setAttribute('color', 'red'); // change color
         setTimeout(function() { // wait a little then change color again and move the box to its new position
