@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Imperfect Treasure Hunt</title>
     <script src="js/aframe-v0.5.0.js"></script>
-    <script src="js/aframe-event-set-component.js"></script>
+    <script src="js/aframe-animation-component.js"></script>
   </head>
   <body>
     <a-scene>
@@ -26,12 +26,17 @@
         </a-camera>
       </a-entity>
 
-      <!-- a figure that changes color when you look at it -->
+      <!-- a figure that changes location when you look at it -->
       <!-- it has sound attached to it -->
-      <a-entity id="chicken" color="green" position="0 3 -15"
-      collada-model="#mod_chick" sound="src: #cube_sound; loop: true; autoplay: true; poolsize: 5"
-      event-set__1="_event: mouseenter; material.color: #FFC65D"
-      event-set__2="_event: mouseleave; color: green"></a-entity>
+      <a-entity id="chicken" position="0 3 -15">
+        <a-entity
+          collada-model="#mod_chick" sound="src: #cube_sound; loop: true; autoplay: true; poolSize: 5"
+          animation__position="property: position; to: 0 0.7 0; dir: alternate; dur: 1000; loop: true"
+          animation__grow="property: scale; startEvents: mouseenter; dur: 100; to: 1.3 1.3 1.3"
+          animation__shrink="property: scale; startEvents: mouseleave; dur: 300; to: 1 1 1"
+          >
+        </a-entity>
+      </a-entity>
 
       <!-- a sky around the scene -->
       <a-sky color="#023283">
@@ -48,12 +53,13 @@
       }
       // tell the box to change its position when triggered
       document.querySelector('#chicken').addEventListener('click', function () {
+        console.log("click")
         var newPos = newPosition(); // compute the new position
         this.setAttribute('color', 'red'); // change color
         setTimeout(function() { // wait a little then change color again and move the box to its new position
           this.setAttribute('color', 'green');
           this.setAttribute('position', "" + newPos.x + " " + newPos.y + " " + newPos.z);
-        }.bind(this), 90);
+        }.bind(this), 290);
       });
     </script>
   </body>
