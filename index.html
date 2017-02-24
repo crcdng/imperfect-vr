@@ -45,16 +45,15 @@ and tap on the VR symbol to trigger VR mode.
         </script>
       </a-assets>
       <a-sun-sky></a-sun-sky>
-      <a-mountain color="#55fe32"></a-mountain>
+      <a-mountain color="#33FE77"></a-mountain>
       <a-entity position="8 4 -4">
         <a-entity
             scale="20 20 20"
             text="value: Imperfect VR; color: #21FE77; font: assets/Monoid.fnt; fontImage: assets/Monoid.png"
-            animation__position="property: position; to: 0 0 -0.1; dir: alternate; dur: 500; loop: true"
-            animation__color="property: text.color; to: #FE0011; dir: alternate; easing: easeInSine; dur: 5000; loop: true"
-            >
+            animation__position="property: position; to: 0 0 -0.1; dir: alternate; dur: 4000; loop: true"
+            animation__color="property: text.color; to: #FE0011; dir: alternate; easing: easeInSine; dur: 5000; loop: true">
         </a-entity>
-      ></a-entity>
+      </a-entity>
       <!-- the layout component with templates, also using the look-at component -->
       <a-entity layout="type: circle; radius: 4" position="0 0.5 0" rotation="0 10 0">
         <a-entity template="src: #linktemplate" class="scene" data-to="url(03_basic_scene)" data-thumb="#img03" look-at="#player"></a-entity>
