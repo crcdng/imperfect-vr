@@ -67,7 +67,7 @@ AFRAME.registerComponent('bunny-controls', {
     this.onFocus = bind(this.onFocus, this);
     this.onKeyDown = bind(this.onKeyDown, this);
     this.onKeyUp = bind(this.onKeyUp, this);
-    this.onVisibilityChange =   bind(this.onVisibilityChange, this);
+    this.onVisibilityChange = bind(this.onVisibilityChange, this);
     this.attachVisibilityEventListeners();
   },
 
