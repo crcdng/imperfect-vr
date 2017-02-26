@@ -26,7 +26,7 @@
       <a-asset-item id="mod_nurse" src="assets/models/chr_nurse.dae"></a-asset-item>
     </a-assets>
 
-    <a-entity id="avatar" class="clickable" bunny-controls position="0 0 -1" >
+    <a-entity id="avatar" dynamic-body class="clickable" bunny-controls position="0 2 -1" >
       <a-entity id="rabbit" scale="0.3 0.3 0.3" rotation="0 90 0"
       position="0 0 -4" collada-model="#mod_rabbit"></a-entity>
     </a-entity>
@@ -47,7 +47,7 @@
     </a-entity>
 
 
-    <a-box width="15" depth="25" height="80">
+    <a-box static-body width="15" depth="25" height="80">
 
     <a-entity position="0 -1 0">
       <a-ocean width="15" depth="25" density="15" speed="2"></a-ocean>
