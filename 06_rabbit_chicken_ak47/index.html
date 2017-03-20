@@ -6,6 +6,7 @@
   <script src="js/aframe-v0.5.0.js"></script>
   <!-- components -->
   <script src="js/aframe-animation-component.js"></script>
+  <script src="js/aframe-randomizer-components.js"></script> <!-- typo in filename -->
   <script src="js/aframe-physics-system.js"></script> <!-- kinematic body -->
   <script src="js/aframe-extras.misc.js"></script> <!-- kinematic body -->
   <script src="js/aframe-extras.primitives.js"></script> <!-- ocean -->
@@ -20,6 +21,9 @@
       <a-asset-item id="mod_chick" src="assets/models/chick-lowpoly.dae"></a-asset-item>
       <a-asset-item id="mod_ak47" src="assets/models/AK-47.obj"></a-asset-item>
       <image id="heart" src="assets/textures/heart.png">
+      <a-asset-item id="tree-obj" src="assets/models/lowpolytree.obj"></a-asset-item>
+      <a-asset-item id="tree-mtl" src="assets/models/lowpolytree.mtl"></a-asset-item>
+      <a-mixin id="tree" obj-model="obj: #tree-obj; mtl: #tree-mtl" scale="2 2 2" random-position="min: -18 0 -18; max: 18 0 18"></a-mixin>
     </a-assets>
 
     <a-entity id="avatar" position="0 78 -1">
@@ -38,10 +42,11 @@
     animation__rot="property: rotation; dur: 14000; easing: easeInSine; to: 0 -17 0"
     ></a-entity>
 
-    <a-entity id="platform1" position="0 37 0" static-body>
+    <a-entity id="platform1" position="0 37 0" static-body> <!-- y = (box height + cylinder height) / 2 -->
       <a-box width="6" depth="6" height="72"></a-box>
       <a-cylinder position="0 37 0" static-body radius="12" height="2" color="green"></a-cylinder>
     </a-entity>
+
     <a-entity id="platform2" position="46.91 33 -75.77" static-body>
       <a-box width="6" depth="6" height="64"></a-box>
       <a-cylinder position="0 33 0" static-body radius="12" height="2" color="red"></a-cylinder>
@@ -59,6 +64,37 @@
     <a-entity id="ak47" obj-model="obj: #mod_ak47" position="-30 60 -43.77"
     animation__rot="property: rotation; dur: 14000; easing: linear; loop: true; to: 0 360 0"
     ></a-entity>
+
+    <a-entity id="platform4" position="30 15 30" static-body>
+      <a-box width="6" depth="6" height="28"></a-box>
+      <a-cylinder position="0 15 0" static-body radius="27" height="2" color="#3c2703"></a-cylinder>
+    </a-entity>
+
+    <a-entity id="forest" position="30 35 30"> <!-- TODO use templates -->
+      <a-entity mixin="tree"></a-entity>
+      <a-entity mixin="tree"></a-entity>
+      <a-entity mixin="tree"></a-entity>
+      <a-entity mixin="tree"></a-entity>
+      <a-entity mixin="tree"></a-entity>
+      <a-entity mixin="tree"></a-entity>
+      <a-entity mixin="tree"></a-entity>
+      <a-entity mixin="tree"></a-entity>
+      <a-entity mixin="tree"></a-entity>
+      <a-entity mixin="tree"></a-entity>
+      <a-entity mixin="tree"></a-entity>
+      <a-entity mixin="tree"></a-entity>
+      <a-entity mixin="tree"></a-entity>
+      <a-entity mixin="tree"></a-entity>
+      <a-entity mixin="tree"></a-entity>
+      <a-entity mixin="tree"></a-entity>
+      <a-entity mixin="tree"></a-entity>
+      <a-entity mixin="tree"></a-entity>
+      <a-entity mixin="tree"></a-entity>
+      <a-entity mixin="tree"></a-entity>
+      <a-entity mixin="tree"></a-entity>
+      <a-entity mixin="tree"></a-entity>
+      <a-entity mixin="tree"></a-entity>
+    </a-entity>
 
     <a-entity static-body position="0 0 0">
       <a-ocean width="550" depth="550" density="15" speed="2"></a-ocean>
