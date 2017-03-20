@@ -6,69 +6,76 @@
   <script src="js/aframe-v0.5.0.js"></script>
   <!-- components -->
   <script src="js/aframe-animation-component.js"></script>
-  <script src="js/aframe-click-listener-component.js"></script>
-  <script src="js/aframe-collider-component.js"></script>
-  <script src="js/aframe-event-set-component.js"></script>
-  <script src="js/aframe-extras.js"></script>
-  <script src="js/aframe-physics-system.js"></script>
-  <script src="js/aframe-projectile-component.js"></script>
-  <script src="js/aframe-spawner-component.js"></script>
-  <script src="js/follower.js"></script>
-  <script src="js/controller.js"></script>
+  <script src="js/aframe-physics-system.js"></script> <!-- kinematic body -->
+  <script src="js/aframe-extras.misc.js"></script> <!-- kinematic body -->
+  <script src="js/aframe-extras.primitives.js"></script> <!-- ocean -->
+  <script src="js/gradientsky.js"></script>
+  <!-- my components -->
+
 </head>
 <body>
-  <a-scene>
+  <a-scene class="fullscreen">
     <a-assets>
       <a-asset-item id="mod_rabbit" src="assets/models/rabbit-lowpoly.dae"></a-asset-item>
       <a-asset-item id="mod_chick" src="assets/models/chick-lowpoly.dae"></a-asset-item>
-      <a-asset-item id="mod_tree" src="assets/models/naturePack_168.obj"></a-asset-item>
-      <a-asset-item id="mat_tree" src="assets/models/naturePack_168.mtl"></a-asset-item>
-      <a-asset-item id="mod_nurse" src="assets/models/chr_nurse.dae"></a-asset-item>
+      <a-asset-item id="mod_ak47" src="assets/models/AK-47.obj"></a-asset-item>
+      <image id="heart" src="assets/textures/heart.png">
     </a-assets>
 
-    <a-entity id="avatar" class="clickable" bunny-controls position="0 2 -1" >
-      <a-entity id="rabbit" scale="0.3 0.3 0.3" rotation="0 90 0"
-      position="0 0 -4" collada-model="#mod_rabbit"></a-entity>
+    <a-entity id="avatar" position="0 78 -1">
+      <a-entity id="rabbit" dynamic-body="shape: box" scale="0.3 0.3 0.3" rotation="0 90 0" collada-model="#mod_rabbit"></a-entity>
     </a-entity>
 
-    <a-entity id="player" position="0 0 3.8" follow="target: #avatar">
-      <a-camera wasd-controls="enabled: false">
-        <a-entity id="cursor" cursor="fuseTimeout: 1500"
-        raycaster="objects: .clickable"
-        position="0 0 -1"
-        geometry="primitive: ring; radiusOuter: 0.03; radiusInner: 0.02;"
-        material="color: white; shader: flat"
-        event-set__1="_event: mouseenter; material.color: limegreen"
-        event-set__2="_event: mouseleave; material.color: white">
-        <a-animation begin="click" easing="ease-in" attribute="scale" fill="backwards" dur="200" from="0.2 0.2 0.2" to="1 1 1"></a-animation>
-        <a-animation begin="cursor-fusing" easing="ease-in" attribute="scale" dur="1500" fill="forwards" from="1 1 1" to="0.2 0.2 0.2"></a-animation>
+    <a-entity id="player" position="0 75 3.8" rotation="" scale="" visible="">
+      <a-camera wasd-controls="" position="" rotation="" scale="" visible="" camera="" look-controls="">
+        <a-entity id="cursor" cursor="fuseTimeout: 1500" raycaster="objects: .clickable" position="0 0 -1" geometry="primitive: ring; radiusOuter: 0.03; radiusInner: 0.02;" material="color: white; shader: flat" rotation="" scale="" visible="">
         </a-entity>
       </a-camera>
     </a-entity>
 
+    <a-entity id="chicken" static-body scale="90 90 90" position="0 -550 -550" rotation="0 180 0" collada-model="#mod_chick"
+    animation__pos="property: position; dur: 14000; easing: easeInSine; to: 0 0 -550"
+    animation__rot="property: rotation; dur: 14000; easing: easeInSine; to: 0 -17 0"
+    ></a-entity>
 
-    <a-box static-body width="15" depth="25" height="80">
-
-    <a-entity position="0 -1 0">
-      <a-ocean width="15" depth="25" density="15" speed="2"></a-ocean>
+    <a-entity id="platform1" position="0 37 0" static-body>
+      <a-box width="6" depth="6" height="72"></a-box>
+      <a-cylinder position="0 37 0" static-body radius="12" height="2" color="green"></a-cylinder>
+    </a-entity>
+    <a-entity id="platform2" position="46.91 33 -75.77" static-body>
+      <a-box width="6" depth="6" height="64"></a-box>
+      <a-cylinder position="0 33 0" static-body radius="12" height="2" color="red"></a-cylinder>
     </a-entity>
 
-    <a-sky color="#0303DE"></a-sky>
+    <a-box src="#heart" width="6" height="6" depth="0.2" position="46.91 72 -75.77"
+    animation__rot="property: rotation; dur: 12000; easing: linear; loop: true; to: 0 -360 0"
+    ></a-box>
+
+    <a-entity id="platform3" position="-30 27 -43.77" static-body>
+      <a-box width="6" depth="6" height="52"></a-box>
+      <a-cylinder position="0 27 0" static-body radius="12" height="2" color="blue"></a-cylinder>
+    </a-entity>
+
+    <a-entity id="ak47" obj-model="obj: #mod_ak47" position="-30 60 -43.77"
+    animation__rot="property: rotation; dur: 14000; easing: linear; loop: true; to: 0 360 0"
+    ></a-entity>
+
+    <a-entity static-body position="0 0 0">
+      <a-ocean width="550" depth="550" density="15" speed="2"></a-ocean>
+    </a-entity>
+    <a-gradient-sky material="shader: gradient; topColor: 255 0 0; bottomColor: 0 255;"></a-gradient-sky>
 
   </a-scene>
   <script>
   var scene = document.querySelector('a-scene');
 
   if (scene.hasLoaded) {
-  run();
-} else {
+    run();
+  } else {
     scene.addEventListener('loaded', run);
   }
 
-  function run() {
-
-
-  }
+  function run() {}
   </script>
 
 </body>

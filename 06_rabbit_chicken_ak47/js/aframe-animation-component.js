@@ -59,6 +59,9 @@
 
 	/**
 	 * Animation component for A-Frame.
+	 *
+	 * @member {boolean} animationIsPlaying - Used during initialization and scene resume to see
+	 *  if animation should be playing.
 	 */
 	AFRAME.registerComponent('animation', {
 	  schema: {
@@ -141,18 +144,24 @@
 	    this.addEventListeners();
 	  },
 
+	  /**
+	   * `remove` handler.
+	   */
 	  remove: function () {
 	    this.pauseAnimation();
 	    this.removeEventListeners();
 	  },
 
+	  /**
+	   * `pause` handler.
+	   */
 	  pause: function () {
 	    this.pauseAnimation();
 	    this.removeEventListeners();
 	  },
 
 	  /**
-	   * Called after update.
+	   * `play` handler.
 	   */
 	  play: function () {
 	    var data = this.data;
@@ -210,23 +219,20 @@
 	  },
 
 	  playAnimation: function () {
+	    this.animation = anime(this.config);
 	    this.animation.play();
-	    this.animationIsPlaying = true;
 	  },
 
 	  pauseAnimation: function () {
 	    this.animation.pause();
-	    this.animationIsPlaying = false;
 	  },
 
 	  resumeAnimation: function () {
 	    this.animation.play();
-	    this.animationIsPlaying = true;
 	  },
 
 	  restartAnimation: function () {
 	    this.animation.restart();
-	    this.animationIsPlaying = true;
 	  }
 	});
 
