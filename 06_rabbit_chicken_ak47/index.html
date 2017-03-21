@@ -7,6 +7,7 @@
   <!-- components -->
   <script src="js/aframe-animation-component.js"></script>
   <script src="js/aframe-randomizer-components.js"></script> <!-- typo in filename -->
+  <script src="js/aframe-text-geometry-component.js"></script>
   <script src="js/aframe-physics-system.js"></script> <!-- kinematic body -->
   <script src="js/aframe-extras.misc.js"></script> <!-- kinematic body -->
   <script src="js/aframe-extras.primitives.js"></script> <!-- ocean -->
@@ -23,11 +24,18 @@
       <image id="heart" src="assets/textures/heart.png">
       <a-asset-item id="tree-obj" src="assets/models/lowpolytree.obj"></a-asset-item>
       <a-asset-item id="tree-mtl" src="assets/models/lowpolytree.mtl"></a-asset-item>
-      <a-mixin id="tree" obj-model="obj: #tree-obj; mtl: #tree-mtl" scale="2 2 2" random-position="min: -18 0 -18; max: 18 0 18"></a-mixin>
+      <a-mixin id="tree" static-body obj-model="obj: #tree-obj; mtl: #tree-mtl" scale="2 2 2" random-position="min: -18 0 -18; max: 18 0 18"></a-mixin>
+      <a-asset-item id="comic-sans-bold" src="assets/fonts/ComicSansMS_Bold.json"></a-asset-item>
     </a-assets>
 
     <a-entity id="avatar" position="0 78 -1">
       <a-entity id="rabbit" dynamic-body="shape: box" scale="0.3 0.3 0.3" rotation="0 90 0" collada-model="#mod_rabbit"></a-entity>
+      <a-entity
+        text-geometry="value: Follow Me; font: #comic-sans-bold"        
+        material="color: #FF11B4"
+        position="-1.3 0.5 0"
+        animation__pos="property: position; dur: 1200; easing: easeInOutSine; loop: true; to: -1.3 0.8 0"
+      ></a-entity>
     </a-entity>
 
     <a-entity id="player" position="0 75 3.8" rotation="" scale="" visible="">
