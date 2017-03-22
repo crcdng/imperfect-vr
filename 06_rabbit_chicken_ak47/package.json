@@ -1,0 +1,14 @@
+{
+  "name": "rabbit_chicken_ak47",
+  "version": "1.0.0",
+  "description": "playing around with vr",
+  "main": "index.html",
+  "scripts": {
+    "build": "pug index.pug --pretty --watch",
+    "serve": "live-server --ignore='**/*.pug'",
+    "start": "npm run build & npm run serve",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "@crcdng",
+  "license": "MIT"
+}
