@@ -4,7 +4,7 @@
   "description": "playing around with vr",
   "main": "index.html",
   "scripts": {
-    "build": "pug index.pug --pretty --watch",
+    "build": "pug src/index.pug --out . --pretty --watch",
     "serve": "live-server --ignore='**/*.pug'",
     "start": "npm run build & npm run serve",
     "test": "echo \"Error: no test specified\" && exit 1"

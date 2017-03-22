@@ -55,7 +55,7 @@ html
       a-entity#platform2(position='46.91 33 -75.77', static-body='')
         a-box(width='6', depth='6', height='64')
         a-cylinder(position='0 33 0', static-body='', radius='12', height='2', color='red')
-      a-box(src='#heart', width='6', height='6', depth='0.2', position='46.91 72 -75.77', animation__rot='property: rotation; dur: 12000; easing: linear; loop: true; to: 0 -360 0')
+      a-box#heart(src='#heart', width='6', height='6', depth='0.2', position='46.91 72 -75.77', animation__rot='property: rotation; dur: 12000; easing: linear; loop: true; to: 0 -360 0')
       a-entity#platform4(position='30 15 30')
         a-box(width='6', depth='6', height='28')
         a-cylinder(position='0 15 0', radius='27', height='2', color='#3c2703', animation__rot='property: rotation; dur: 16000; easing: linear; loop: true; to: 0 360 0')
@@ -85,29 +85,7 @@ html
             a-entity(mixin='tree')
             a-entity(mixin='tree')
             a-entity(mixin='tree')
-      a-entity(static-body='', position='0 0 0')
+      a-entity#ocean(static-body='', position='0 0 0')
         a-ocean(width='550', depth='550', density='15', speed='2')
-      a-gradient-sky(material='shader: gradient; topColor: 255 0 0; bottomColor: 0 255;')
-    script.
-      var scene = document.querySelector('a-scene');
-      if (scene.hasLoaded) {
-      run();
-      } else {
-      scene.addEventListener('loaded', run);
-      }
-      function run() {
-      var rabbit = document.querySelector('#rabbit');
-      var following = false;
-      function followTheRabbit() {
-      console.log("following the rabbit");
-      }
-      function unFollowTheRabbit() {
-      console.log("unfollowing the rabbit");
-      }
-      rabbit.addEventListener("click", function() {
-      followTheRabbit();
-      });
-      rabbit.addEventListener("mouseleave", function() {
-      unFollowTheRabbit();
-      });
-      }
+      a-gradient-sky#sky(material='shader: gradient; topColor: 255 0 0; bottomColor: 0 255;')
+    script(src='index.js')
