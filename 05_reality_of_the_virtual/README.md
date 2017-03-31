@@ -1,6 +1,8 @@
 # Reality of the Virtual
 
-This is part of my "Imperfect VR" workshop [https://github.com/i3games/imperfect-vr](https://github.com/i3games/imperfect-vr).
+This is part of the "Imperfect VR" workshop [https://github.com/i3games/imperfect-vr](https://github.com/i3games/imperfect-vr).
+
+This scene is a variation of the "Hello World" scene featuring Slavoj Žižek, Dubstep, Nyan Cat and more.  
 
 ## Third-Party Licenses
 

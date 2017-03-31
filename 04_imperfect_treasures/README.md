@@ -1,6 +1,6 @@
 # Imperfect Treasure Hunt
 
-An implementation of the [Google Cardboard "Treasure Hunt" demo](https://developers.google.com/cardboard/android/get-started) with [A-Frame](https://aframe.io/).
+This is an implementation of the [Google Cardboard "Treasure Hunt" demo](https://developers.google.com/cardboard/android/get-started) with [A-Frame](https://aframe.io/). The scene has a 3D model, spatial audio, a particle system and some code. More about JavaScript coding in A-Frame is here: [Using JavaScript and DOM APIs](https://aframe.io/docs/0.5.0/guides/using-javascript-and-dom-apis.html)
 
 # Third-Party Licenses
 
