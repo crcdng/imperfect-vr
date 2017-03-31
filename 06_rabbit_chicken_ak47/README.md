@@ -8,7 +8,7 @@ This scene gets a bit more complex than the others. You can move around and inte
 
 ## For the technically interested:
 
-This scene gets more complex, which means we have more stuff and logic and the HTML code in `index.html` starts to look a bit unwieldy. This is partly because HTML has a rather extensive syntax. For example, to describe a platform made of a box and a cylinder we have to write:
+This scene gets more complex, which means we have more stuff and logic, and the HTML code in `index.html` starts to look a bit unwieldy. This is partly because HTML has a rather extensive syntax. For example, to describe a platform made of a box and a cylinder we have to write:
 
 ```
 <a-entity id="platform4" position="30 15 30">
