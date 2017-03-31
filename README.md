@@ -1,6 +1,5 @@
 # Imperfect VR workshop
 
-# About
 This is a collection of examples for my "Imperfect VR" workshop, built with A-Frame.
 
 [The Imperfect VR Manifesto](https://github.com/i3games/imperfect-vr/blob/master/Imperfect%20VR%20Manifesto.pdf) - [Github Repository](https://github.com/i3games/imperfect-vr) - [See it online](https://i3games.github.io/imperfect-vr/)
@@ -19,14 +18,16 @@ Imperfect VR is inspired by ["Imperfect Cinema"](http://www.imperfectcinema.com/
 * 05 The Reality of the Virtual featuring Slavoj Žižek, Dubstep, Nyan Cat and more.
 * 06 Rabbit Chicken, AK 47 (work in progress)
 
-# Plans
+## Plans
 What I am aiming at are two formats - Imperfect VR jams and Imperfect VR workshops. The workshops are geared towards beginners - starting without any assumption about your background or coding experience. We go through the absolute basics, while advanced participants can get support to realize their ideas. We also discuss current politics of VR, perception, imperfection and a bit of Nietzsche.
+
+A full day or two day workshop would be an option for teaching JavaScript.
 
 The jams will be like game jams, people coming together for a day or a weekend and creating stuff together. The spirit of all this is captured in the [The Imperfect VR Manifesto](https://github.com/i3games/imperfect-vr/blob/master/Imperfect%20VR%20Manifesto.pdf).  
 
 Now make a VR!
 
-## Some technical remarks
+## Technical remarks
 
 [A-Frame](https://aframe.io/) is a beginner-friendly, but capable open source framework made by people from Mozilla. It allows creating Virtual Reality experiences from HTML markup and JavaScript code.
 
