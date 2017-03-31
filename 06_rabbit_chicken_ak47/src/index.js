@@ -1,4 +1,4 @@
-var scene = document.querySelector('a-scene');
+const scene = document.querySelector('a-scene');
 
 if (scene.hasLoaded) {
   run();
@@ -7,11 +7,11 @@ if (scene.hasLoaded) {
 }
 
 function run() {
-  var rabbit = document.querySelector('#rabbit');
-  var following = false;
+  const rabbit = document.querySelector('#rabbit');
 
   function followTheRabbit() {
     console.log("following the rabbit");
+
   }
   function unFollowTheRabbit() {
     console.log("unfollowing the rabbit");
