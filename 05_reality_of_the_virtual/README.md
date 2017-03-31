@@ -2,7 +2,7 @@
 
 This is part of the "Imperfect VR" workshop [https://github.com/i3games/imperfect-vr](https://github.com/i3games/imperfect-vr).
 
-This scene is a variation of the "Hello World" scene featuring Slavoj Žižek, Dubstep, Nyan Cat and more.  
+This scene is a variation of the initial "Hello World" scene we built, featuring Slavoj Žižek, Dubstep, Nyan Cat and more. It has animations, sounds and interaction, and it uses a number of external [ components](https://github.com/ngokevin/k-frame). A-Frame, our VR framework, is build around the concept that everyone can write and share their components for other people to use. More about components [here](https://aframe.io/docs/0.5.0/core/component.html) and in the next scene. [Awesome A-Frame](https://github.com/aframevr/awesome-aframe) is an extensive listing of components and other resources. Contribute to the community if you can.
 
 ## Third-Party Licenses
 

@@ -18,10 +18,11 @@ Imperfect VR is inspired by ["Imperfect Cinema"](http://www.imperfectcinema.com/
 * 05 The Reality of the Virtual featuring Slavoj Žižek, Dubstep, Nyan Cat and more.
 * 06 Rabbit Chicken, AK 47 (work in progress)
 
-## Plans
-What I am aiming at are two formats - Imperfect VR jams and Imperfect VR workshops. The workshops are geared towards beginners - starting without any assumption about your background or coding experience. We go through the absolute basics, while advanced participants can get support to realize their ideas. We also discuss current politics of VR, perception, imperfection and a bit of Nietzsche.
+## Context and Plans
 
-A full day or two day workshop would be an option for teaching JavaScript.
+What I am aiming at are different formats - Imperfect VR jams and Imperfect VR workshops. The workshops are geared towards beginners - starting without any assumption about your background or coding experience. We go through the absolute basics, while advanced participants can get support to realize their ideas. We also discuss current politics of VR, perception, imperfection and a bit of Nietzsche.
+
+A full day or two day workshop would be an option for teaching JavaScript, components etc.
 
 The jams will be like game jams, people coming together for a day or a weekend and creating stuff together. The spirit of all this is captured in the [The Imperfect VR Manifesto](https://github.com/i3games/imperfect-vr/blob/master/Imperfect%20VR%20Manifesto.pdf).  
 
