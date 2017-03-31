@@ -2,6 +2,7 @@
 AFRAME.registerComponent('follow', {
 	schema: {
 		target: { type: 'selector' },
+		set: { default: true },
 		speed: { default: 0.03 },
 		minDistance: { default: 1 }
 	},
@@ -9,9 +10,15 @@ AFRAME.registerComponent('follow', {
 		this.directionVec3 = new THREE.Vector3();
 	},
 	update: function () {
-		console.log('follow component set on: ' + this.target);
+		console.log('follow component set for: ');
+		console.log(this.el);
+		console.log('on: ');
+		console.log(this.data.target);
+		console.log('set: ');
+		console.log(this.data.set);
 	},
-	tick: function () {
+	tick: function (time, timeDelta) {
+		console.log("tick");
 		const directionVec3 = this.directionVec3;
 		const targetPosition = this.data.target.object3D.position;
 	  const currentPosition = this.el.object3D.position;
@@ -27,5 +34,8 @@ AFRAME.registerComponent('follow', {
       y: currentPosition.y + directionVec3.y,
       z: currentPosition.z + directionVec3.z
     });
+	},
+	remove: function () {
+		console.log('follow removed');
 	}
 });
