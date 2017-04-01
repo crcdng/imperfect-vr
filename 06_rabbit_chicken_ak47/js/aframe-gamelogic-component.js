@@ -1,26 +1,50 @@
+// this is the complete gamelogic in one component
+// we use event-set to send messages to this component and it handles the logic
+// it is ok for our purpose here it is specific to this scene and not reusable for others
+// in practice we would separate it out into several smaller components that can be reused
+
 AFRAME.registerComponent('gamelogic', {
-	stuff: {},
 	schema: {
 		state: {type: 'string'}
 	},
 	init: function () {
-		this.stuff.player = document.querySelector('#player');
-		this.stuff.followme = document.querySelector('#followme');
-		// this.stuff.avatar = document.querySelector('#avatar');
+		this.player = document.querySelector('#player');
+		this.followme = document.querySelector('#followme');
+		this.avatar = document.querySelector('#avatar');
+		this.rabbit = document.querySelector('#rabbit');
+		this.track = '#track1';
 	},
 	update: function (oldData) {
 		var state = this.data.state;
-		// if (oldData === {}) { return; }
+		var previousState = oldData.state;
+		if (oldData === {}) { return; }
+		console.log("state: " + state);
+		console.log("previous state: " + previousState);
 
-		if (state === 'follow') {
-			console.log(this.data.state);
-			this.stuff.followme.setAttribute('visible', false);
-			this.stuff.player.setAttribute('follow', 'target', '#avatar');
+		// # 1. scene follow the rabbit
+
+		// when we "click" on the rabbit by looking at it:
+		// we attach the follow component
+		// the "follow me" text gets invisible
+		// the rabbit starts moving along its path (alongpath/curve component)
+		if (state === 'follow' && previousState !== 'movingended') {
+			this.followme.setAttribute('visible', false);
+			this.player.setAttribute('follow', 'target', '#avatar');
+			this.avatar.setAttribute('alongpath', 'curve: '+this.track+'; dur: 3000');
 		}
-		if (state === 'unfollow') {
-			console.log(this.data.state);
-			this.stuff.followme.setAttribute('visible', true);
-			this.stuff.player.removeAttribute('follow');
+		// when the rabbit is done
+		// we stop following it
+		// the rabbit hovers in mid air before falling down
+		// at the end it gets invisible
+		if (state === 'movingended') {
+			if (this.track === '#track1') {
+				this.player.removeAttribute('follow');
+				this.track = '#track2';
+				this.avatar.removeAttribute('alongpath');
+				this.avatar.setAttribute('alongpath', 'curve: '+this.track+'; delay: 4000; dur: 3000');
+			} else if (this.track === '#track2') {
+				this.rabbit.setAttribute('visible', false);
+			}
 		}
 	}
 });

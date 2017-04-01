@@ -5,9 +5,11 @@
     <title>Rabbit Chicken AK47</title>
     <script src="js/aframe-v0.5.0.js"></script>
     <!-- components-->
+    <script src="js/aframe-alongpath-component.js"></script>
     <script src="js/aframe-animation-component.js"></script>
+    <script src="js/aframe-curve-component.js"></script>
     <script src="js/aframe-event-set-component.js"></script>
-    <!-- kinematic body-->
+    <!-- kinematic body TODO use-->
     <script src="js/aframe-extras.misc.js"> </script>
     <!-- ocean-->
     <script src="js/aframe-extras.primitives.js"> </script>
@@ -20,30 +22,44 @@
     <script src="js/event-proxy.js"></script>
     <script src="js/gradientsky.js"></script>
     <!-- my components-->
-    <script src="js/aframe-follow-component.js"></script>
+    <!-- script(src='js/aframe-follow-component.js')-->
+    <script src="js/follow.js"></script>
     <script src="js/aframe-gamelogic-component.js"></script>
   </head>
   <body>
-    <a-scene class="fullscreen">
+    <a-scene class="fullscreen" physics="debug: true">
       <a-assets>
+        <a-asset-item id="mod_ak47" src="assets/models/AK-47.obj"></a-asset-item>
         <a-asset-item id="mod_rabbit" src="assets/models/rabbit-lowpoly.dae"></a-asset-item>
         <a-asset-item id="mod_chick" src="assets/models/chick-lowpoly.dae"></a-asset-item>
-        <a-asset-item id="mod_ak47" src="assets/models/AK-47.obj"></a-asset-item>
-        <image id="heart" src="assets/textures/heart.png">
-          <a-asset-item id="tree-obj" src="assets/models/lowpolytree.obj"></a-asset-item>
-          <a-asset-item id="tree-mtl" src="assets/models/lowpolytree.mtl"></a-asset-item>
-          <a-mixin id="tree" static-body="" obj-model="obj: #tree-obj; mtl: #tree-mtl" scale="2 2 2" random-position="min: -18 0 -18; max: 18 0 18"></a-mixin>
-          <a-asset-item id="comic-sans-bold" src="assets/fonts/ComicSansMS_Bold.json"></a-asset-item>
-          <!-- generated with http://gero3.github.io/facetype.js/-->
-        </image>
+        <image id="heart" src="assets/textures/heart.png"></image>
+        <a-asset-item id="tree-obj" src="assets/models/lowpolytree.obj"></a-asset-item>
+        <a-asset-item id="tree-mtl" src="assets/models/lowpolytree.mtl">         </a-asset-item>
+        <a-mixin id="tree" obj-model="obj: #tree-obj; mtl: #tree-mtl" scale="2 2 2" random-position="min: -18 0 -18; max: 18 0 18"></a-mixin>
+        <!-- generated with http://gero3.github.io/facetype.js/-->
+        <a-asset-item id="comic-sans-bold" src="assets/fonts/ComicSansMS_Bold.json"></a-asset-item>
       </a-assets>
-      <a-entity id="gamelogic" gamelogic>   </a-entity>
-      <a-entity id="avatar" position="0 76 6.15">
-        <a-entity class="interactive" id="rabbit" scale="0.3 0.3 0.3" rotation="0 90 0" collada-model="#mod_rabbit" event-set__follow="_event: click; _target: #gamelogic; gamelogic.state: follow" event-set__unfollow="_event: mouseleave; _target: #gamelogic; gamelogic.state: unfollow"></a-entity>
+      <a-entity id="gamelogic" gamelogic></a-entity>
+      <a-curve id="track1">
+        <a-curve-point position="0 76 6.15"></a-curve-point>
+        <a-curve-point position="0 76 4.15"></a-curve-point>
+        <a-curve-point position="0 76 0.15"></a-curve-point>
+        <a-curve-point position="0 76 -4.15"></a-curve-point>
+        <a-curve-point position="0 76 -12.15"></a-curve-point>
+        <a-curve-point position="0 76 -18.15"></a-curve-point>
+      </a-curve>
+      <a-curve id="track2">
+        <a-curve-point position="0 76 -18.15"></a-curve-point>
+        <a-curve-point position="0 62 -18"></a-curve-point>
+        <a-curve-point position="0 31 -18.15"></a-curve-point>
+        <a-curve-point position="0 -20 -17"></a-curve-point>
+      </a-curve>
+      <a-entity id="avatar" position="0 77 6.15" event-set__movingended="_event: movingended; _target: #gamelogic; gamelogic.state: movingended">
+        <a-entity class="interactive" id="rabbit" scale="0.3 0.3 0.3" rotation="0 90 0" collada-model="#mod_rabbit" event-set__follow="_event: click; _target: #gamelogic; gamelogic.state: follow"></a-entity>
         <a-entity id="followme" text-geometry="value: Follow Me; font: #comic-sans-bold" material="color: #FF11B4" position="-1.3 0.9 0" animation__osc="property: position; dur: 2200; easing: easeInOutSine; loop: true; to: -1.3 1.2 0"></a-entity>
       </a-entity>
       <a-entity id="player" position="0.78 75 11.8">
-        <a-camera id="camera" look-controls>
+        <a-camera id="camera" look-controls wasd-controls="enabled: false">
           <a-entity id="cursor" cursor="fuse: true; fuseTimeout: 1500" raycaster="objects: .interactive" scale="1 1 1" position="0 0 -1" geometry="primitive: ring; radiusOuter: 0.07; radiusInner: 0.05;" material="color: rgb(15,0,255); opacity: 0.72; metalness: 0.64; roughness: 0.96">
             <!-- bug in new animation system, using the old one-->
             <a-animation begin="fusing" end="mouseleave" easing="ease-in" attribute="scale" fill="forwards" from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation>
@@ -52,22 +68,22 @@
           </a-entity>
         </a-camera>
       </a-entity>
-      <a-entity id="chicken" static-body="" scale="90 90 90" position="0 -550 -550" rotation="0 180 0" collada-model="#mod_chick" animation__pos="property: position; dur: 14000; easing: easeInSine; to: 0 0 -550" animation__rot="property: rotation; dur: 14000; easing: easeInSine; to: 0 -17 0"></a-entity>
-      <a-entity id="platform3" position="-30 27 -43.77" static-body="">
-        <a-box width="6" depth="6" height="52"></a-box>
-        <a-cylinder position="0 27 0" static-body="" radius="12" height="2" color="blue"></a-cylinder>
-      </a-entity>
-      <a-entity id="ak47" obj-model="obj: #mod_ak47" position="-30 60 -43.77" animation__rot="property: rotation; dur: 14000; easing: linear; loop: true; to: 0 360 0"></a-entity>
-      <a-entity id="platform1" position="0 37 0" static-body="">
+      <a-entity id="chicken" scale="90 90 90" position="0 -550 -550" rotation="0 180 0" collada-model="#mod_chick" animation__pos="property: position; dur: 14000; easing: easeInSine; to: 0 0 -550" animation__rot="property: rotation; dur: 14000; easing: easeInSine; to: 0 -17 0"></a-entity>
+      <a-entity id="platform1" position="0 37 0">
         <!-- y = (box height + cylinder height) / 2-->
         <a-box width="6" depth="6" height="72"></a-box>
-        <a-cylinder position="0 37 0" static-body="" radius="12" height="2" color="green"></a-cylinder>
+        <a-cylinder position="0 37 0" radius="12" height="2" color="green">     </a-cylinder>
       </a-entity>
-      <a-entity id="platform2" position="46.91 33 -75.77" static-body="">
+      <a-entity id="platform2" position="46.91 33 -75.77">
         <a-box width="6" depth="6" height="64"></a-box>
-        <a-cylinder position="0 33 0" static-body="" radius="12" height="2" color="red"></a-cylinder>
+        <a-cylinder position="0 33 0" radius="12" height="2" color="red"></a-cylinder>
+        <a-box id="heart" src="#heart" width="6" height="6" depth="0.2" position="0 39 0" animation__rot="property: rotation; dur: 12000; easing: linear; loop: true; to: 0 -360 0"></a-box>
       </a-entity>
-      <a-box id="heart" src="#heart" width="6" height="6" depth="0.2" position="46.91 72 -75.77" animation__rot="property: rotation; dur: 12000; easing: linear; loop: true; to: 0 -360 0"></a-box>
+      <a-entity id="platform3" position="-30 27 -43.77">
+        <a-box width="6" depth="6" height="52"></a-box>
+        <a-cylinder position="0 27 0" radius="12" height="2" color="blue"></a-cylinder>
+        <a-entity id="ak47" position="0 29 0" obj-model="obj: #mod_ak47" animation__rot="property: rotation; dur: 14000; easing: linear; loop: true; to: 0 360 0"></a-entity>
+      </a-entity>
       <a-entity id="platform4" position="30 15 30">
         <a-box width="6" depth="6" height="28"></a-box>
         <a-cylinder position="0 15 0" radius="27" height="2" color="#3c2703" animation__rot="property: rotation; dur: 16000; easing: linear; loop: true; to: 0 360 0">
@@ -100,7 +116,7 @@
           </a-entity>
         </a-cylinder>
       </a-entity>
-      <a-entity id="ocean" static-body="" position="0 0 0">
+      <a-entity id="ocean" position="0 0 0">
         <a-ocean width="550" depth="550" density="15" speed="2"></a-ocean>
       </a-entity>
       <a-gradient-sky id="sky" material="shader: gradient; topColor: 255 0 0; bottomColor: 0 255;"></a-gradient-sky>
