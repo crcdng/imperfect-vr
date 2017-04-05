@@ -48,17 +48,22 @@
 
     </a-scene>
     <script>
-      var score = 0;
-      var chicken = document.querySelector('#chicken');
-      var particles = document.querySelector('#particles');
-      // compute a random new position around the player, with a little bit of maths
-      function newPosition(angle, radius, height) {
-        // rotate 90 degrees anticlockwise, so 0 angle is the direction of the negative Z axis
-        angle = angle + Math.PI/2;
-        return ({ x: Math.cos(angle)*radius, y: height, z: -Math.sin(angle)*radius });
-      }
-      // tell the bird to change its position when triggered
-      chicken.addEventListener('click', function () {
+      var scene = document.querySelector('a-scene');
+      // this makes sure everything has loaded
+      if (scene.hasLoaded) { run(); } else { scene.addEventListener('loaded', run); }
+
+      function run() {
+        var score = 0;
+        var chicken = document.querySelector('#chicken');
+        var particles = document.querySelector('#particles');
+        // compute a random new position around the player, with a little bit of maths
+        function newPosition(angle, radius, height) {
+          // rotate 90 degrees anticlockwise, so 0 angle is the direction of the negative Z axis
+          angle = angle + Math.PI/2;
+          return ({ x: Math.cos(angle)*radius, y: height, z: -Math.sin(angle)*radius });
+        }
+        // tell the bird to change its position when triggered
+        chicken.addEventListener('click', function () {
         var newAngle = Math.random() * Math.PI * 2;
         var newRadius = Math.random() * 5 + 18;
         var newHeight = Math.random() * 5 + 2;
@@ -86,6 +91,7 @@
           // console.log(this.getAttribute('rotation'));
         }.bind(this), 290);
       });
+      }
     </script>
   </body>
 </html>
