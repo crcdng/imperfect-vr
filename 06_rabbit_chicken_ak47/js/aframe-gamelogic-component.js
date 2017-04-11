@@ -29,6 +29,7 @@ AFRAME.registerComponent('gamelogic', {
 			this.followme.setAttribute('visible', false);
 			this.player.setAttribute('follow', 'target', '#avatar');
 			this.rabbit.setAttribute('animation__hop', 'property: position; to: 0 0.3 0; dur: 250; easing: easeInOutSine; loop: true');
+			this.rabbit.removeAttribute('event-set__follow');
 			this.avatar.setAttribute('alongpath', 'curve: '+this.track+'; dur: 3000');
 			this.avatar.setAttribute('event-set__hoppingend', '_event: movingended; _target: #gamelogic; gamelogic.state: hoppingend');
 		} else if (state === 'hoppingend') {
@@ -46,6 +47,9 @@ AFRAME.registerComponent('gamelogic', {
 			this.rabbit.setAttribute('visible', false);
 			this.chicken.setAttribute('animation__pos', 'property: position; dur: 14000; easing: easeInSine; to: 0 0 -550');
 			this.chicken.setAttribute('animation__rot', 'property: rotation; dur: 14000; easing: easeInSine; to: 0 -17 0');
+			this.chicken.setAttribute('event-set__movingend', '_event: animation__rot-complete; _target: #gamelogic; gamelogic.state: chickenmovingend');
+		} else if (state === 'chickenmovingend') {
+			console.log("chicken has ended growing");
 		}
 	}
 });

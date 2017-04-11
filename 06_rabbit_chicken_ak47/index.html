@@ -116,8 +116,9 @@
           </a-entity>
         </a-cylinder>
       </a-entity>
-      <!-- a-entity#ocean(position='0 0 0')-->
-      <!-- a-ocean(width='550', depth='550', density='15', speed='2')-->
+      <a-entity id="ocean" position="0 0 0">
+        <a-ocean width="550" depth="550" density="15" speed="2"></a-ocean>
+      </a-entity>
       <a-gradient-sky id="sky" material="shader: gradient; topColor: 255 0 0; bottomColor: 0 255;"></a-gradient-sky>
     </a-scene>
   </body>
