@@ -13,6 +13,7 @@ AFRAME.registerComponent('gamelogic', {
 		this.followme = document.querySelector('#followme');
 		this.avatar = document.querySelector('#avatar');
 		this.rabbit = document.querySelector('#rabbit');
+		this.chicken = document.querySelector('#chicken');
 		this.track = '#track1';
 	},
 	update: function (oldData) {
@@ -24,32 +25,27 @@ AFRAME.registerComponent('gamelogic', {
 
 		// # 1. scene follow the rabbit
 
-		// when we "click" on the rabbit by looking at it:
-		// we attach the follow component
-		// the "follow me" text gets invisible
-		// the rabbit starts hopping
-		// the rabbit starts moving along its path (alongpath/curve component)
 		if (state === 'follow' && previousState !== 'movingended') {
 			this.followme.setAttribute('visible', false);
 			this.player.setAttribute('follow', 'target', '#avatar');
 			this.rabbit.setAttribute('animation__hop', 'property: position; to: 0 0.3 0; dur: 250; easing: easeInOutSine; loop: true');
 			this.avatar.setAttribute('alongpath', 'curve: '+this.track+'; dur: 3000');
-		}
-		// when the rabbit is done:
-		// we stop following it
-		// the rabbit stops hopping
-		// the rabbit hovers in mid air before falling down
-		// at the end it gets invisible
-		if (state === 'movingended') {
-			if (this.track === '#track1') {
-				this.player.removeAttribute('follow');
-				this.avatar.removeAttribute('alongpath');
-				this.rabbit.removeAttribute('animation__hop');
-				this.track = '#track2';
-				this.avatar.setAttribute('alongpath', 'curve: '+this.track+'; delay: 4000; dur: 3000');
-			} else if (this.track === '#track2') {
-				this.rabbit.setAttribute('visible', false);
-			}
+			this.avatar.setAttribute('event-set__hoppingend', '_event: movingended; _target: #gamelogic; gamelogic.state: hoppingend');
+		} else if (state === 'hoppingend') {
+			console.log("hopping end");
+			this.player.removeAttribute('follow');
+			this.avatar.removeAttribute('alongpath');
+			this.avatar.removeAttribute('event-set__hoppingend');
+			this.rabbit.removeAttribute('animation__hop');
+			this.track = '#track2';
+			this.avatar.setAttribute('alongpath', 'curve: '+this.track+'; delay: 4000; dur: 3000');
+			this.avatar.setAttribute('event-set__fallingend', '_event: movingended; _target: #gamelogic; gamelogic.state: fallingend');
+		} else if (state === 'fallingend') {
+			console.log("falling end");
+			this.avatar.removeAttribute('event-set__fallingend');
+			this.rabbit.setAttribute('visible', false);
+			this.chicken.setAttribute('animation__pos', 'property: position; dur: 14000; easing: easeInSine; to: 0 0 -550');
+			this.chicken.setAttribute('animation__rot', 'property: rotation; dur: 14000; easing: easeInSine; to: 0 -17 0');
 		}
 	}
 });
