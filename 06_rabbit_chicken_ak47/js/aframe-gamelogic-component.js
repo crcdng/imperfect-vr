@@ -9,21 +9,24 @@ AFRAME.registerComponent('gamelogic', {
 		state: {type: 'string'}
 	},
 	init: function () {
-		this.player = document.querySelector('#player');
-		this.followme = document.querySelector('#followme');
+		this.ak47 = document.querySelector('#ak47');
 		this.avatar = document.querySelector('#avatar');
-		this.rabbit = document.querySelector('#rabbit');
 		this.chicken = document.querySelector('#chicken');
+		this.followme = document.querySelector('#followme');
+		this.heart = document.querySelector('#heart');
+		this.killthebeast = document.querySelector('#killthebeast');
+		this.loveandpeace = document.querySelector('#loveandpeace');
+		this.player = document.querySelector('#player');
+		this.rabbit = document.querySelector('#rabbit');
 		this.track = '#track1';
 	},
 	update: function (oldData) {
+		var raycaster = document.querySelector('[raycaster]').components.raycaster;
 		var state = this.data.state;
 		var previousState = oldData.state;
 		if (oldData === {}) { return; }
 		console.log("state: " + state);
 		console.log("previous state: " + previousState);
-
-		// # 1. scene follow the rabbit
 
 		if (state === 'follow' && previousState !== 'movingended') {
 			this.followme.setAttribute('visible', false);
@@ -49,7 +52,12 @@ AFRAME.registerComponent('gamelogic', {
 			this.chicken.setAttribute('animation__rot', 'property: rotation; dur: 14000; easing: easeInSine; to: 0 -17 0');
 			this.chicken.setAttribute('event-set__movingend', '_event: animation__rot-complete; _target: #gamelogic; gamelogic.state: chickenmovingend');
 		} else if (state === 'chickenmovingend') {
-			console.log("chicken has ended growing");
+			console.log("chicken end");
+			this.killthebeast.setAttribute('visible', true);
+			this.loveandpeace.setAttribute('visible', true);
+			this.ak47.setAttribute('class', 'interactive');
+			this.heart.setAttribute('class', 'interactive');
+			raycaster.refreshObjects();
 		}
 	}
 });
