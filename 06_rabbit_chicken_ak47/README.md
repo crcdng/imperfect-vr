@@ -10,7 +10,7 @@ This scene gets a bit more complex than the others. You can move around and inte
 
 In this scene we have more elements and also more logic written in JavaScript. In "04 Imperfect Treasures" we have already seen some code inside `<script>` tags. The recommended way for coding with A-Frame however is to pack our code into components, which can be shared and later be reused.
 
-We have used components who were written by other people in our scenes before, especially in "05 Reality of the Virtual". For this scene we start coding the components ourselves, sometimes adapting code written by others.
+We have used components written by other people in our scenes before, especially in "05 Reality of the Virtual". For this scene we start coding components ourselves, sometimes adapting code written by others.
 
 Also the HTML code in `index.html` starts to look a bit unwieldy. This is partly because HTML has a rather extensive syntax. For example, to describe one platform made of a box and a cylinder we have to write:
 
@@ -42,7 +42,7 @@ The good thing is, you can completely ignore all this stuff and - like in all th
 * [physics system](https://github.com/donmccurdy/aframe-physics-system): Copyright (c) Don McCurdy, MIT License
 * [extras](https://github.com/donmccurdy/aframe-extras): Copyright (c) Don McCurdy, MIT License
 * [gradient sky](https://github.com/zcanter/aframe-gradient-sky): Copyright (c) Zac Canter, MIT License
-* follower component code based on code by [Lady Ada Rose](https://twitter.com/lady_ada_king?lang=en)
+* 3D-Font generated with [facetype.js](http://gero3.github.io/facetype.js/)
 
 ## 3D-Models
 * AK-47: Copyright (c) AJAY896, 3dexport.com

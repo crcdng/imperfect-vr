@@ -36,7 +36,6 @@
         <a-asset-item id="obj_tree" src="assets/models/lowpolytree.obj"></a-asset-item>
         <a-asset-item id="mtl_tree" src="assets/models/lowpolytree.mtl">         </a-asset-item>
         <a-mixin id="tree" obj-model="obj: #obj_tree; mtl: #mtl_tree" scale="2 2 2" random-position="min: -18 0 -18; max: 18 0 18"></a-mixin>
-        <!-- generated with http://gero3.github.io/facetype.js/-->
         <a-asset-item id="comic-sans-bold" src="assets/fonts/ComicSansMS_Bold.json"></a-asset-item>
       </a-assets>
       <a-entity id="gamelogic" gamelogic></a-entity>
@@ -92,8 +91,7 @@
         <a-box width="6" depth="6" height="28"></a-box>
         <a-cylinder position="0 15 0" radius="27" height="2" color="#3c2703" animation__rot="property: rotation; dur: 16000; easing: linear; loop: true; to: 0 360 0">
           <a-entity id="forest" position="0 5 0">
-            <!-- TODO use templates-->
-            <a-entity mixin="tree"></a-entity>
+            <!-- making 23 trees-->
             <a-entity mixin="tree"></a-entity>
             <a-entity mixin="tree"></a-entity>
             <a-entity mixin="tree"></a-entity>

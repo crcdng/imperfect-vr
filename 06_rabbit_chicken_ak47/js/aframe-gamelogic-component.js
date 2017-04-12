@@ -5,10 +5,10 @@
 // in practice we would separate it out into several smaller components that can be reused
 
 AFRAME.registerComponent('gamelogic', {
-	schema: {
+	schema: { // this tells us what goes into the component
 		state: {type: 'string'}
 	},
-	init: function () {
+	init: function () { // this function is called once
 		this.ak47 = document.querySelector('#ak47');
 		this.avatar = document.querySelector('#avatar');
 		this.chicken = document.querySelector('#chicken');
@@ -20,7 +20,7 @@ AFRAME.registerComponent('gamelogic', {
 		this.rabbit = document.querySelector('#rabbit');
 		this.track = '#track1';
 	},
-	update: function (oldData) {
+	update: function (oldData) { // this function is called when something is updated
 		var raycaster = document.querySelector('[raycaster]').components.raycaster;
 		var state = this.data.state;
 		var previousState = oldData.state;
