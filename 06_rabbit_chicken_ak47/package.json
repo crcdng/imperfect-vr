@@ -1,7 +1,7 @@
 {
   "name": "rabbit_chicken_ak47",
   "version": "1.0.0",
-  "description": "playing around with vr",
+  "description": "playing with vr",
   "main": "index.html",
   "scripts": {
     "build": "pug src/index.pug --out . --pretty --watch",
