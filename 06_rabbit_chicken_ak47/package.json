@@ -5,8 +5,9 @@
   "main": "index.html",
   "scripts": {
     "build": "pug src/index.pug --out . --pretty --watch",
+    "poststart": "npm run build",
     "serve": "live-server --ignore='**/*.pug'",
-    "start": "npm run build && npm run serve",
+    "start": "npm run serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "@crcdng",
