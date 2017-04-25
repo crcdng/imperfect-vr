@@ -5,7 +5,7 @@
 // - in practice we would separate it out into several smaller components
 //   that can be reused
 // - there are more advanced JavaScript techniques to handle a bigger scene
-//   I'd like to cover those in the future.
+//   I'd like to cver those in the future.
 
 AFRAME.registerComponent('gamelogic', {
 	schema: { // this tells us what goes into the component
