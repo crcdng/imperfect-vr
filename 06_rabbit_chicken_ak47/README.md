@@ -43,6 +43,7 @@ The good thing is, you can completely ignore all this stuff and - like in all th
 * [extras](https://github.com/donmccurdy/aframe-extras): Copyright (c) Don McCurdy, MIT License
 * [gradient sky](https://github.com/zcanter/aframe-gradient-sky): Copyright (c) Zac Canter, MIT License
 * 3D-Font generated with [facetype.js](http://gero3.github.io/facetype.js/)
+* follow logic based on code by Lady Ada Rose
 
 ## 3D-Models
 * AK-47: Copyright (c) AJAY896, 3dexport.com

@@ -4,8 +4,8 @@
 // - the component is specific to this scene and not reusable for others
 // - in practice we would separate it out into several smaller components
 //   that can be reused
-// - there are more advanced JavaScript techniques to handle a bigger scene
-//   I'd like to cver those in the future.
+// - there are more advanced JavaScript techniques to handle complex scene
+//   I'd like to cover those in the future.
 
 AFRAME.registerComponent('gamelogic', {
 	schema: { // this tells us what goes into the component
