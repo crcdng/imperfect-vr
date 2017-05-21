@@ -12,29 +12,6 @@ In this scene we have more elements and also more logic written in JavaScript. I
 
 We have used components written by other people in our scenes before, especially in "05 Reality of the Virtual". For this scene we start coding components ourselves, sometimes adapting code written by others.
 
-Also the HTML code in `index.html` starts to look a bit unwieldy. This is partly because HTML has a rather extensive syntax. For example, to describe one platform made of a box and a cylinder we have to write:
-
-```
-<a-entity id="platform4" position="30 15 30">
-  <a-box width="6" depth="6" height="28"></a-box>
-  <a-cylinder position="0 15 0" radius="27" height="2" color="#3c2703"></a-cylinder>
-<a-entity>
-```
-
-That is still ok, but what if we could write this a bit more compact like in the following piece of code?
-
-```
-a-entity#platform4(position='30 15 30')
-  a-box(width='6', depth='6', height='28')
-  a-cylinder(position='0 15 0', radius='27', height='2', color='#3c2703')
-```
-
-Actually, we can. We can write the VR scene in a language called (Pug)[https://pugjs.org/] and then use a tool to translate it into HTML. For this short snippet, the difference may not look dramatic, but we already can see that Pug is more pleasant to the eye. There are no closing tags and no pointy brackets.
-
-This becomes more obvious when you compare `index.html` with `src/index.pug`. There are other benefits that come along with it, for example we can spot errors and typos earlier. So I switched to this method for building the scene. The trade-off is that I had to install and use more development tools. This is a topic for an "advanced" workshop and it won't be covered here.
-
-The good thing is, you can completely ignore all this stuff and - like in all the other scenes - just use `index.html` and the component code inside the `js` directory to play around, edit and learn from it.  
-
 # Third-Party Licenses
 
 * A-Frame: Copyright (c) Mozilla
