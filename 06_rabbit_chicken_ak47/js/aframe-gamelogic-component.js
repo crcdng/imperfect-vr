@@ -1,20 +1,19 @@
 // this is the complete gamelogic in one component
-// we use event-set to send messages to this component and it handles the logic
-// this approach is ok for our purpose here, but note that there are better ones:
+// I am using event-set to send messages to this component and it handles the logic
+// this approach is ok for this scene, but note that there are better ones:
 // - the component is specific to this scene and not reusable for others
-// - in practice we would separate it out into several smaller components
-//   that can be reused
-// - there are more advanced JavaScript techniques to handle complex scene
-//   I'd like to cover those in the future.
+// - there are better techniques to handle state logic. I'd like to cover those in the future.
 
 AFRAME.registerComponent('gamelogic', {
-	schema: { // this tells us what goes into the component
+	schema: { // what goes into the component
 		state: {type: 'string'}
 	},
 	init: function () { // this function is called once at the beginning
+		this.scene = this.el.sceneEl;
 		this.ak47 = document.querySelector('#ak47');
 		this.avatar = document.querySelector('#avatar');
 		this.chicken = document.querySelector('#chicken');
+		this.chickenhitplane = document.querySelector('#chickenhitplane');
 		this.followme = document.querySelector('#followme');
 		this.heart = document.querySelector('#heart');
 		this.killthebeast = document.querySelector('#killthebeast');
@@ -27,11 +26,12 @@ AFRAME.registerComponent('gamelogic', {
 	},
 	update: function (oldData) { // this function is called each time when something is updated
 		var raycaster = document.querySelector('[raycaster]').components.raycaster;
+		var increaseCounter;
+		var score;
 		var state = this.data.state;
-		var parameter;
+		var parameter, previousState, target;
 		if (oldData === {}) { return; }
-		var previousState = oldData.state;
-		var target;
+		previousState = oldData.state;
 		console.log("state: " + state + ", previous state: " + previousState);
 
 		// 1. start of the scene, we follow the rabbit
@@ -68,32 +68,52 @@ AFRAME.registerComponent('gamelogic', {
 			this.loveandpeace.setAttribute('visible', true);
 			this.ak47.setAttribute('class', 'interactive');
 			this.ak47.addEventListener("click", (function() {
-				console.log('click on ak47');
 				this.el.setAttribute('gamelogic', 'state: ak47');
 			}).bind(this));
 			this.heart.setAttribute('class', 'interactive');
 			this.heart.addEventListener("click", (function() {
-				console.log('click on heart');
 				this.el.setAttribute('gamelogic', 'state: heart');
 			}).bind(this));
 			raycaster.refreshObjects();
 		} else if (state === 'ak47' || state === 'heart') {
 			if (state === 'ak47') {
+				// violence begins
 				target = this.platform3.getAttribute('position');
-				parameters = 'property: position; dur: 2000; easing: easeInOutQuad; to: '+target.x+' '+(target.y + 33)+' '+target.z;
+				parameters = 'property: position; dur: 2000; easing: easeInOutQuad; to: ' + target.x + ' ' + (target.y + 33) + ' ' + target.z;
+				this.player.removeAttribute('animation');
+				this.player.setAttribute('animation__toak47', parameters);
+				this.player.setAttribute('event-set__playeratak47', '_event: animation__toak47-complete; _target: #gamelogic; gamelogic.state: playeratak47');
 			} else if (state === 'heart') {
 				target = this.platform2.getAttribute('position');
 				parameters = 'property: position; dur: 2000; easing: easeInOutQuad; to: '+target.x+' '+(target.y + 36)+' '+target.z;
+				this.player.removeAttribute('animation');
+				this.player.setAttribute('animation__toheart', parameters);
+				this.player.setAttribute('event-set__playeratheart', '_event: animation__toheart-complete; _target: #gamelogic; gamelogic.state: playeratheart');
 			}
 			console.log(target);
-			// stop the animation
-			this.player.removeAttribute('animation');
-			this.player.setAttribute('animation', parameters);
 			// remove all choice elements
 			this.heart.parentNode.removeChild(this.heart);
 			this.ak47.parentNode.removeChild(this.ak47);
 			this.killthebeast.parentNode.removeChild(this.killthebeast);
 			this.loveandpeace.parentNode.removeChild(this.loveandpeace);
+		} else if (state === 'playeratak47' || state === 'playeratheart') {
+			score = 0;
+			increaseCounter = function (event) {
+				score = score + 1;
+				console.log(score);
+				if (score === 5) {
+					this.el.setAttribute('gamelogic', 'state: letitrain')
+				}
+			}.bind(this);
+			this.scene.addEventListener('click', increaseCounter);
+			if (state === 'playeratak47') {
+				this.player.setAttribute('spawner', { 'mixin': 'bullet', 'on': 'click' });	// TODO change trigger
+			} else if (state === 'playeratheart') {
+				this.player.setAttribute('spawner', { 'mixin': 'heartbullet', 'on': 'click' });	// TODO change trigger
+			}
+		} else if (state === 'letitrain') {
+			this.scene.removeEventListener('click', increaseCounter);
+			this.scene.setAttribute('rain-of-entities', { tagName: 'a-sphere' });			
 		}
 	} // end of update()
 });

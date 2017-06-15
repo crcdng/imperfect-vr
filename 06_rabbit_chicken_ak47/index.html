@@ -10,15 +10,19 @@
     <script src="js/aframe-curve-component.js"></script>
     <script src="js/aframe-event-set-component.js"></script>
     <!-- ocean-->
-    <script src="js/aframe-extras.primitives.js"> </script>
-    <script src="js/aframe-look-at-component.js"> </script>
+    <script src="js/aframe-extras.primitives.js"></script>
+    <script src="js/aframe-look-at-component.js"></script>
     <!-- TODO use-->
     <script src="js/aframe-physics-system.js"></script>
+    <script src="js/rain_entities.js"></script>
     <!-- typo in filename-->
-    <script src="js/aframe-randomizer-components.js"> </script>
+    <script src="js/aframe-randomizer-components.js"></script>
     <script src="js/aframe-text-geometry-component.js"></script>
+    <script src="js/collider.js"></script>
     <script src="js/event-proxy.js"></script>
     <script src="js/gradientsky.js"></script>
+    <script src="js/projectile.js"></script>
+    <script src="js/spawner.js"></script>
     <!-- my components-->
     <script src="js/aframe-follower-component.js"></script>
     <script src="js/aframe-gamelogic-component.js"></script>
@@ -29,9 +33,23 @@
         <a-asset-item id="mod_ak47" src="assets/models/AK-47.obj"></a-asset-item>
         <a-asset-item id="mod_rabbit" src="assets/models/rabbit-lowpoly.dae"></a-asset-item>
         <a-asset-item id="mod_chick" src="assets/models/chick-lowpoly.dae"></a-asset-item>
-        <image id="img_heart" src="assets/textures/heart.png"></image>
         <a-asset-item id="obj_tree" src="assets/models/lowpolytree.obj"></a-asset-item>
-        <a-asset-item id="mtl_tree" src="assets/models/lowpolytree.mtl">         </a-asset-item>
+        <a-asset-item id="mtl_tree" src="assets/models/lowpolytree.mtl"></a-asset-item>
+        <img id="img_heart" src="assets/textures/heart.png">
+        <img id="skymap" src="assets/textures/sky.jpg">
+        <!-- rotation="90 0 0" must be set for the bullet to perform as ected -->
+        <a-mixin id="bullet"
+          geometry="primitive: cylinder; buffer: false; height: 2; radius: 0.355"
+          material="color: grey; metalness: 0.8; opacity: 0.73; roughness: 0.3; side: double"
+          rotation="90 0 0"
+          projectile="speed: -0.5" collider="target: .enemy">
+        </a-mixin>
+        <a-mixin id="heartbullet"
+          geometry="primitive: sphere ; buffer: false; radius: 0.355"
+          material="color: red; metalness: 0.8; opacity: 0.73; roughness: 0.3; side: double"
+          rotation="90 0 0"
+          projectile="speed: -0.5" collider="target: .enemy">
+        </a-mixin>
         <a-mixin id="tree" obj-model="obj: #obj_tree; mtl: #mtl_tree" scale="2 2 2" random-position="min: -18 0 -18; max: 18 0 18"></a-mixin>
         <a-asset-item id="comic-sans-bold" src="assets/fonts/ComicSansMS_Bold.json"></a-asset-item>
       </a-assets>
@@ -54,9 +72,13 @@
         <a-entity class="interactive" id="rabbit" scale="0.3 0.3 0.3" rotation="0 90 0" collada-model="#mod_rabbit" event-set__follow="_event: click; _target: #gamelogic; gamelogic.state: follow"></a-entity>
         <a-entity id="followme" text-geometry="value: Follow Me; font: #comic-sans-bold" material="color: #FF11B4" position="-1.3 0.9 0" animation__osc="property: position; dur: 2200; easing: easeInOutSine; loop: true; to: -1.3 1.2 0"></a-entity>
       </a-entity>
-      <a-entity id="player" position="0.78 75 11.8">
+      <a-entity id="player" position="0.78 75 11.8"
+        spawner="mixin: laser; on: mousedown">
         <a-camera id="camera" look-controls wasd-controls="enabled: false">
-          <a-entity id="cursor" cursor="fuse: true; fuseTimeout: 1500" raycaster="objects: .interactive" scale="1 1 1" position="0 0 -1" geometry="primitive: ring; radiusOuter: 0.07; radiusInner: 0.05;" material="color: rgb(15,0,255); opacity: 0.72; metalness: 0.64; roughness: 0.96">
+          <a-entity id="cursor" cursor="fuse: true; fuseTimeout: 1500"
+            raycaster="objects: .interactive" scale="1 1 1" position="0 0 -1"
+            geometry="primitive: ring; radiusOuter: 0.07; radiusInner: 0.05;"
+            material="color: rgb(15,0,255); opacity: 0.72; metalness: 0.64; roughness: 0.96">
             <!-- bug in new animation system, using the old one-->
             <a-animation begin="fusing" end="mouseleave" easing="ease-in" attribute="scale" fill="forwards" from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation>
             <a-animation begin="click" end="mouseleave" easing="ease-in" attribute="scale" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
@@ -116,9 +138,9 @@
         </a-cylinder>
       </a-entity>
       <a-entity id="ocean" position="0 0 0">
-        <a-ocean width="550" depth="550" density="15" speed="2"></a-ocean>
+        <a-ocean width="5500" depth="5500" density="15" speed="2"></a-ocean>
       </a-entity>
-      <a-gradient-sky id="sky" material="shader: gradient; topColor: 255 0 0; bottomColor: 0 255;"></a-gradient-sky>
+      <a-entity id="sky" geometry="primitive:sphere; radius:3000; phiLength:360; phiStart:0; thetaLength:90" material="shader:flat; side:back; height:2048; src:#skymap; width:2048"></a-entity>
     </a-scene>
   </body>
 </html>

@@ -32,7 +32,7 @@ Now make a VR!
 
 [A-Frame](https://aframe.io/) is a beginner-friendly, but capable open source framework made by people from Mozilla. It allows creating Virtual Reality experiences from HTML markup and JavaScript code.
 
-Each example is self-contained and has all the files it needs in its directory structure (including fonts, images, movies).
+Each example scene is self-contained and has all the files it needs in its directory structure (including fonts, images, movies).
 
 The main scene used to navigate to the individual scenes currently only makes sense for viewing the scenes on a desktop browser where you can go back and forth without interruption. The fullscreen VR mode on your mobile device must be triggered by an user action. This means you have to take the phone out of the cardboard and tap on the VR symbol each time a new scene is loaded.  
 
