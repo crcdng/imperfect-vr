@@ -1,8 +1,9 @@
 // this is the complete gamelogic in one component
-// I am using event-set to send messages to this component and it handles the logic
-// this approach is ok for this scene, but note that there are better ones:
+// using event-set to send messages to this component and it handles the logic
+// this approach not good for more complex scenes:
 // - the component is specific to this scene and not reusable for others
-// - there are better techniques to handle state logic. I'd like to cover those in the future.
+// - there are better techniques to handle state logic.
+// I'd like to cover those in the future.
 
 AFRAME.registerComponent('gamelogic', {
 	schema: { // what goes into the component
@@ -19,6 +20,7 @@ AFRAME.registerComponent('gamelogic', {
 		this.killthebeast = document.querySelector('#killthebeast');
 		this.loveandpeace = document.querySelector('#loveandpeace');
 		this.player = document.querySelector('#player');
+		this.platform1 = document.querySelector('#platform1'); // starting point
 		this.platform2 = document.querySelector('#platform2'); // heart
 		this.platform3 = document.querySelector('#platform3'); // ak47
 		this.rabbit = document.querySelector('#rabbit');
@@ -27,13 +29,14 @@ AFRAME.registerComponent('gamelogic', {
 	update: function (oldData) { // this function is called each time when something is updated
 		var raycaster = document.querySelector('[raycaster]').components.raycaster;
 		var increaseCounter;
+		var playerPosition; // position at rain
 		var score;
 		var state = this.data.state;
 		var parameter, previousState, target;
 		if (oldData === {}) { return; }
 		previousState = oldData.state;
 		console.log("state: " + state + ", previous state: " + previousState);
-
+		this.avatar.setAttribute('sound', "src: #start; autoplay: true");
 		// 1. start of the scene, we follow the rabbit
 		if (state === 'follow' && previousState !== 'movingended') {
 			this.followme.setAttribute('visible', false);
@@ -53,6 +56,9 @@ AFRAME.registerComponent('gamelogic', {
 			this.avatar.setAttribute('event-set__rabbithasfallen', '_event: movingended; _target: #gamelogic; gamelogic.state: rabbithasfallen');
 			// 3. the rabbit has fallen :( the chicken rises
 		} else if (state === 'rabbithasfallen') {
+			this.avatar.components.sound.stopSound();
+			this.avatar.removeAttribute('sound');
+			this.player.setAttribute('sound', "src: #rise; autoplay: true");
 			this.avatar.removeAttribute('alongpath');
 			this.avatar.removeAttribute('event-set__rabbithasfallen');
 			this.rabbit.setAttribute('visible', false);
@@ -112,8 +118,14 @@ AFRAME.registerComponent('gamelogic', {
 				this.player.setAttribute('spawner', { 'mixin': 'heartbullet', 'on': 'click' });	// TODO change trigger
 			}
 		} else if (state === 'letitrain') {
+			this.player.components.sound.stopSound();
+			this.player.removeAttribute('sound');
+			this.player.setAttribute('sound', "src: #ending; autoplay: true");
+			playerPosition = this.player.getAttribute('position');
+			console.log('letitrain');
+			console.log(playerPosition.x + ', ' + playerPosition.y + ', ' + playerPosition.x);
 			this.scene.removeEventListener('click', increaseCounter);
-			this.scene.setAttribute('rain-of-entities', { tagName: 'a-sphere' });			
+			this.scene.setAttribute('rain-of-chickens', { tagName: 'a-sphere' });
 		}
 	} // end of update()
 });

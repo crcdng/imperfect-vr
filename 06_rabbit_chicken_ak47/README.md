@@ -30,4 +30,8 @@ Canter, MIT License
 * heart: Public Domain
 * skymap: Copyright (c) A-Frame authors, MIT License
 
+## Sound
+All music by Bensound http://www.bensound.com/ [CC BY ND 3.0](https://creativecommons.org/licenses/by-nd/3.0/)
+<3 Bensound
+
 (some of the licenses are described in detail in the directory third-party-licenses)

@@ -1,7 +1,8 @@
-AFRAME.registerComponent('rain-of-entities', {
+AFRAME.registerComponent('rain-of-chickens', {
   schema: {
     tagName:    { default: 'a-box' },
     components: { default: ['dynamic-body', 'force-pushable', 'color|#39BB82'] },
+    centerPosition: { default: 10, min: 0 },
     maxCount:   { default: 10, min: 0 },
     interval:   { default: 1000, min: 0 },
     lifetime:   { default: 10000, min: 0 }
