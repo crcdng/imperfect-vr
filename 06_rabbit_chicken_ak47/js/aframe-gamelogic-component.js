@@ -48,13 +48,13 @@ AFRAME.registerComponent('gamelogic', {
 			this.avatar.setAttribute('event-set__stopfollow', '_event: movingended; _target: #gamelogic; gamelogic.state: stopfollow');
 		// 2. the rabbit has reached its destination hovering in mid-air
 		} else if (state === 'stopfollow') {
-			this.player.setAttribute('sound', "src: #fall; autoplay: true");
+			this.player.setAttribute('sound', 'src: #fall; autoplay: true');
 			this.player.removeAttribute('follow');
 			this.avatar.removeAttribute('alongpath');
 			this.avatar.removeAttribute('event-set__stopfollow');
 			this.rabbit.removeAttribute('animation__hop');
 			this.track = '#track2';
-			this.avatar.setAttribute('alongpath', 'curve: '+this.track+'; delay: 40; dur: 3000');
+			this.avatar.setAttribute('alongpath', 'curve: '+this.track+'; delay: 2500; dur: 3000');
 			this.avatar.setAttribute('event-set__rabbithasfallen', '_event: movingended; _target: #gamelogic; gamelogic.state: rabbithasfallen');
 			// 3. the rabbit has fallen :( the chicken rises
 		} else if (state === 'rabbithasfallen') {
@@ -126,9 +126,9 @@ AFRAME.registerComponent('gamelogic', {
 			this.player.setAttribute('sound', "src: #ending; autoplay: true");
 			playerPosition = this.player.getAttribute('position');
 			console.log('letitrain');
-			console.log(playerPosition.x + ', ' + playerPosition.y + ', ' + playerPosition.x);
+			console.log(playerPosition.x + ', ' + playerPosition.y + ', ' + playerPosition.z);
 			this.scene.removeEventListener('click', increaseCounter);
-			this.scene.setAttribute('rain-of-chickens', { tagName: 'a-sphere' });
+			this.scene.setAttribute('rain-of-chickens', { tagName: 'a-sphere', center: {x: playerPosition.x, y: (playerPosition.y + 30), z: playerPosition.z} });
 		}
 	} // end of update()
 });

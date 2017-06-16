@@ -2,7 +2,7 @@ AFRAME.registerComponent('rain-of-chickens', {
   schema: {
     tagName:    { default: 'a-box' },
     components: { default: ['dynamic-body', 'force-pushable', 'color|#39BB82'] },
-    centerPosition: { default: 10, min: 0 },
+    center: {type: 'vec3'},
     maxCount:   { default: 10, min: 0 },
     interval:   { default: 1000, min: 0 },
     lifetime:   { default: 10000, min: 0 }
@@ -37,6 +37,6 @@ AFRAME.registerComponent('rain-of-chickens', {
     }.bind(this), this.data.lifetime);
   },
   randomPosition: function () {
-    return {x: Math.random() * 10 - 5, y: 99, z: Math.random() * 10 - 5};
+    return {x: this.data.center.x + (Math.random() * 10 - 5), y: this.data.center.y, z: this.data.center.z + (Math.random() * 10 - 5)};
   }
 });
