@@ -39,6 +39,7 @@ AFRAME.registerComponent('gamelogic', {
 		this.avatar.setAttribute('sound', "src: #start; autoplay: true");
 		// 1. start of the scene, we follow the rabbit
 		if (state === 'follow' && previousState !== 'movingended') {
+			this.player.setAttribute('sound', "src: #select; autoplay: true");
 			this.followme.setAttribute('visible', false);
 			this.player.setAttribute('follow', 'target', '#avatar');
 			this.rabbit.setAttribute('animation__hop', 'property: position; to: 0 0.3 0; dur: 250; easing: easeInOutSine; loop: true');
@@ -47,12 +48,13 @@ AFRAME.registerComponent('gamelogic', {
 			this.avatar.setAttribute('event-set__stopfollow', '_event: movingended; _target: #gamelogic; gamelogic.state: stopfollow');
 		// 2. the rabbit has reached its destination hovering in mid-air
 		} else if (state === 'stopfollow') {
+			this.player.setAttribute('sound', "src: #fall; autoplay: true");
 			this.player.removeAttribute('follow');
 			this.avatar.removeAttribute('alongpath');
 			this.avatar.removeAttribute('event-set__stopfollow');
 			this.rabbit.removeAttribute('animation__hop');
 			this.track = '#track2';
-			this.avatar.setAttribute('alongpath', 'curve: '+this.track+'; delay: 4000; dur: 3000');
+			this.avatar.setAttribute('alongpath', 'curve: '+this.track+'; delay: 40; dur: 3000');
 			this.avatar.setAttribute('event-set__rabbithasfallen', '_event: movingended; _target: #gamelogic; gamelogic.state: rabbithasfallen');
 			// 3. the rabbit has fallen :( the chicken rises
 		} else if (state === 'rabbithasfallen') {
@@ -82,6 +84,7 @@ AFRAME.registerComponent('gamelogic', {
 			}).bind(this));
 			raycaster.refreshObjects();
 		} else if (state === 'ak47' || state === 'heart') {
+			this.player.setAttribute('sound', "src: #select; autoplay: true");
 			if (state === 'ak47') {
 				// violence begins
 				target = this.platform3.getAttribute('position');

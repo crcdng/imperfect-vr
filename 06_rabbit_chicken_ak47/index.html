@@ -33,6 +33,10 @@
         <audio id="start" src="assets/music/bensound-cute.mp3"></audio>
         <audio id="rise" src="assets/music/bensound-epic.mp3"></audio>
         <audio id="ending" src="assets/music/bensound-scifi.mp3"></audio>
+        <audio id="select" src="assets/sfx/Powerup16.mp3"></audio>
+        <audio id="fall" src="assets/sfx/89538__cgeffex__cartoon-falling-whistle.mp3"></audio>
+        <audio id="shootbullet" src="assets/sfx/Laser_Shoot51.mp3"></audio>
+        <audio id="shootheart" src="assets/sfx/Powerup18.mp3"></audio>
         <a-asset-item id="mod_ak47" src="assets/models/AK-47.obj"></a-asset-item>
         <a-asset-item id="mod_rabbit" src="assets/models/rabbit-lowpoly.dae"></a-asset-item>
         <a-asset-item id="mod_chick" src="assets/models/chick-lowpoly.dae"></a-asset-item>
@@ -45,12 +49,14 @@
           geometry="primitive: cylinder; buffer: false; height: 2; radius: 0.355"
           material="color: grey; metalness: 0.8; opacity: 0.73; roughness: 0.3; side: double"
           rotation="90 0 0"
+          sound="src: #shootbullet; autoplay: true"
           projectile="speed: -0.5" collider="target: .enemy">
         </a-mixin>
         <a-mixin id="heartbullet"
           geometry="primitive: sphere ; buffer: false; radius: 0.355"
           material="color: red; metalness: 0.8; opacity: 0.73; roughness: 0.3; side: double"
           rotation="90 0 0"
+          sound="src: #shootheart; autoplay: true"
           projectile="speed: -0.5" collider="target: .enemy">
         </a-mixin>
         <a-mixin id="tree" obj-model="obj: #obj_tree; mtl: #mtl_tree" scale="2 2 2" random-position="min: -18 0 -18; max: 18 0 18"></a-mixin>

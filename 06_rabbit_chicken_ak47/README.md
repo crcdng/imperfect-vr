@@ -31,7 +31,10 @@ Canter, MIT License
 * skymap: Copyright (c) A-Frame authors, MIT License
 
 ## Sound
-All music by Bensound http://www.bensound.com/ [CC BY ND 3.0](https://creativecommons.org/licenses/by-nd/3.0/)
-<3 Bensound
+* All music by Bensound http://www.bensound.com/ [CC BY ND 3.0](https://creativecommons.org/licenses/by-nd/3.0/) <3 Bensound
+
+* Falling Whistle by [CGEffex](https://www.freesound.org/people/CGEffex/sounds/89538/) [CC BY 3.0](http://creativecommons.org/licenses/by/3.0/)
+
+* other sound effects: bfxr
 
 (some of the licenses are described in detail in the directory third-party-licenses)
