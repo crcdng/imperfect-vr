@@ -107,10 +107,11 @@ AFRAME.registerComponent('gamelogic', {
 			this.loveandpeace.parentNode.removeChild(this.loveandpeace);
 		} else if (state === 'playeratak47' || state === 'playeratheart') {
 			score = 0;
+			this.chicken.setAttribute('class', 'interactive');
 			increaseCounter = function (event) {
 				score = score + 1;
 				console.log(score);
-				if (score === 5) {
+				if (score === 1) {
 					this.el.setAttribute('gamelogic', 'state: letitrain')
 				}
 			}.bind(this);
