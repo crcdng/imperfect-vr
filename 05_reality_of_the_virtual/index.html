@@ -121,13 +121,11 @@
 
         // elements react to clicks
         drumpf_cylinder.addEventListener('click', () => {
-          console.log("clicked drumpf_cylinder");
           let visible = drumpfs.getAttribute("visible");
           visible = !visible;
           drumpfs.setAttribute("visible", visible);
         });
         zizek_sphere.addEventListener('click', () => {
-          console.log("clicked zizek_sphere");
           let currentColor = zizek_sky.getAttribute("color");
           if(currentColor === "#FFFFFF") {
             zizek_sky.setAttribute("color", "#FF2384")

@@ -12,20 +12,23 @@
     <!-- ocean-->
     <script src="js/aframe-extras.primitives.js"></script>
     <script src="js/aframe-look-at-component.js"></script>
-    <!-- physics-->
+    <!-- needed for the template comonent -->
+    <script src="js/nunjucks.js"></script>
+    <!-- physics -->
     <script src="js/aframe-physics-system.js"></script>
-    <script src="js/rain_of_chickens.js"></script>
     <!-- typo in filename-->
     <script src="js/aframe-randomizer-components.js"></script>
+    <script src="js/aframe-template-component.js"></script>
     <script src="js/aframe-text-geometry-component.js"></script>
     <script src="js/collider.js"></script>
     <script src="js/event-proxy.js"></script>
     <script src="js/gradientsky.js"></script>
     <script src="js/projectile.js"></script>
     <script src="js/spawner.js"></script>
-    <!-- my components-->
+    <!-- my / modified components-->
     <script src="js/aframe-follower-component.js"></script>
     <script src="js/aframe-gamelogic-component.js"></script>
+    <script src="js/rain_of_chickens.js"></script>
   </head>
   <body>
     <a-scene class="fullscreen">
@@ -59,8 +62,17 @@
           sound="src: #shootheart; autoplay: true"
           projectile="speed: -0.5" collider="target: .enemy">
         </a-mixin>
-        <a-mixin id="tree" obj-model="obj: #obj_tree; mtl: #mtl_tree" scale="2 2 2" random-position="min: -18 0 -18; max: 18 0 18"></a-mixin>
-        <a-asset-item id="comic-sans-bold" src="assets/fonts/ComicSansMS_Bold.json"></a-asset-item>
+        <a-mixin id="tree"
+        obj-model="obj: #obj_tree; mtl: #mtl_tree"
+        scale="2 2 2" random-position="min: -18 0 -18; max: 18 0 18">
+        </a-mixin>
+        <a-asset-item id="comic-sans-bold" src="assets/fonts/ComicSansMS_Bold.json">
+        </a-asset-item>
+        <script id="trees_template" type="text/x-nunjucks-template">
+            {% for x in range(num) %}
+              <a-entity mixin="tree"></a-entity>
+            {% endfor %}
+        </script>
       </a-assets>
       <a-entity id="gamelogic" gamelogic></a-entity>
       <a-curve id="track1">
@@ -120,30 +132,8 @@
         <a-box width="6" depth="6" height="28"></a-box>
         <a-cylinder position="0 15 0" radius="27" height="2" color="#3c2703" animation__rot="property: rotation; dur: 16000; easing: linear; loop: true; to: 0 360 0">
           <a-entity id="forest" position="0 5 0">
-            <!-- making 23 trees-->
-            <a-entity mixin="tree"></a-entity>
-            <a-entity mixin="tree"></a-entity>
-            <a-entity mixin="tree"></a-entity>
-            <a-entity mixin="tree"></a-entity>
-            <a-entity mixin="tree"></a-entity>
-            <a-entity mixin="tree"></a-entity>
-            <a-entity mixin="tree"></a-entity>
-            <a-entity mixin="tree"></a-entity>
-            <a-entity mixin="tree"></a-entity>
-            <a-entity mixin="tree"></a-entity>
-            <a-entity mixin="tree"></a-entity>
-            <a-entity mixin="tree"></a-entity>
-            <a-entity mixin="tree"></a-entity>
-            <a-entity mixin="tree"></a-entity>
-            <a-entity mixin="tree"></a-entity>
-            <a-entity mixin="tree"></a-entity>
-            <a-entity mixin="tree"></a-entity>
-            <a-entity mixin="tree"></a-entity>
-            <a-entity mixin="tree"></a-entity>
-            <a-entity mixin="tree"></a-entity>
-            <a-entity mixin="tree"></a-entity>
-            <a-entity mixin="tree"></a-entity>
-            <a-entity mixin="tree"></a-entity>
+            <!-- creating 23 trees-->
+            <a-entity template="src: #trees_template" data-num="23"></a-entity>
           </a-entity>
         </a-cylinder>
       </a-entity>
