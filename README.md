@@ -10,13 +10,13 @@ Imperfect VR is inspired by ["Imperfect Cinema"](http://www.imperfectcinema.com/
 
 ## VR scenes for the workshop
 
-* 00 Do it Yourself - file for our coding exercise
+* 00 Do it Yourself - the scene for our coding exercise
 * 01 Hello VR World - result of our coding exercise
-* 02 360 Degrees - 360 image / video
-* 03 A Basic Scene, based on [Build with Basic HTML](https://aframe.io/docs/0.5.0/guides/)
-* 04 Imperfect Treasures, based on the [Google Cardboard example](https://developers.google.com/vr/android/get-started)
-* 05 The Reality of the Virtual featuring Slavoj Žižek, Dubstep, Nyan Cat and more.
-* 06 Rabbit Chicken, AK 47 (work in progress)
+* 02 360 Degrees - demonstrates a 360 image / video
+* 03 Basic Scene - based on the A-Frame documentation [Build with Basic HTML](https://aframe.io/docs/0.5.0/guides/). It has animation, gaze-based interaction (looking at the cube will make it react) and sound.
+* 04 Imperfect Treasures, based on the [Google Cardboard example](https://developers.google.com/vr/android/get-started). This is similar to the last scene, but has a little bit more logic (code) in it to create a little playful experience.
+* 05 The Reality of the Virtual featuring Slavoj Žižek, Dubstep, Nyan Cat and more. More interaction, more Dubstep, more everything.
+* 06 Rabbit Chicken, AK 47 (work in progress). This scene is my playground for more experimentation with storytelling and movement in VR. Expect it to be ... imperfect.
 
 ## Context and Plans
 
@@ -30,9 +30,11 @@ Now make a VR!
 
 ## Technical remarks
 
-[A-Frame](https://aframe.io/) is a beginner-friendly, but capable open source framework made by people from Mozilla. It allows creating Virtual Reality experiences from HTML markup and JavaScript code.
+[A-Frame](https://aframe.io/) is a beginner-friendly, but capable open source framework made by people from Mozilla. It allows creating Virtual Reality experiences from HTML markup and JavaScript code. It is based on a entity-component-system architecture and has a friendly and growing community.
 
-Each example scene is self-contained and has all the files it needs in its directory structure (including fonts, images, movies).
+Each example scene here is self-contained and has all the files it needs in its directory structure (including fonts, images, movies). I want it to be able to run offline, i.e. in a local network without internet connection.
+
+The code is written in ES5. I prefer writing in ES6, however ES6 requires transpilation, setting up a toolchain with npm, Babel, webpack etc. This workshop is not the place for this.
 
 The main scene used to navigate to the individual scenes currently only makes sense for viewing the scenes on a desktop browser where you can go back and forth without interruption. The fullscreen VR mode on your mobile device must be triggered by an user action. This means you have to take the phone out of the cardboard and tap on the VR symbol each time a new scene is loaded.  
 

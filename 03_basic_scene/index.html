@@ -20,12 +20,12 @@
         <audio id="backgroundNoise" src="backgroundnoise.mp3" autoplay="true" loop="true"></audio>
       </a-assets>
       <a-box src="#boxTexture" position="0 2 -5" rotation="0 45 45" scale="2 2 2"
-          animation__position="property: position; to: 0 2.2 -5; dir: alternate; dur: 2000; loop: true"
-          animation__grow="property: scale; startEvents: mouseenter; dur: 300; to: 2.3 2.3 2.3"
+          animation__position="property: position; to: 0 3.1 -5; dir: alternate; dur: 2000; loop: true"
+          animation__grow="property: scale; startEvents: mouseenter; dur: 300; to: 2.8 2.8 2.8"
           animation__shrink="property: scale; startEvents: mouseleave; dur: 300; to: 2 2 2"
           animation__rotate="property: rotation; startEvents: click; dur: 2000; to: 360 405 45"
           >
-          <!-- I am using the animation component above instead of the animation elements below
+          <!-- I am using the external animation component instead of the animation elements below
           This is mentioned here: https://aframe.io/docs/0.5.0/guides/#adding-animation -->
           <!-- <a-animation attribute="position" to="0 2.2 -5" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
           <a-animation attribute="scale" begin="mouseenter" dur="300" to="2.3 2.3 2.3"></a-animation>

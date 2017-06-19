@@ -109,7 +109,7 @@ AFRAME.registerComponent('gamelogic', {
 			score = 0;
 			this.chicken.setAttribute('class', 'interactive');
 			increaseCounter = function (event) {
-				score = score + 1;
+				score = score + 1; // TODO trigger
 				console.log(score);
 				if (score === 1) {
 					this.el.setAttribute('gamelogic', 'state: letitrain')
