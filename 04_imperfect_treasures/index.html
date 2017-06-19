@@ -10,7 +10,7 @@
   </head>
   <body>
     <a-scene>
-    <!-- <a-scene stats> --> <!-- uncomment this line and comment the line above to see statistics about the scene -->
+      <!-- <a-scene stats> --> <!-- uncomment this line and comment the line above to see statistics about the scene -->
       <!-- preload scene assets-->
       <a-assets timeout="7000">
         <a-asset-item id="mod_chick" src="assets/chick-lowpoly.dae"></a-asset-item>
@@ -42,15 +42,14 @@
           animation__shrink="property: scale; startEvents: mouseleave; dur: 300; to: 1 1 1">
         </a-entity>
       </a-entity>
-
       <!-- a sky with sun around the scene -->
       <a-sun-sky></a-sun-sky>
-
     </a-scene>
+
     <script>
       var scene = document.querySelector('a-scene');
       // this makes sure everything has loaded
-      if (scene.hasLoaded) { run(); } else { scene.addEventListener('loaded', run); }
+      if (scene.hasLoaded === true) { run(); } else { scene.addEventListener('loaded', run); }
 
       function run() {
         var score = 0;
@@ -59,38 +58,38 @@
         // compute a random new position around the player, with a little bit of maths
         function newPosition(angle, radius, height) {
           // rotate 90 degrees anticlockwise, so 0 angle is the direction of the negative Z axis
-          angle = angle + Math.PI/2;
-          return ({ x: Math.cos(angle)*radius, y: height, z: -Math.sin(angle)*radius });
+          var angle = angle + Math.PI / 2;
+          return ({ x: Math.cos(angle) * radius, y: height, z: -Math.sin(angle) * radius });
         }
         // tell the bird to change its position when triggered
         chicken.addEventListener('click', function () {
-        var newAngle = Math.random() * Math.PI * 2;
-        var newRadius = Math.random() * 5 + 18;
-        var newHeight = Math.random() * 5 + 2;
-        var newPos = newPosition(newAngle, newRadius, newHeight); // compute the new position
-        score = score + 1; // increase the score each time we trigger the chicken
-        // switch the particle system: dust -> snow -> rain
-        if (score == 3) {
-          particles.setAttribute("particle-system", "preset: dust");
-        } else if (score == 6) {
-          particles.removeAttribute("particle-system"); // remove the old attribute
-          particles.setAttribute("particle-system", "preset: snow"); // before setting the new one
-        } else if (score == 9) {
-          particles.removeAttribute("particle-system");
-          particles.setAttribute("particle-system", "preset: rain");
-        }
-        setTimeout(function() { // wait a little then move the bird to its new position and rotate it so it looks at the center
-          // how to get attributes and log them to the console
-          // console.log('old position and rotation: ---------');
-          // console.log(this.getAttribute('position'));
-          // console.log(this.getAttribute('rotation'));
-          this.setAttribute('rotation', "" + 0 + " " + ((newAngle / Math.PI) * 180) + " " + 0);
-          this.setAttribute('position', "" + newPos.x + " " + newPos.y + " " + newPos.z);
-          // console.log('new position and rotation:: ---------');
-          // console.log(this.getAttribute('position'));
-          // console.log(this.getAttribute('rotation'));
-        }.bind(this), 290);
-      });
+          var newAngle = Math.random() * Math.PI * 2;
+          var newRadius = Math.random() * 5 + 18;
+          var newHeight = Math.random() * 7 + 2;
+          var newPos = newPosition(newAngle, newRadius, newHeight); // compute the new position
+          score = score + 1; // increase the score each time we trigger the chicken
+          // switch the particle system: dust -> snow -> rain
+          if (score === 3) {
+            particles.setAttribute('particle-system', 'preset: dust');
+          } else if (score === 6) {
+            particles.removeAttribute('particle-system'); // remove the old attribute
+            particles.setAttribute('particle-system', 'preset: snow'); // before setting the new one
+          } else if (score === 9) {
+            particles.removeAttribute('particle-system');
+            particles.setAttribute('particle-system', 'preset: rain');
+          }
+          setTimeout(function() { // wait a little then move the bird to its new
+            // position and rotate it so it looks at the center
+            // console.log('old position and rotation: ---------');
+            // console.log(this.getAttribute('position'));
+            // console.log(this.getAttribute('rotation'));
+            this.setAttribute('rotation', '' + 0 + ' ' + ((newAngle / Math.PI) * 180) + ' ' + 0);
+            this.setAttribute('position', '' + newPos.x + ' ' + newPos.y + ' ' + newPos.z);
+            // console.log('new position and rotation:: ---------');
+            // console.log(this.getAttribute('position'));
+            // console.log(this.getAttribute('rotation'));
+          }.bind(this), 290);
+        });
       }
     </script>
   </body>

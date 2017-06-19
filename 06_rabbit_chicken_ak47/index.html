@@ -32,7 +32,7 @@
   </head>
   <body>
     <a-scene class="fullscreen">
-      <a-assets>
+      <a-assets timeout="8000">
         <audio id="start" src="assets/music/bensound-cute.mp3"></audio>
         <audio id="rise" src="assets/music/bensound-epic.mp3"></audio>
         <audio id="ending" src="assets/music/bensound-scifi.mp3"></audio>
@@ -63,37 +63,38 @@
           projectile="speed: -0.5" collider="target: .enemy">
         </a-mixin>
         <a-mixin id="tree"
-        obj-model="obj: #obj_tree; mtl: #mtl_tree"
-        scale="2 2 2" random-position="min: -18 0 -18; max: 18 0 18">
+          obj-model="obj: #obj_tree; mtl: #mtl_tree"
+          scale="2 2 2" random-position="min: -18 0 -18; max: 18 0 18">
         </a-mixin>
         <a-asset-item id="comic-sans-bold" src="assets/fonts/ComicSansMS_Bold.json">
         </a-asset-item>
         <script id="trees_template" type="text/x-nunjucks-template">
-            {% for x in range(num) %}
-              <a-entity mixin="tree"></a-entity>
-            {% endfor %}
+          {% for x in range(num) %}
+            <a-entity mixin="tree"></a-entity>
+          {% endfor %}
         </script>
       </a-assets>
+
       <a-entity id="gamelogic" gamelogic></a-entity>
       <a-curve id="track1">
-        <a-curve-point position="0 76 6.15"></a-curve-point>
-        <a-curve-point position="0 76 4.15"></a-curve-point>
-        <a-curve-point position="0 76 0.15"></a-curve-point>
-        <a-curve-point position="0 76 -4.15"></a-curve-point>
-        <a-curve-point position="0 76 -12.15"></a-curve-point>
-        <a-curve-point position="0 76 -18.15"></a-curve-point>
+        <a-curve-point position="0 72.5 6.15"></a-curve-point>
+        <a-curve-point position="0 72.5 4.15"></a-curve-point>
+        <a-curve-point position="0 72.5 0.15"></a-curve-point>
+        <a-curve-point position="0 72.5 -4.15"></a-curve-point>
+        <a-curve-point position="0 72.5 -12.15"></a-curve-point>
+        <a-curve-point position="0 74 -18.15"></a-curve-point>
       </a-curve>
       <a-curve id="track2">
-        <a-curve-point position="0 76 -18.15"></a-curve-point>
+        <a-curve-point position="0 74 -18.15"></a-curve-point>
         <a-curve-point position="0 62 -18"></a-curve-point>
         <a-curve-point position="0 31 -18.15"></a-curve-point>
         <a-curve-point position="0 -20 -17"></a-curve-point>
       </a-curve>
-      <a-entity id="avatar" position="0 77 6.15">
+      <a-entity id="avatar" position="0 72.4 6.15">
         <a-entity class="interactive" id="rabbit" scale="0.3 0.3 0.3" rotation="0 90 0" collada-model="#mod_rabbit" event-set__follow="_event: click; _target: #gamelogic; gamelogic.state: follow"></a-entity>
         <a-entity id="followme" text-geometry="value: Follow Me; font: #comic-sans-bold" material="color: #FF11B4" position="-1.3 0.9 0" animation__osc="property: position; dur: 2200; easing: easeInOutSine; loop: true; to: -1.3 1.2 0"></a-entity>
       </a-entity>
-      <a-entity id="player" position="0.78 75 11.8"
+      <a-entity id="player" position="0.78 72.4 11.8"
         spawner="mixin: laser; on: mousedown">
         <a-camera id="camera" look-controls wasd-controls="enabled: false">
           <!-- TODO raycaster -->
@@ -109,7 +110,7 @@
         </a-camera>
       </a-entity>
       <a-entity id="chicken" scale="90 90 90" position="0 -550 -550" rotation="0 180 0" collada-model="#mod_chick"></a-entity>
-      <a-entity id="platform1" position="0 37 0"> <!-- starting point -->
+      <a-entity id="platform1" position="0 33 0"> <!-- starting point -->
         <!-- y = (box height + cylinder height) / 2-->
         <a-box width="6" depth="6" height="72"></a-box>
         <a-cylinder position="0 37 0" radius="12" height="2" color="green"></a-cylinder>
@@ -121,14 +122,14 @@
           <a-entity id="loveandpeace" text-geometry="value: Love &amp; Peace; font: #comic-sans-bold" material="color: #FF1108" scale="5 5 5" position="-10 5 0" visible="false"></a-entity>
         </a-box>
       </a-entity>
-      <a-entity id="platform3" position="-30 27 -43.77"> <!-- ak47 -->
+      <a-entity id="platform3" position="-30 33 -43.77"> <!-- ak47 -->
         <a-box width="6" depth="6" height="52"></a-box>
         <a-cylinder position="0 27 0" radius="12" height="2" color="blue"></a-cylinder>
         <a-entity id="ak47" position="0 29 0" obj-model="obj: #mod_ak47" animation__rot="property: rotation; dur: 14000; easing: linear; loop: true; to: 0 360 0">
           <a-entity id="killthebeast" text-geometry="value: Kill The Beast; font: #comic-sans-bold" material="color: #0811FF" scale="5 5 5" position="-10 10 0" visible="false"></a-entity>
         </a-entity>
       </a-entity>
-      <a-entity id="platform4" position="30 15 30"> <!-- trees -->
+      <a-entity id="platform4" position="30 23 30"> <!-- trees -->
         <a-box width="6" depth="6" height="28"></a-box>
         <a-cylinder position="0 15 0" radius="27" height="2" color="#3c2703" animation__rot="property: rotation; dur: 16000; easing: linear; loop: true; to: 0 360 0">
           <a-entity id="forest" position="0 5 0">
