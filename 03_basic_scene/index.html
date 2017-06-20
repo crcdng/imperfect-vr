@@ -13,11 +13,11 @@
     <a-scene>
       <a-assets>
         <!-- I am loading everything from the local directory instead of fetching it over the net. -->
-        <img id="boxTexture" src="texture.jpg">
+        <img id="boxTexture" alt="box texture" src="texture.jpg">
         <!-- I use a different background image. -->
-        <img id="skyTexture" src="sechelt.jpg">
-        <img id="groundTexture" src="floor.jpg">
-        <audio id="backgroundNoise" src="backgroundnoise.mp3" autoplay="true" loop="true"></audio>
+        <img id="skyTexture" alt="sky texture" src="sechelt.jpg">
+        <img id="groundTexture" alt="ground texture" src="floor.jpg">
+        <audio id="backgroundNoise" src="backgroundnoise.mp3" autoplay loop></audio>
       </a-assets>
       <a-box src="#boxTexture" position="0 2 -5" rotation="0 45 45" scale="2 2 2"
           animation__position="property: position; to: 0 3.1 -5; dir: alternate; dur: 2000; loop: true"
@@ -41,7 +41,7 @@
       <!-- I position myself (the camera) a bit back from the center -->
       <a-entity position="0 0 3.8">
         <a-camera>
-          <a-cursor color="#2E3A87">
+          <a-cursor color="#2E3A87"></a-cursor>
         </a-camera>
       </a-entity>
     </a-scene>
