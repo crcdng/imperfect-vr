@@ -136,32 +136,26 @@ AFRAME.registerComponent('gamelogic', {
 		} else if (state === states.ak47selected || state === states.heartselected) {
 			player.setAttribute('sound', "src: #select; autoplay: true");
 
-			if (state === states.ak47selected) {
-        jumpStart = player.getAttribute('position');
-        jumpTarget = platform3.getAttribute('position');
-        jumpTarget.y = jumpTarget.y + 33;
-
-        player.removeAttribute('animation');
-        player.removeAttribute('move-along');
-
-        jumpString = createPointStringFromJumpPath(createJumpPath(jumpStart, jumpTarget));
-console.log(jumpString);
-        player.setAttribute('move-along', 'dur: 2000; points: '+jumpString+';')
-				player.setAttribute('event-set__playeratak47', '_event: move-along-end; _target: #gamelogic; gamelogic.state: ' + states.atak47);
-
-			} else if (state === states.heartselected) {
-				target = platform2.getAttribute('position');
-				parameters = 'property: position; dur: 2000; easing: easeInOutQuad; to: '+target.x+' '+(target.y + 36)+' '+target.z;
-				player.removeAttribute('animation');
-				player.setAttribute('animation__toheart', parameters);
-				player.setAttribute('event-set__playeratheart', '_event: animation__toheart-complete; _target: #gamelogic; gamelogic.state: ' + states.atheart);
-			}
-
-			// remove all choice elements
 			heart.parentNode.removeChild(heart);
 			ak47.parentNode.removeChild(ak47);
 			killthebeast.parentNode.removeChild(killthebeast);
 			loveandpeace.parentNode.removeChild(loveandpeace);
+
+			if (state === states.ak47selected) {
+        jumpTarget = platform3.getAttribute('position');
+        jumpTargetState = states.atak47;
+			} else if (state === states.heartselected) {
+        jumpTarget = platform2.getAttribute('position');
+        jumpTargetState = states.atheart;
+			}
+
+      jumpStart = player.getAttribute('position');
+      jumpTarget.y = jumpTarget.y + 33;
+      player.removeAttribute('animation');
+      player.removeAttribute('move-along');
+      jumpString = createPointStringFromJumpPath(createJumpPath(jumpStart, jumpTarget));
+      player.setAttribute('move-along', 'dur: 2000; points: '+jumpString+';')
+      player.setAttribute('event-set__playeratak47', '_event: move-along-end; _target: #gamelogic; gamelogic.state: ' + states.atak47);
 
 		// 6. player has arrived at final destination
 		} else if (state === states.atak47 || state === states.atheart) {
