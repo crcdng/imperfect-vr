@@ -103,19 +103,21 @@
         <a-box width="6" depth="6" height="72"></a-box>
         <a-cylinder position="0 37 0" radius="12" height="2" color="green"></a-cylinder>
       </a-entity>
-      <a-entity id="platform2" position="46.91 33 -75.77"> <!-- heart -->
-        <a-box width="6" depth="6" height="64"></a-box>
-        <a-cylinder position="0 33 0" radius="12" height="2" color="red"></a-cylinder>
-        <a-box id="heart" src="#img_heart" width="6" height="6" depth="0.2" position="0 39 0" animation__rot="property: rotation; dur: 12000; easing: linear; loop: true; to: 0 -360 0">
-          <a-entity id="loveandpeace" text-geometry="value: Love &amp; Peace; font: #comic-sans-bold" material="color: #FF1108" scale="5 5 5" position="-10 5 0" visible="false"></a-entity>
-        </a-box>
+      <a-entity id="platform2" position="46 33 -75"> <!-- heart -->
+        <a-box width="6" depth="6" height="72"></a-box>
+        <a-cylinder position="0 37 0" radius="12" height="2" color="red">
+          <a-box id="heart" src="#img_heart" width="6" height="6" depth="0.2" position="0 7 0" animation__rot="property: rotation; dur: 12000; easing: linear; loop: true; to: 0 -360 0">
+            <a-entity id="loveandpeace" text-geometry="value: Love &amp; Peace; font: #comic-sans-bold" material="color: #FF1108" scale="5 5 5" position="-10 5 0" visible="false"></a-entity>
+          </a-box>
+        </a-cylinder>
       </a-entity>
-      <a-entity id="platform3" position="-30 33 -43.77"> <!-- ak47 -->
-        <a-box width="6" depth="6" height="52"></a-box>
-        <a-cylinder position="0 27 0" radius="12" height="2" color="blue"></a-cylinder>
-        <a-entity id="ak47" position="0 29 0" obj-model="obj: #mod_ak47" animation__rot="property: rotation; dur: 14000; easing: linear; loop: true; to: 0 360 0">
-          <a-entity id="killthebeast" text-geometry="value: Kill The Beast; font: #comic-sans-bold" material="color: #0811FF" scale="5 5 5" position="-10 10 0" visible="false"></a-entity>
-        </a-entity>
+      <a-entity id="platform3" position="-30 33 -43"> <!-- ak47 -->
+        <a-box width="6" depth="6" height="72"></a-box>
+        <a-cylinder position="0 37 0" radius="12" height="2" color="blue">
+          <a-entity id="ak47" position="0 3 0" obj-model="obj: #mod_ak47" animation__rot="property: rotation; dur: 14000; easing: linear; loop: true; to: 0 360 0">
+            <a-entity id="killthebeast" text-geometry="value: Kill The Beast; font: #comic-sans-bold" material="color: #0811FF" scale="5 5 5" position="-10 10 0" visible="false"></a-entity>
+          </a-entity>
+        </a-cylinder>
       </a-entity>
       <a-entity id="platform4" position="30 23 30"> <!-- trees -->
         <a-box width="6" depth="6" height="28"></a-box>

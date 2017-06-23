@@ -16,6 +16,7 @@ AFRAME.registerComponent('move-along', {
     points: {
       default: [],
       parse: function (value) {
+        if (value == null) { throw Error('move-along: path is null'); }
         var arr = value.trim().split(',');
         var result = [];
         var i;
@@ -34,12 +35,12 @@ AFRAME.registerComponent('move-along', {
       var threePoints = [];
       var i;
       this.elapsed = 0;
-      this.animate = true;
       for (i = 0; i < points.length; i = i + 1) {
         threePoints.push(new THREE.Vector3(points[i].x, points[i].y, points[i].z));
       }
       this.threeConstructor = THREE['CatmullRomCurve3'];
       this.curve = new this.threeConstructor(threePoints);
+      this.animate = true; // curve is initialized
     }).bind(this);
   },
 
@@ -66,7 +67,7 @@ AFRAME.registerComponent('move-along', {
     var loop = this.data.loop;
     var point, ratio;
 
-    if (this.animate === false) { return; }
+    if (this.animate == null || this.animate === false) { return; }
     this.elapsed = this.elapsed + delta;
     if (this.elapsed < delay) { return; }
     if (this.elapsed > delay + duration) {

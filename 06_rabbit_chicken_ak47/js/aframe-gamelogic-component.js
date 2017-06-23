@@ -2,21 +2,21 @@
 // the elements in the scene use the event-set component to send messages to it
 // and it handles the logic
 
-// this approach would not work well for more complex scenes
+// remark: this approach would not work well for more complex scenes
 // (image hundreds of states)
-// there are better techniques to handle state logic
+// and there are better techniques to handle state logic
 // also this component is specific to this scene and not reusable for others
 
-// two helper functions
-
+// helper functions:
 // construct a lerp-ed path with sinusodial movement on y.
 // assume start.y === target.y
 // returns an array of points [{x: x0, y: y0, z: z0}, ...]
-function createJumpPath (startPos, endPos, points = 10, maxHeight = 11.5) {
+function createJumpPath (startPos, endPos, points, maxHeight) {
   var path = [];
 	var i, step, stepY, x, y, z;
-	if (points == null) { point}
-  for (i = 0; i <= points; i = i + 1) {
+  if (points == null) { points = 10; }
+  if (maxHeight == null) { maxHeight = 20; }
+  for (i = 0; i < points; i = i + 1) {
     step = i / points;
     stepY = (i / points) * Math.PI;
     x = startPos.x + step * (endPos.x - startPos.x);
@@ -27,18 +27,15 @@ function createJumpPath (startPos, endPos, points = 10, maxHeight = 11.5) {
   return path;
 }
 
-function createCurveEntityFromJumpPath (id, arrayOfPoints) {
-  var curveEntity = document.createElement('a-curve');
-	var curvepoint, i, point;
+function createPointStringFromJumpPath (arrayOfPoints) {
+	var curvepoint, i, length = arrayOfPoints.length, point, pointString = "";
 
-	curveEntity.setAttribute('id', id);
-  for (i = 0; i < arrayOfPoints.length; i = i + 1) {
+  for (i = 0; i < length; i = i + 1) {
 		point = arrayOfPoints[i];
-    curvePoint = document.createElement('a-curve-point');
-    curvePoint.setAttribute('position', `${point.x} ${point.y} ${point.z}`);
-    curveEntity.appendChild(curvePoint);
+    curvePoint = AFRAME.utils.coordinates.stringify(point);
+    pointString = pointString.concat(curvePoint, (i !== length - 1) ? "," : ""); // avoid a nullvector at the end
   }
-  return curveEntity;
+  return pointString;
 }
 
 
@@ -51,7 +48,6 @@ AFRAME.registerComponent('gamelogic', {
 		this.ak47 = document.querySelector('#ak47');
 		this.avatar = document.querySelector('#avatar');
 		this.chicken = document.querySelector('#chicken');
-		this.chickenhitplane = document.querySelector('#chickenhitplane');
 		this.followme = document.querySelector('#followme');
 		this.heart = document.querySelector('#heart');
 		this.killthebeast = document.querySelector('#killthebeast');
@@ -69,114 +65,128 @@ AFRAME.registerComponent('gamelogic', {
 		this.previousState = null;
 	},
 	update: function (oldData) { // this function is called each time when something is updated
-		var raycaster = document.querySelector('[raycaster]').components.raycaster;
-		var increaseCounter;
-		var playerPosition; // position at rain
-		var score;
-		var parameter, target;
+    var ak47 = this.ak47;
+    var avatar = this.avatar;
+    var followme = this.followme;
+    var heart = this.heart;
+    var killthebeast = this.killthebeast;
+    var loveandpeace = this.loveandpeace;
+    var player = this.player;
+    var platform2 = this.platform2;
+    var platform3 = this.platform3;
+    var rabbit = this.rabbit;
+    var raycaster = document.querySelector('[raycaster]').components.raycaster;
+    var state = this.data.state;
+    var states = this.states;
+		var increaseCounter, jumpStart, jumpString, jumpTarget, playerPosition, score;
 
-		this.state = this.data.state;
-		console.log("state: " + this.state);
-		this.avatar.setAttribute('sound', "src: #start; autoplay: true");
+		console.log("state: " + state);
+		avatar.setAttribute('sound', "src: #start; autoplay: true");
 
 		// 1. we follow the rabbit
-		if (this.state === this.states.follow) {
-			this.player.setAttribute('sound', "src: #select; autoplay: true");
-			this.followme.setAttribute('visible', false);
-			this.player.setAttribute('follow', 'target', '#avatar');
-			this.rabbit.setAttribute('animation__hop', 'property: position; to: 0 0.3 0; dur: 250; easing: easeInOutSine; loop: true');
-			this.rabbit.removeAttribute('event-set__follow');
-      this.avatar.setAttribute('move-along', 'dur: 3000; points: 0 72.5 6.15, 0 72.5 4.15, 0 72.5 0.15, 0 72.5 -4.15, 0 72.5 -12.15, 0 74 -18.15;');
-      this.avatar.setAttribute('event-set__stopfollow', '_event: move-along-end; _target: #gamelogic; gamelogic.state: ' + this.states.stopfollow);
+		if (state === states.follow) {
+			player.setAttribute('sound', "src: #select; autoplay: true");
+			followme.setAttribute('visible', false);
+			player.setAttribute('follow', 'target', '#avatar');
+			rabbit.setAttribute('animation__hop', 'property: position; to: 0 0.3 0; dur: 250; easing: easeInOutSine; loop: true');
+			rabbit.removeAttribute('event-set__follow');
+      avatar.setAttribute('move-along', 'dur: 3000; points: 0 72.5 6.15, 0 72.5 4.15, 0 72.5 0.15, 0 72.5 -4.15, 0 72.5 -12.15, 0 74 -18.15;');
+      avatar.setAttribute('event-set__stopfollow', '_event: move-along-end; _target: #gamelogic; gamelogic.state: ' + states.stopfollow);
 
 		// 2. the rabbit has reached its destination hovering in mid-air
-		} else if (this.state === this.states.stopfollow) {
-			this.player.setAttribute('sound', 'src: #fall; autoplay: true');
-			this.player.removeAttribute('follow');
-			this.avatar.removeAttribute('move-along');
-			this.avatar.removeAttribute('event-set__stopfollow');
-			this.rabbit.removeAttribute('animation__hop');
-      this.avatar.setAttribute('move-along', 'delay: 2500; dur: 3000; points: 0 74 -18.15, 0 62 -18, 0 31 -18.15, 0 -20 -17;');
-      this.avatar.setAttribute('event-set__rabbithasfallen', '_event: move-along-end; _target: #gamelogic; gamelogic.state: ' + this.states.rabbithasfallen);
+		} else if (state === states.stopfollow) {
+			player.setAttribute('sound', 'src: #fall; autoplay: true');
+			player.removeAttribute('follow');
+			avatar.removeAttribute('move-along');
+			avatar.removeAttribute('event-set__stopfollow');
+			rabbit.removeAttribute('animation__hop');
+      avatar.setAttribute('move-along', 'delay: 2500; dur: 3000; points: 0 74 -18.15, 0 62 -18, 0 31 -18.15, 0 -20 -17;');
+      avatar.setAttribute('event-set__rabbithasfallen', '_event: move-along-end; _target: #gamelogic; gamelogic.state: ' + states.rabbithasfallen);
 
 		// 3. the rabbit has fallen :( the chicken rises
-		} else if (this.state === this.states.rabbithasfallen) {
-			this.avatar.components.sound.stopSound();
-			this.avatar.removeAttribute('sound');
-			this.player.setAttribute('sound', "src: #rise; autoplay: true");
-			this.avatar.removeAttribute('alongpath');
-			this.avatar.removeAttribute('event-set__rabbithasfallen');
-			this.rabbit.setAttribute('visible', false);
-			this.chicken.setAttribute('animation__pos', 'property: position; dur: 14000; easing: easeInSine; to: 0 0 -550');
-			this.chicken.setAttribute('animation__rot', 'property: rotation; dur: 14000; easing: easeInSine; to: 0 -17 0');
-			this.chicken.setAttribute('event-set__chickenhasrisen', '_event: animation__rot-complete; _target: #gamelogic; gamelogic.state: ' + this.states.chickenhasrisen);
+		} else if (state === states.rabbithasfallen) {
+			avatar.components.sound.stopSound();
+			avatar.removeAttribute('sound');
+			player.setAttribute('sound', "src: #rise; autoplay: true");
+			avatar.removeAttribute('alongpath');
+			avatar.removeAttribute('event-set__rabbithasfallen');
+			rabbit.setAttribute('visible', false);
+			chicken.setAttribute('animation__pos', 'property: position; dur: 14000; easing: easeInSine; to: 0 0 -550');
+			chicken.setAttribute('animation__rot', 'property: rotation; dur: 14000; easing: easeInSine; to: 0 -17 0');
+			chicken.setAttribute('event-set__chickenhasrisen', '_event: animation__rot-complete; _target: #gamelogic; gamelogic.state: ' + states.chickenhasrisen);
 
 		// 4. how to deal with the threatening chicken - player has two choices
-		} else if (this.state === this.states.chickenhasrisen) {
-			this.chicken.removeAttribute('animation__pos');
-			this.chicken.removeAttribute('animation__rot');
-			this.chicken.removeAttribute('event-set__movingend');
-			this.killthebeast.setAttribute('visible', true);
-			this.loveandpeace.setAttribute('visible', true);
-			this.ak47.setAttribute('class', 'interactive');
-			this.ak47.addEventListener("click", (function() {
-				this.el.setAttribute('gamelogic', 'state: ' + this.states.ak47selected);
+		} else if (state === states.chickenhasrisen) {
+			chicken.removeAttribute('animation__pos');
+			chicken.removeAttribute('animation__rot');
+			chicken.removeAttribute('event-set__movingend');
+			killthebeast.setAttribute('visible', true);
+			loveandpeace.setAttribute('visible', true);
+			ak47.setAttribute('class', 'interactive');
+			ak47.addEventListener("click", (function() {
+				this.el.setAttribute('gamelogic', 'state: ' + states.ak47selected);
 			}).bind(this));
-			this.heart.setAttribute('class', 'interactive');
-			this.heart.addEventListener("click", (function() {
-				this.el.setAttribute('gamelogic', 'state: ' + this.states.heartselected);
+			heart.setAttribute('class', 'interactive');
+			heart.addEventListener("click", (function() {
+				this.el.setAttribute('gamelogic', 'state: ' + states.heartselected);
 			}).bind(this));
 			raycaster.refreshObjects();
 
 		// 5. player has made a choice
-		} else if (this.state === this.states.ak47selected || this.state === this.states.heartselected) {
-			this.player.setAttribute('sound', "src: #select; autoplay: true");
+		} else if (state === states.ak47selected || state === states.heartselected) {
+			player.setAttribute('sound', "src: #select; autoplay: true");
 
-			if (this.state === this.states.ak47selected) {
-				target = this.platform3.getAttribute('position');
-				parameters = 'property: position; dur: 2000; easing: easeInOutQuad; to: ' + target.x + ' ' + (target.y + 33) + ' ' + target.z;
-				this.player.removeAttribute('animation');
-				this.player.setAttribute('animation__toak47', parameters);
-				this.player.setAttribute('event-set__playeratak47', '_event: animation__toak47-complete; _target: #gamelogic; gamelogic.state: ' + this.states.atak47);
+			if (state === states.ak47selected) {
+        jumpStart = player.getAttribute('position');
+        jumpTarget = platform3.getAttribute('position');
+        jumpTarget.y = jumpTarget.y + 33;
 
-			} else if (this.state === this.states.heartselected) {
-				target = this.platform2.getAttribute('position');
+        player.removeAttribute('animation');
+        player.removeAttribute('move-along');
+
+        jumpString = createPointStringFromJumpPath(createJumpPath(jumpStart, jumpTarget));
+console.log(jumpString);
+        player.setAttribute('move-along', 'dur: 2000; points: '+jumpString+';')
+				player.setAttribute('event-set__playeratak47', '_event: move-along-end; _target: #gamelogic; gamelogic.state: ' + states.atak47);
+
+			} else if (state === states.heartselected) {
+				target = platform2.getAttribute('position');
 				parameters = 'property: position; dur: 2000; easing: easeInOutQuad; to: '+target.x+' '+(target.y + 36)+' '+target.z;
-				this.player.removeAttribute('animation');
-				this.player.setAttribute('animation__toheart', parameters);
-				this.player.setAttribute('event-set__playeratheart', '_event: animation__toheart-complete; _target: #gamelogic; gamelogic.state: ' + this.states.atheart);
+				player.removeAttribute('animation');
+				player.setAttribute('animation__toheart', parameters);
+				player.setAttribute('event-set__playeratheart', '_event: animation__toheart-complete; _target: #gamelogic; gamelogic.state: ' + states.atheart);
 			}
 
 			// remove all choice elements
-			this.heart.parentNode.removeChild(this.heart);
-			this.ak47.parentNode.removeChild(this.ak47);
-			this.killthebeast.parentNode.removeChild(this.killthebeast);
-			this.loveandpeace.parentNode.removeChild(this.loveandpeace);
+			heart.parentNode.removeChild(heart);
+			ak47.parentNode.removeChild(ak47);
+			killthebeast.parentNode.removeChild(killthebeast);
+			loveandpeace.parentNode.removeChild(loveandpeace);
 
 		// 6. player has arrived at final destination
-		} else if (this.state === this.states.atak47 || this.state === this.states.atheart) {
+		} else if (state === states.atak47 || state === states.atheart) {
 			score = 0;
-			this.chicken.setAttribute('class', 'interactive');
+			chicken.setAttribute('class', 'interactive');
 			increaseCounter = function (event) {
 				score = score + 1; // TODO trigger
 				console.log(score);
 				if (score === 1) {
-					this.el.setAttribute('gamelogic', 'state: ' + this.states.letitrain)
+					this.el.setAttribute('gamelogic', 'state: ' + states.letitrain)
 				}
 			}.bind(this);
 			this.scene.addEventListener('click', increaseCounter);
-			if (this.state === this.states.atak47) {
-				this.player.setAttribute('spawner', { 'mixin': 'bullet', 'on': 'click' });	// TODO change trigger
-			} else if (this.state === this.states.atheart) {
-				this.player.setAttribute('spawner', { 'mixin': 'heartbullet', 'on': 'click' });	// TODO change trigger
+			if (state === states.atak47) {
+				player.setAttribute('spawner', { 'mixin': 'bullet', 'on': 'click' });	// TODO change trigger
+			} else if (state === states.atheart) {
+				player.setAttribute('spawner', { 'mixin': 'heartbullet', 'on': 'click' });	// TODO change trigger
 			}
 
 		// 7. let it rain
-		} else if (this.state === this.states.letitrain) {
-			this.player.components.sound.stopSound();
-			this.player.removeAttribute('sound');
-			this.player.setAttribute('sound', "src: #ending; autoplay: true");
-			playerPosition = this.player.getAttribute('position');
+		} else if (state === states.letitrain) {
+			player.components.sound.stopSound();
+			player.removeAttribute('sound');
+			player.setAttribute('sound', "src: #ending; autoplay: true");
+			playerPosition = player.getAttribute('position');
 			this.scene.removeEventListener('click', increaseCounter);
 			this.scene.setAttribute('rain-of-chickens', { tagName: 'a-sphere', center: {x: playerPosition.x, y: (playerPosition.y + 30), z: playerPosition.z} });
 		}
