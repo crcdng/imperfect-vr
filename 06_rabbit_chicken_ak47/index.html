@@ -32,13 +32,14 @@
   <body>
     <a-scene class="fullscreen">
       <a-assets timeout="8000">
-        <audio id="start" src="assets/music/bensound-cute.mp3"></audio>
-        <audio id="rise" src="assets/music/bensound-epic.mp3"></audio>
         <audio id="ending" src="assets/music/bensound-scifi.mp3"></audio>
-        <audio id="select" src="assets/sfx/Powerup16.mp3"></audio>
         <audio id="fall" src="assets/sfx/89538__cgeffex__cartoon-falling-whistle.mp3"></audio>
+        <audio id="rise" src="assets/music/bensound-epic.mp3"></audio>
+        <audio id="select" src="assets/sfx/Powerup16.mp3"></audio>
         <audio id="shootbullet" src="assets/sfx/Laser_Shoot51.mp3"></audio>
         <audio id="shootheart" src="assets/sfx/Powerup18.mp3"></audio>
+        <audio id="splash" src="assets/sfx/Explosion107.mp3"></audio>
+        <audio id="start" src="assets/music/bensound-cute.mp3"></audio>
         <a-asset-item id="mod_ak47" src="assets/models/AK-47.obj"></a-asset-item>
         <a-asset-item id="mod_rabbit" src="assets/models/rabbit-lowpoly.dae"></a-asset-item>
         <a-asset-item id="mod_chick" src="assets/models/chick-lowpoly.dae"></a-asset-item>
@@ -80,7 +81,10 @@
         rotation="0 90 0" collada-model="#mod_rabbit"
         event-set__follow="_event: click; _target: #gamelogic; gamelogic.state: follow">
         </a-entity>
-        <a-entity id="followme" text-geometry="value: Follow Me; font: #comic-sans-bold" material="color: #FF11B4" position="-1.3 0.9 0" animation__osc="property: position; dur: 2200; easing: easeInOutSine; loop: true; to: -1.3 1.2 0"></a-entity>
+        <a-entity id="followme" text-geometry="value: Follow Me; font: #comic-sans-bold"
+        material="color: #FF11B4" position="-1.3 1.4 0"
+        animation__osc="property: position; dur: 980; dir: alternate; easing: easeInOutSine; loop: true; to: -1.3 1.9 0">
+        </a-entity>
       </a-entity>
       <a-entity id="player" position="0.78 72.4 11.8"
         spawner="mixin: laser; on: mousedown">
@@ -88,12 +92,17 @@
           <!-- TODO raycaster -->
           <a-entity id="cursor" cursor="fuse: true; fuseTimeout: 1500"
             raycaster="objects: .interactive; far: 1000" scale="1 1 1" position="0 0 -1"
-            geometry="primitive: ring; radiusOuter: 0.07; radiusInner: 0.05;"
+            geometry="primitive: ring; radiusOuter: 0.07; radiusInner: 0.05"
             material="color: rgb(15,0,255); opacity: 0.72; metalness: 0.64; roughness: 0.96">
-            <!-- bug in new animation system, using the old one-->
-            <a-animation begin="fusing" end="mouseleave" easing="ease-in" attribute="scale" fill="forwards" from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation>
-            <a-animation begin="click" end="mouseleave" easing="ease-in" attribute="scale" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
-            <a-animation begin="mouseleave" easing="ease-in" attribute="scale" to="1 1 1" dur="10"></a-animation>
+              <!-- bug in new animation system, this does not work:
+              animation__fuse="startEvents: fusing; pauseEvents: mouseleave; easing: easeInQuad; property: scale; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
+              animation__click="startEvents: click; pauseEvents: mouseleave; easing: easeInQuad; property: scale; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
+              animation__leave="startEvents: mouseleave; easing: easeInQuad; property: scale; to: 1 1 1; dur: 10"
+              -->
+              <!-- using the old one -->
+              <a-animation begin="fusing" end="mouseleave" easing="ease-in" attribute="scale" fill="forwards" from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation>
+              <a-animation begin="click" end="mouseleave" easing="ease-in" attribute="scale" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
+              <a-animation begin="mouseleave" easing="ease-in" attribute="scale" to="1 1 1" dur="10"></a-animation>
           </a-entity>
         </a-camera>
       </a-entity>
@@ -105,7 +114,7 @@
       </a-entity>
       <a-entity id="platform2" position="46 33 -75"> <!-- heart -->
         <a-box width="6" depth="6" height="72"></a-box>
-        <a-cylinder position="0 37 0" radius="12" height="2" color="red">
+        <a-cylinder static-body position="0 37 0" radius="12" height="2" color="red">
           <a-box id="heart" src="#img_heart" width="6" height="6" depth="0.2" position="0 7 0" animation__rot="property: rotation; dur: 12000; easing: linear; loop: true; to: 0 -360 0">
             <a-entity id="loveandpeace" text-geometry="value: Love &amp; Peace; font: #comic-sans-bold" material="color: #FF1108" scale="5 5 5" position="-10 5 0" visible="false"></a-entity>
           </a-box>
@@ -113,7 +122,7 @@
       </a-entity>
       <a-entity id="platform3" position="-30 33 -43"> <!-- ak47 -->
         <a-box width="6" depth="6" height="72"></a-box>
-        <a-cylinder position="0 37 0" radius="12" height="2" color="blue">
+        <a-cylinder static-body position="0 37 0" radius="12" height="2" color="blue">
           <a-entity id="ak47" position="0 3 0" obj-model="obj: #mod_ak47" animation__rot="property: rotation; dur: 14000; easing: linear; loop: true; to: 0 360 0">
             <a-entity id="killthebeast" text-geometry="value: Kill The Beast; font: #comic-sans-bold" material="color: #0811FF" scale="5 5 5" position="-10 10 0" visible="false"></a-entity>
           </a-entity>

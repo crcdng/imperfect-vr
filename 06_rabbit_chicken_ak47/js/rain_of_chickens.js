@@ -1,42 +1,50 @@
+// adapted from A-Frame physics system, Don McCurdy
+
 AFRAME.registerComponent('rain-of-chickens', {
   schema: {
-    tagName:    { default: 'a-box' },
-    components: { default: ['dynamic-body', 'force-pushable', 'color|#39BB82'] },
+    tagName: { default: 'a-box' },
+    components: { default: ['dynamic-body|shape: box', 'collada-model|#mod_chick'] },
     center: {type: 'vec3'},
-    maxCount:   { default: 10, min: 0 },
-    interval:   { default: 1000, min: 0 },
-    lifetime:   { default: 10000, min: 0 }
+    maxCount: { default: 10, min: 0 },
+    interval: { default: 1000, min: 0 },
+    lifetime: { default: 10000, min: 0 }
   },
+
   init: function () {
-    this.boxes = [];
+    this.entities = [];
     this.timeout = setInterval(this.spawn.bind(this), this.data.interval);
   },
+
   spawn: function () {
-    if (this.boxes.length >= this.data.maxCount) {
+    var data, ent, parts;
+
+    if (this.entities.length >= this.data.maxCount) {
       clearTimeout(this.timeout);
       return;
     }
 
-    var data = this.data,
-        box = document.createElement(data.tagName);
+    data = this.data;
+    ent = document.createElement('a-entity');
 
-    this.boxes.push(box);
-    this.el.appendChild(box);
+    this.entities.push(ent);
 
-    box.setAttribute('position', this.randomPosition());
-    data.components.forEach(function (s) {
-      var parts = s.split('|');
-      box.setAttribute(parts[0], parts[1] || '');
+    ent.setAttribute('position', this.randomPosition());
+    data.components.forEach(function (c) {
+      parts = c.split('|');
+      ent.setAttribute(parts[0], parts[1] || '');
     });
+
+    this.el.appendChild(ent);
 
     // Recycling is important, kids.
     setInterval(function () {
-      if (box.body.position.y > 0) return;
-      box.body.position.copy(this.randomPosition());
-      box.body.velocity.set(0,0,0);
+      if (ent.body.position.y > 0) return;
+      ent.body.position.copy(this.randomPosition());
+      ent.body.velocity.set(0, 0, 0);
     }.bind(this), this.data.lifetime);
   },
+
   randomPosition: function () {
-    return {x: this.data.center.x + (Math.random() * 10 - 5), y: this.data.center.y, z: this.data.center.z + (Math.random() * 10 - 5)};
+    return { x: this.data.center.x + (Math.random() * 10 - 5), y: this.data.center.y, z: this.data.center.z + (Math.random() * 10 - 5) };
   }
 });

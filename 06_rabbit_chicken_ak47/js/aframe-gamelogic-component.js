@@ -38,7 +38,6 @@ function createPointStringFromJumpPath (arrayOfPoints) {
   return pointString;
 }
 
-
 AFRAME.registerComponent('gamelogic', {
 	schema: { // what goes into the component
 		state: {type: 'string'}
@@ -106,6 +105,7 @@ AFRAME.registerComponent('gamelogic', {
 		// 3. the rabbit has fallen :( the chicken rises
 		} else if (state === states.rabbithasfallen) {
 			avatar.components.sound.stopSound();
+      player.setAttribute('sound', "src: #splash; autoplay: true");
 			avatar.removeAttribute('sound');
 			player.setAttribute('sound', "src: #rise; autoplay: true");
 			avatar.removeAttribute('alongpath');
@@ -182,7 +182,7 @@ AFRAME.registerComponent('gamelogic', {
 			player.setAttribute('sound', "src: #ending; autoplay: true");
 			playerPosition = player.getAttribute('position');
 			this.scene.removeEventListener('click', increaseCounter);
-			this.scene.setAttribute('rain-of-chickens', { tagName: 'a-sphere', center: {x: playerPosition.x, y: (playerPosition.y + 30), z: playerPosition.z} });
+			this.scene.setAttribute('rain-of-chickens', { maxCount: 10, center: { x: playerPosition.x, y: (playerPosition.y + 30), z: playerPosition.z } });
 		}
 	} // end of update()
 });
