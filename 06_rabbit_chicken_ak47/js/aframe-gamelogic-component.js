@@ -94,7 +94,7 @@ AFRAME.registerComponent('gamelogic', {
 
 		// 2. the rabbit has reached its destination hovering in mid-air
 		} else if (state === states.stopfollow) {
-			player.setAttribute('sound', 'src: #fall; autoplay: true');
+			player.setAttribute('sound', 'src: #fall; autoplay: true; volume: 0.8');
 			player.removeAttribute('follow');
 			avatar.removeAttribute('move-along');
 			avatar.removeAttribute('event-set__stopfollow');
@@ -104,13 +104,9 @@ AFRAME.registerComponent('gamelogic', {
 
 		// 3. the rabbit has fallen :( the chicken rises
 		} else if (state === states.rabbithasfallen) {
-			avatar.components.sound.stopSound();
       player.setAttribute('sound', "src: #splash; autoplay: true");
-			avatar.removeAttribute('sound');
-			player.setAttribute('sound', "src: #rise; autoplay: true");
-			avatar.removeAttribute('alongpath');
-			avatar.removeAttribute('event-set__rabbithasfallen');
-			rabbit.setAttribute('visible', false);
+      player.setAttribute('sound', "src: #rise; autoplay: true; on: sound-ended");
+      avatar.parentNode.removeChild(avatar);
 			chicken.setAttribute('animation__pos', 'property: position; dur: 14000; easing: easeInSine; to: 0 0 -550');
 			chicken.setAttribute('animation__rot', 'property: rotation; dur: 14000; easing: easeInSine; to: 0 -17 0');
 			chicken.setAttribute('event-set__chickenhasrisen', '_event: animation__rot-complete; _target: #gamelogic; gamelogic.state: ' + states.chickenhasrisen);
@@ -177,12 +173,10 @@ AFRAME.registerComponent('gamelogic', {
 
 		// 7. let it rain
 		} else if (state === states.letitrain) {
-			player.components.sound.stopSound();
-			player.removeAttribute('sound');
 			player.setAttribute('sound', "src: #ending; autoplay: true");
 			playerPosition = player.getAttribute('position');
 			this.scene.removeEventListener('click', increaseCounter);
-			this.scene.setAttribute('rain-of-chickens', { maxCount: 10, center: { x: playerPosition.x, y: (playerPosition.y + 30), z: playerPosition.z } });
+			this.scene.setAttribute('rain-of-entities', { maxCount: 10, center: { x: playerPosition.x, y: (playerPosition.y + 30), z: playerPosition.z } });
 		}
 	} // end of update()
 });
