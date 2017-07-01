@@ -176,7 +176,7 @@ AFRAME.registerComponent('gamelogic', {
 			player.setAttribute('sound', "src: #ending; autoplay: true");
 			playerPosition = player.getAttribute('position');
 			this.scene.removeEventListener('click', increaseCounter);
-			this.scene.setAttribute('rain-of-entities', { maxCount: 10, center: { x: playerPosition.x, y: (playerPosition.y + 30), z: playerPosition.z } });
+			this.scene.setAttribute('rain-of-entities', { maxCount: 10, components: ['dynamic-body', 'src|#tex_chicken'], center: { x: playerPosition.x, y: (playerPosition.y + 30), z: playerPosition.z } });
 		}
 	} // end of update()
 });

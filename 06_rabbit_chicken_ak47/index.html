@@ -46,8 +46,9 @@
         <a-asset-item id="mod_chick" src="assets/models/chick-lowpoly.dae"></a-asset-item>
         <a-asset-item id="obj_tree" src="assets/models/lowpolytree.obj"></a-asset-item>
         <a-asset-item id="mtl_tree" src="assets/models/lowpolytree.mtl"></a-asset-item>
-        <img id="img_heart" alt="heart" src="assets/textures/heart.png">
-        <img id="skymap" alt="sky" src="assets/textures/sky.jpg">
+        <img id="tex_heart" alt="heart" src="assets/textures/heart.png">
+        <img id="tex_sky" alt="sky" src="assets/textures/sky.jpg">
+        <img id="tex_chicken" alt="chicken" src="assets/textures/chicken.png">
         <!-- rotation="90 0 0" must be set for the bullet to perform as expected -->
         <a-mixin id="bullet"
           geometry="primitive: cylinder; buffer: false; height: 2; radius: 0.355"
@@ -117,7 +118,7 @@
       <a-entity id="platform2" position="46 33 -75"> <!-- heart -->
         <a-box width="6" depth="6" height="72"></a-box>
         <a-cylinder position="0 37 0" radius="12" height="2" color="red">
-          <a-box id="heart" src="#img_heart" width="6" height="6" depth="0.2" position="0 7 0" animation__rot="property: rotation; dur: 12000; easing: linear; loop: true; to: 0 -360 0">
+          <a-box id="heart" src="#tex_heart" width="6" height="6" depth="0.2" position="0 7 0" animation__rot="property: rotation; dur: 12000; easing: linear; loop: true; to: 0 -360 0">
             <a-entity id="loveandpeace" text-geometry="value: Love &amp; Peace; font: #comic-sans-bold" material="color: #FF1108" scale="5 5 5" position="-10 5 0" visible="false"></a-entity>
           </a-box>
         </a-cylinder>
@@ -142,7 +143,7 @@
       <a-entity id="ocean" position="0 0 0">
         <a-ocean width="5500" depth="5500" density="15" speed="2"></a-ocean>
       </a-entity>
-      <a-entity id="sky" geometry="primitive:sphere; radius:3000; phiLength:360; phiStart:0; thetaLength:90" material="shader:flat; side:back; height:2048; src:#skymap; width:2048"></a-entity>
+      <a-entity id="sky" geometry="primitive:sphere; radius:3000; phiLength:360; phiStart:0; thetaLength:90" material="shader:flat; side:back; height:2048; src:#tex_sky; width:2048"></a-entity>
     </a-scene>
   </body>
 </html>
