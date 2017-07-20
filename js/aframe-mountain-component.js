@@ -53,7 +53,7 @@
 	  schema: {
 	    color: {default: 'rgb(92, 32, 0)'},
 	    shadowColor: {default: 'rgb(128, 96, 96)'},
-	    sunPosition: {type: 'vec3', default: {x: 1, y: 1, z: 1}},
+	    sunposition: {type: 'vec3', default: {x: 1, y: 1, z: 1}},
 	    worldDepth: {default: 256},
 	    worldWidth: {default: 256}
 	  },
@@ -70,7 +70,7 @@
 	    // Texture.
 	    var canvas = generateTexture(
 	      terrainData, worldWidth, worldDepth, new THREE.Color(data.color),
-	      new THREE.Color(data.shadowColor), data.sunPosition);
+	      new THREE.Color(data.shadowColor), data.sunposition);
 	    var texture = new THREE.CanvasTexture(canvas);
 			texture.wrapS = THREE.ClampToEdgeWrapping;
 			texture.wrapT = THREE.ClampToEdgeWrapping;
@@ -187,7 +187,7 @@
 	  mappings: {
 	    color: 'mountain.color',
 	    'shadow-color': 'mountain.shadowColor',
-	    'sun-position': 'mountain.sunPosition',
+	    'sun-position': 'mountain.sunposition',
 	    'world-depth' :'mountain.worldDepth',
 	    'world-width' :'mountain.worldWidth'
 	  }

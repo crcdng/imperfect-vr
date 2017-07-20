@@ -38,6 +38,12 @@ The code is written in ES5 to be compatible with smartphone browsers. I prefer m
 
 The main scene used to navigate to the individual scenes currently only makes sense for viewing the scenes on a desktop browser where you can go back and forth without interruption. The fullscreen VR mode on your mobile device must be triggered by an user action. This means you have to take the phone out of the cardboard and tap on the VR symbol each time a new scene is loaded.  
 
+Temporarily patched 3rd-party components (A-Frame 0.6.1):
+
+* aframe-sun-sky.js
+* aframe-mountain-component.js
+* gradientsky.js
+
 ## Third-Party Licenses
 
 * A-Frame: Copyright (c) 2015 A-Frame Authors, MIT License

@@ -44,21 +44,21 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	
+
 	var vertexShader = __webpack_require__(1);
 	var fragmentShader = __webpack_require__(2)
-	
+
 	AFRAME.registerShader('gradient', {
 	  schema: {
-	    topColor: {type: 'vec3', default: '255 0 0', is: 'uniform'},
-	    bottomColor: {type: 'vec3', default: '0 0 255', is: 'uniform'},
-	    offset: {type: 'float', default: '400', is: 'uniform'},
-	    exponent: {type: 'float', default: '0.6', is: 'uniform'}
+	    topColor: {type: 'vec3', default: { x: 255, y: 0, z: 0 }, is: 'uniform'},
+	    bottomColor: {type: 'vec3', default: { x: 0, y: 0, z: 255 }, is: 'uniform'},
+	    offset: {type: 'number', default: 400, is: 'uniform'},
+	    exponent: {type: 'number', default: 0.6, is: 'uniform'}
 	  },
 	  vertexShader: vertexShader,
 	  fragmentShader: fragmentShader
 	});
-	
+
 	AFRAME.registerPrimitive('a-gradient-sky', {
 	    defaultComponents: {
 	      geometry: {
@@ -72,7 +72,7 @@
 	      },
 	      scale: '-1 1 1'
 	    },
-	
+
 	    mappings: {
 	      topColor: 'material.topColor',
 	      bottomColor: 'material.bottomColor',
