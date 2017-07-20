@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Imperfect Treasure Hunt</title>
-    <script src="js/aframe-v0.5.0.js"></script>
+    <script src="js/aframe-v0.6.1.js"></script>
     <script src="js/aframe-animation-component.js"></script>
     <script src="js/aframe-sun-sky.js"></script>
     <script src="js/aframe-particle-system-component.js"></script>
@@ -68,14 +68,12 @@
           var newHeight = Math.random() * 7 + 2;
           var newPos = newPosition(newAngle, newRadius, newHeight); // compute the new position
           score = score + 1; // increase the score each time we trigger the chicken
-          // switch the particle system: dust -> snow -> rain
+          // switch the environment: dust -> snow -> rain
           if (score === 3) {
             particles.setAttribute('particle-system', 'preset: dust');
           } else if (score === 6) {
-            particles.removeAttribute('particle-system'); // remove the old attribute
             particles.setAttribute('particle-system', 'preset: snow'); // before setting the new one
           } else if (score === 9) {
-            particles.removeAttribute('particle-system');
             particles.setAttribute('particle-system', 'preset: rain');
           }
           setTimeout(function() { // wait a little then move the bird to its new

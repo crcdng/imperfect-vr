@@ -42,13 +42,13 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	var debug = AFRAME.utils.debug;
 	var coordinates = AFRAME.utils.coordinates;
 
 	var warn = debug('components:look-at:warn');
-	var isCoordinate = coordinates.isCoordinate;
+	var isCoordinates = coordinates.isCoordinates || coordinates.isCoordinate;
 
 	delete AFRAME.components['look-at'];
 
@@ -67,7 +67,7 @@
 
 	    parse: function (value) {
 	      // A static position to look at.
-	      if (isCoordinate(value) || typeof value === 'object') {
+	      if (isCoordinates(value) || typeof value === 'object') {
 	        return coordinates.parse(value);
 	      }
 	      // A selector to a target entity.
@@ -126,9 +126,22 @@
 	  tick: function (t) {
 	    // Track target object position. Depends on parent object keeping global transforms up
 	    // to state with updateMatrixWorld(). In practice, this is handled by the renderer.
+	    var target;
 	    var target3D = this.target3D;
+	    var object3D = this.el.object3D;
+	    var vector = this.vector;
+
 	    if (target3D) {
-	      return this.el.object3D.lookAt(this.vector.setFromMatrixPosition(target3D.matrixWorld));
+	      target = object3D.parent.worldToLocal(target3D.getWorldPosition());
+	      if (this.el.getObject3D('camera')) {
+	        // Flip the vector to -z, looking away from target for camera entities. When using
+	        // lookat from THREE camera objects, this is applied for you, but since the camera is
+	        // nested into a Object3D, we need to apply this manually.
+	        vector.subVectors(object3D.position, target).add(object3D.position);
+	      } else {
+	        vector = target;
+	      }
+	      object3D.lookAt(vector);
 	    }
 	  },
 
@@ -138,5 +151,5 @@
 	});
 
 
-/***/ }
+/***/ })
 /******/ ]);
