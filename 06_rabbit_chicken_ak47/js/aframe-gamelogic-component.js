@@ -1,4 +1,4 @@
-// this is the complete gamelogic in one component
+// this is the complete game logic in one component
 // the elements in the scene use the event-set component to send messages to it
 // and it handles the logic
 
@@ -84,17 +84,17 @@ AFRAME.registerComponent('gamelogic', {
 
 		// 1. we follow the rabbit
 		if (state === states.follow) {
+      rabbit.removeAttribute('event-set__follow');
 			player.setAttribute('sound', "src: #select; autoplay: true");
-			followme.setAttribute('visible', false);
+			followme.parentNode.removeChild(followme);
 			player.setAttribute('follow', 'target', '#avatar');
 			rabbit.setAttribute('animation__hop', 'property: position; to: 0 0.3 0; dur: 250; easing: easeInOutSine; loop: true');
-			rabbit.removeAttribute('event-set__follow');
       avatar.setAttribute('move-along', 'dur: 3000; points: 0 72.5 6.15, 0 72.5 4.15, 0 72.5 0.15, 0 72.5 -4.15, 0 72.5 -12.15, 0 74 -18.15;');
       avatar.setAttribute('event-set__stopfollow', '_event: move-along-end; _target: #gamelogic; gamelogic.state: ' + states.stopfollow);
 
 		// 2. the rabbit has reached its destination hovering in mid-air
 		} else if (state === states.stopfollow) {
-			player.setAttribute('sound', 'src: #fall; autoplay: true; volume: 0.8');
+			player.setAttribute('sound', 'src: #fall; autoplay: true; volume: 0.6');
 			player.removeAttribute('follow');
 			avatar.removeAttribute('move-along');
 			avatar.removeAttribute('event-set__stopfollow');
@@ -106,10 +106,11 @@ AFRAME.registerComponent('gamelogic', {
 		} else if (state === states.rabbithasfallen) {
       player.setAttribute('sound', "src: #splash; autoplay: true");
       player.setAttribute('sound', "src: #rise; autoplay: true; on: sound-ended");
-      avatar.parentNode.removeChild(avatar);
 			chicken.setAttribute('animation__pos', 'property: position; dur: 14000; easing: easeInSine; to: 0 0 -550');
 			chicken.setAttribute('animation__rot', 'property: rotation; dur: 14000; easing: easeInSine; to: 0 -17 0');
 			chicken.setAttribute('event-set__chickenhasrisen', '_event: animation__rot-complete; _target: #gamelogic; gamelogic.state: ' + states.chickenhasrisen);
+      avatar.parentNode.removeChild(avatar);
+      console.log("here");
 
 		// 4. how to deal with the threatening chicken - player has two choices
 		} else if (state === states.chickenhasrisen) {
@@ -130,8 +131,8 @@ AFRAME.registerComponent('gamelogic', {
 
 		// 5. player has made a choice
 		} else if (state === states.ak47selected || state === states.heartselected) {
-			player.setAttribute('sound', "src: #select; autoplay: true");
-
+      player.removeAttribute('sound');
+      player.setAttribute('sound', "src: #select; autoplay: true;");
 			heart.parentNode.removeChild(heart);
 			ak47.parentNode.removeChild(ak47);
 			killthebeast.parentNode.removeChild(killthebeast);
@@ -150,8 +151,8 @@ AFRAME.registerComponent('gamelogic', {
       player.removeAttribute('animation');
       player.removeAttribute('move-along');
       jumpString = createPointStringFromJumpPath(createJumpPath(jumpStart, jumpTarget));
-      player.setAttribute('move-along', 'dur: 2000; points: '+jumpString+';')
-      player.setAttribute('event-set__playeratak47', '_event: move-along-end; _target: #gamelogic; gamelogic.state: ' + states.atak47);
+      player.setAttribute('move-along', 'dur: 2000; points: ' + jumpString + ';')
+      player.setAttribute('event-set__playeratak47', '_event: move-along-end; _target: #gamelogic; gamelogic.state: ' + jumpTargetState);
 
 		// 6. player has arrived at final destination
 		} else if (state === states.atak47 || state === states.atheart) {

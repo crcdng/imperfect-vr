@@ -26,7 +26,7 @@ AFRAME.registerComponent('spawner', {
     entity.setAttribute('position', position);
     entity.setAttribute('mixin', this.data.mixin);
     entity.addEventListener('loaded', function () {
-      entityRotation = entity.getComputedAttribute('rotation');
+      entityRotation = entity.getAttribute('rotation');
       entity.setAttribute('rotation', {
         x: entityRotation.x + rotation.x,
         y: entityRotation.y + rotation.y,
