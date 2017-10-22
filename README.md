@@ -34,6 +34,8 @@ Now make a VR!
 
 Each example scene here is self-contained and has all the files it needs in its directory structure (including fonts, images, movies). I want it to be able to run offline, i.e. in a local network without internet connection.
 
+Everything we use in this workshop is open source.
+
 The code is written in ES5 to be compatible with smartphone browsers. I prefer modern JavaScript / ES6, however ES6 requires transpilation and setting up a toolchain with npm, Babel, webpack etc. This is currently not a topic in this workshop.
 
 The main scene used to navigate to the individual scenes currently only makes sense for viewing the scenes on a desktop browser where you can go back and forth without interruption. The fullscreen VR mode on your mobile device must be triggered by an user action. This means you have to take the phone out of the cardboard and tap on the VR symbol each time a new scene is loaded.  
@@ -43,6 +45,7 @@ Temporarily patched 3rd-party components (A-Frame 0.6.1):
 * aframe-sun-sky.js
 * aframe-mountain-component.js
 * gradientsky.js
+* spawner.js
 
 ## Third-Party Licenses
 
