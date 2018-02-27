@@ -43,25 +43,37 @@ AFRAME.registerComponent('gamelogic', {
 		state: {type: 'string'}
 	},
 	init: function () { // this function is called once at the beginning
-		this.scene = this.el.sceneEl;
 		this.ak47 = document.querySelector('#ak47');
 		this.avatar = document.querySelector('#avatar');
+    this.playbutton = document.getElementById('play-button');
 		this.chicken = document.querySelector('#chicken');
 		this.followme = document.querySelector('#followme');
 		this.heart = document.querySelector('#heart');
+    this.logo = document.querySelector('#logo');
 		this.killthebeast = document.querySelector('#killthebeast');
 		this.loveandpeace = document.querySelector('#loveandpeace');
 		this.player = document.querySelector('#player');
 		this.platform1 = document.querySelector('#platform1'); // starting point
 		this.platform2 = document.querySelector('#platform2'); // heart
 		this.platform3 = document.querySelector('#platform3'); // ak47
+    this.previousState = null;
 		this.rabbit = document.querySelector('#rabbit');
-		this.track = '#track1';
+    this.scene = this.el.sceneEl;
 		this.states = { start: "start", follow: "follow", stopfollow: "stopfollow", rabbithasfallen: "rabbithasfallen",
 			chickenhasrisen: "chickenhasrisen", ak47selected: "ak47selected", heartselected: "heartselected",
 			atak47: "atak47", atheart: "atheart", letitrain: "letitrain" };
 		this.state = this.data.state || this.states.start;
-		this.previousState = null;
+    this.track = '#track1';
+
+    this.avatar.setAttribute('sound', "src: #start");
+    this.playbutton.innerText = 'Rabbit Chicken AK 47\nTap to Start';
+    this.playbutton.addEventListener('click', function (e) {
+      console.log('button clicked');
+      this.playbutton.style.display = 'none';
+      this.logo.style.display = 'none';
+      this.avatar.components.sound.play();
+    }.bind(this), false);
+
 	},
 	update: function (oldData) { // this function is called each time when something is updated
     var ak47 = this.ak47;
@@ -79,13 +91,11 @@ AFRAME.registerComponent('gamelogic', {
     var states = this.states;
 		var increaseCounter, jumpStart, jumpString, jumpTarget, playerPosition, score;
 
-		console.log("state: " + state);
-		avatar.setAttribute('sound', "src: #start; autoplay: true");
 
 		// 1. we follow the rabbit
 		if (state === states.follow) {
+      player.setAttribute('sound', "src: #select; autoplay: true");
       rabbit.removeAttribute('event-set__follow');
-			player.setAttribute('sound', "src: #select; autoplay: true");
 			followme.parentNode.removeChild(followme);
 			player.setAttribute('follow', 'target', '#avatar');
 			rabbit.setAttribute('animation__hop', 'property: position; to: 0 0.3 0; dur: 250; easing: easeInOutSine; loop: true');

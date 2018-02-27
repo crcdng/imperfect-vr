@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Rabbit Chicken AK47</title>
+    <link rel="stylesheet" type="text/css" href="ui.css">
     <script src="js/aframe-v0.7.1.js"></script>
     <!-- components-->
     <script src="js/aframe-animation-component.js"></script>
@@ -23,24 +24,25 @@
     <script src="js/gradientsky.js"></script>
     <script src="js/projectile.js"></script>
     <script src="js/spawner.js"></script>
-    <!-- my / modified components-->
+    <!-- my / modified components -->
     <script src="js/aframe-move-along-component.js"></script>
     <script src="js/aframe-follower-component.js"></script>
-    <script src="js/aframe-gamelogic-component.js"></script>
     <script src="js/rain-of-entities.js"></script>
+    <!-- gamelogic -->
+    <script src="js/game-component.js"></script>
   </head>
   <body>
     <a-scene class="fullscreen">
 
-      <a-assets timeout="8000">
-        <audio id="ending" src="assets/music/bensound-scifi.mp3"></audio>
+      <a-assets timeout="18000">
         <audio id="fall" src="assets/sfx/89538__cgeffex__cartoon-falling-whistle.mp3"></audio>
-        <audio id="rise" src="assets/music/bensound-epic.mp3"></audio>
         <audio id="select" src="assets/sfx/Powerup16.mp3"></audio>
         <audio id="shootbullet" src="assets/sfx/Laser_Shoot51.mp3"></audio>
         <audio id="shootheart" src="assets/sfx/Powerup18.mp3"></audio>
         <audio id="splash" src="assets/sfx/Explosion107.mp3"></audio>
         <audio id="start" src="assets/music/bensound-cute.mp3"></audio>
+        <audio id="ending" src="assets/music/bensound-scifi.mp3"></audio>
+        <audio id="rise" src="assets/music/bensound-epic.mp3"></audio>
         <a-asset-item id="mod_ak47" src="assets/models/AK-47.obj"></a-asset-item>
         <a-asset-item id="mod_rabbit" src="assets/models/rabbit-lowpoly.dae"></a-asset-item>
         <a-asset-item id="mod_chicken" src="assets/models/chick-lowpoly.dae"></a-asset-item>
@@ -145,5 +147,7 @@
       </a-entity>
       <a-entity id="sky" geometry="primitive:sphere; radius:3000; phiLength:360; phiStart:0; thetaLength:90" material="shader:flat; side:back; height:2048; src:#tex_sky; width:2048"></a-entity>
     </a-scene>
+    <button id="play-button">Loading...</button>
+    <img id="logo" alt="logo" src="assets/ui/r_c_a.png">
   </body>
 </html>

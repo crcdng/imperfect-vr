@@ -1,0 +1,23 @@
+#play-button {
+  background-color: black;
+  border: none;
+  color: white;
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 2em;
+  position: fixed;
+  top: calc(75% - 3em);
+  left: calc(50% - 6em);
+  width: 12em;
+  height: 6em;
+  z-index: 10;
+}
+
+#logo {
+  position: fixed;
+  top: calc(75% - 24em);
+  left: calc(50% - 12em);
+  width: 24em;
+  height: 19.67em;
+  z-index: 20;
+}
