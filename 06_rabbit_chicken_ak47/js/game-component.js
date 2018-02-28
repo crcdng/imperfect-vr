@@ -3,14 +3,17 @@
 // and it handles the logic
 
 // remark: this approach would not work well for more complex scenes
-// (image hundreds of states)
+// (imagine hundreds of states)
 // and there are better techniques to handle state logic
 // also this component is specific to this scene and not reusable for others
+
+// ES 5 for older browsers
 
 // helper functions:
 // construct a lerp-ed path with sinusodial movement on y.
 // assume start.y === target.y
 // returns an array of points [{x: x0, y: y0, z: z0}, ...]
+
 function createJumpPath (startPos, endPos, points, maxHeight) {
   var path = [];
 	var i, step, stepY, x, y, z;
@@ -45,7 +48,7 @@ AFRAME.registerComponent('gamelogic', {
 	init: function () { // this function is called once at the beginning
 		this.ak47 = document.querySelector('#ak47');
 		this.avatar = document.querySelector('#avatar');
-    this.playbutton = document.getElementById('play-button');
+    this.startbutton = document.getElementById('start-button');
 		this.chicken = document.querySelector('#chicken');
 		this.followme = document.querySelector('#followme');
 		this.heart = document.querySelector('#heart');
@@ -64,13 +67,18 @@ AFRAME.registerComponent('gamelogic', {
 			atak47: "atak47", atheart: "atheart", letitrain: "letitrain" };
 		this.state = this.data.state || this.states.start;
     this.track = '#track1';
+    this.ui = document.querySelector('#ui');
 
     this.avatar.setAttribute('sound', "src: #start");
-    this.playbutton.innerText = 'Rabbit Chicken AK 47\nTap to Start';
-    this.playbutton.addEventListener('click', function (e) {
+    this.startbutton.innerText = 'START';
+    this.startbutton.addEventListener('click', function (e) {
       console.log('button clicked');
-      this.playbutton.style.display = 'none';
-      this.logo.style.display = 'none';
+      this.ui.classList.add('fadeout'); // fade out
+      setTimeout(function () {
+        this.ui.style.display = 'none';
+        console.log(this.scene);
+        this.scene.enterVR();
+      }.bind(this), 990); // and remove the ui completely
       this.avatar.components.sound.play();
     }.bind(this), false);
 
@@ -90,7 +98,6 @@ AFRAME.registerComponent('gamelogic', {
     var state = this.data.state;
     var states = this.states;
 		var increaseCounter, jumpStart, jumpString, jumpTarget, playerPosition, score;
-
 
 		// 1. we follow the rabbit
 		if (state === states.follow) {

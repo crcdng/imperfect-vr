@@ -98,12 +98,12 @@
             raycaster="objects: .interactive; far: 1000" scale="1 1 1" position="0 0 -1"
             geometry="primitive: ring; radiusOuter: 0.07; radiusInner: 0.05"
             material="color: rgb(15,0,255); opacity: 0.72; metalness: 0.64; roughness: 0.96">
-              <!-- bug in new animation system, this does not work:
+              <!-- bug in new animation component, this does not work:
               animation__fuse="startEvents: fusing; pauseEvents: mouseleave; easing: easeInQuad; property: scale; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
               animation__click="startEvents: click; pauseEvents: mouseleave; easing: easeInQuad; property: scale; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
               animation__leave="startEvents: mouseleave; easing: easeInQuad; property: scale; to: 1 1 1; dur: 10"
               -->
-              <!-- using the old one -->
+              <!-- using the old animation element -->
               <a-animation begin="fusing" end="mouseleave" easing="ease-in" attribute="scale" fill="forwards" from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation>
               <a-animation begin="click" end="mouseleave" easing="ease-in" attribute="scale" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
               <a-animation begin="mouseleave" easing="ease-in" attribute="scale" to="1 1 1" dur="10"></a-animation>
@@ -147,7 +147,12 @@
       </a-entity>
       <a-entity id="sky" geometry="primitive:sphere; radius:3000; phiLength:360; phiStart:0; thetaLength:90" material="shader:flat; side:back; height:2048; src:#tex_sky; width:2048"></a-entity>
     </a-scene>
-    <button id="play-button">Loading...</button>
-    <img id="logo" alt="logo" src="assets/ui/r_c_a.png">
+    <div id="ui" class="fadein">
+      <img id="blur" alt="blur" src="assets/ui/blur.png">
+      <img id="logo" alt="logo" src="assets/ui/r_c_a.png">
+      <p id="title">Rabbit Chicken AK47</p>
+      <p id="start-text">iPhone: add the link to this page to the home screen and restart from there</p>
+      <button id="start-button">Loading...</button>
+    </div>
   </body>
 </html>
