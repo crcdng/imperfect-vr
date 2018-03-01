@@ -1,0 +1,67 @@
+body {
+  font-size:100%;
+  line-height:1.5;
+  font-family: "Courier New", Courier, monospace;
+}
+
+#blur {
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(255,255,255,.85);
+  z-index: 100;
+}
+
+#logo {
+  width: 60%;
+  height: 60%;
+  z-index: 110;
+}
+
+#title {
+  color: black;
+  font-weight: bold;
+  font-size: 1.44em;
+  z-index: 120;
+}
+
+#message {
+  color: black;
+  font-size: 0.88em;
+  z-index: 120;
+}
+
+
+
+div.fadein {
+  -webkit-animation: fadein 5s;
+  animation: fadein 5s;
+  opacity: 1;
+}
+
+@-webkit-keyframes fadein {
+   from {opacity: 0}
+   to {opacity: 1}
+}
+
+@keyframes fadein {
+  from {opacity: 0}
+  to {opacity: 1}
+}
+
+div.fadeout {
+  -webkit-animation: fadeout 1s;
+  animation: fadeout 1s;
+  opacity: 0;
+}
+
+@-webkit-keyframes fadeout {
+   from {opacity: 1}
+   to {opacity: 0}
+}
+
+@keyframes fadeout {
+  from {opacity: 1}
+  to {opacity: 0}
+}

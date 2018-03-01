@@ -69,19 +69,16 @@ AFRAME.registerComponent('gamelogic', {
     this.track = '#track1';
     this.ui = document.querySelector('#ui');
 
-    this.avatar.setAttribute('sound', "src: #start");
     this.startbutton.innerText = 'START';
     this.startbutton.addEventListener('click', function (e) {
       console.log('button clicked');
       this.ui.classList.add('fadeout'); // fade out
       setTimeout(function () {
         this.ui.style.display = 'none';
-        console.log(this.scene);
         this.scene.enterVR();
       }.bind(this), 990); // and remove the ui completely
-      this.avatar.components.sound.play();
+      this.avatar.setAttribute('sound', "src: #start; autoplay: true");
     }.bind(this), false);
-
 	},
 	update: function (oldData) { // this function is called each time when something is updated
     var ak47 = this.ak47;
@@ -95,6 +92,7 @@ AFRAME.registerComponent('gamelogic', {
     var platform3 = this.platform3;
     var rabbit = this.rabbit;
     var raycaster = document.querySelector('[raycaster]').components.raycaster;
+    var scene = this.scene;
     var state = this.data.state;
     var states = this.states;
 		var increaseCounter, jumpStart, jumpString, jumpTarget, playerPosition, score;
@@ -127,7 +125,6 @@ AFRAME.registerComponent('gamelogic', {
 			chicken.setAttribute('animation__rot', 'property: rotation; dur: 14000; easing: easeInSine; to: 0 -17 0');
 			chicken.setAttribute('event-set__chickenhasrisen', '_event: animation__rot-complete; _target: #gamelogic; gamelogic.state: ' + states.chickenhasrisen);
       avatar.parentNode.removeChild(avatar);
-      console.log("here");
 
 		// 4. how to deal with the threatening chicken - player has two choices
 		} else if (state === states.chickenhasrisen) {
@@ -182,7 +179,7 @@ AFRAME.registerComponent('gamelogic', {
 					this.el.setAttribute('gamelogic', 'state: ' + states.letitrain)
 				}
 			}.bind(this);
-			this.scene.addEventListener('click', increaseCounter);
+			scene.addEventListener('click', increaseCounter);
 			if (state === states.atak47) {
 				player.setAttribute('spawner', { 'mixin': 'bullet', 'on': 'click' });	// TODO change trigger
 			} else if (state === states.atheart) {
@@ -193,8 +190,8 @@ AFRAME.registerComponent('gamelogic', {
 		} else if (state === states.letitrain) {
 			player.setAttribute('sound', "src: #ending; autoplay: true");
 			playerPosition = player.getAttribute('position');
-			this.scene.removeEventListener('click', increaseCounter);
-			this.scene.setAttribute('rain-of-entities', { maxCount: 10, components: ['dynamic-body', 'src|#tex_chicken'], center: { x: playerPosition.x, y: (playerPosition.y + 30), z: playerPosition.z } });
+			scene.removeEventListener('click', increaseCounter);
+			scene.setAttribute('rain-of-entities', { maxCount: 10, components: ['dynamic-body', 'src|#tex_chicken'], center: { x: playerPosition.x, y: (playerPosition.y + 30), z: playerPosition.z } });
 		}
 	} // end of update()
 });
