@@ -46,9 +46,10 @@ AFRAME.registerComponent('gamelogic', {
 		state: {type: 'string'}
 	},
 	init: function () { // this function is called once at the beginning
+    var ios = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+
 		this.ak47 = document.querySelector('#ak47');
 		this.avatar = document.querySelector('#avatar');
-    this.startbutton = document.getElementById('start-button');
 		this.chicken = document.querySelector('#chicken');
 		this.followme = document.querySelector('#followme');
 		this.heart = document.querySelector('#heart');
@@ -66,19 +67,26 @@ AFRAME.registerComponent('gamelogic', {
 			chickenhasrisen: "chickenhasrisen", ak47selected: "ak47selected", heartselected: "heartselected",
 			atak47: "atak47", atheart: "atheart", letitrain: "letitrain" };
 		this.state = this.data.state || this.states.start;
+    this.startbutton = document.getElementById('startbutton');
+    this.startmessage = document.querySelector('#startmessage');
+    this.startscreen = document.querySelector('#startscreen');
     this.track = '#track1';
-    this.ui = document.querySelector('#ui');
 
-    this.startbutton.innerText = 'START';
+    if(ios) {
+      this.startmessage.innerText = 'Tipp: On an iPhone, tap the "Share" button. Select "Add to Home Screen". Then open the app from the home screen.';
+    }
+
     this.startbutton.addEventListener('click', function (e) {
-      console.log('button clicked');
-      this.ui.classList.add('fadeout'); // fade out
+      this.startscreen.classList.add('fadeout');
       setTimeout(function () {
-        this.ui.style.display = 'none';
+        this.startscreen.style.display = 'none';
         this.scene.enterVR();
       }.bind(this), 990); // and remove the ui completely
-      this.avatar.setAttribute('sound', "src: #start; autoplay: true");
+      this.platform1.setAttribute('sound', "src: #start; autoplay: true");
     }.bind(this), false);
+    this.startbutton.disabled = false;
+    this.startbutton.innerText = 'START';
+
 	},
 	update: function (oldData) { // this function is called each time when something is updated
     var ak47 = this.ak47;
@@ -119,7 +127,7 @@ AFRAME.registerComponent('gamelogic', {
 
 		// 3. the rabbit has fallen :( the chicken rises
 		} else if (state === states.rabbithasfallen) {
-      player.setAttribute('sound', "src: #splash; autoplay: true");
+      platform1.setAttribute('sound', "src: #splash; autoplay: true");
       player.setAttribute('sound', "src: #rise; autoplay: true; on: sound-ended");
 			chicken.setAttribute('animation__pos', 'property: position; dur: 14000; easing: easeInSine; to: 0 0 -550');
 			chicken.setAttribute('animation__rot', 'property: rotation; dur: 14000; easing: easeInSine; to: 0 -17 0');

@@ -26,17 +26,16 @@ body {
   z-index: 120;
 }
 
-#message {
+#startmessage {
   color: black;
   font-size: 0.88em;
   z-index: 120;
 }
 
-
-
+/* these fades are smoother than uikit fades */
 div.fadein {
-  -webkit-animation: fadein 5s;
-  animation: fadein 5s;
+  -webkit-animation: fadein 10s;
+  animation: fadein 10s;
   opacity: 1;
 }
 
