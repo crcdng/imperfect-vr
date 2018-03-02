@@ -29,7 +29,6 @@
   <script src="js/aframe-move-along-component.js"></script>
   <script src="js/aframe-follower-component.js"></script>
   <script src="js/rain-of-entities.js"></script>
-  <script src="js/aframe-debug-cursor-component.js"></script>
   <!-- gamelogic -->
   <script src="js/game-component.js"></script>
 </head>
@@ -163,6 +162,15 @@ rotation="0 180 0" collada-model="#mod_chicken"></a-entity>
   </div>
   <div class="uk-flex uk-flex-center">
     <button disabled id="startbutton" class="uk-button uk-button-default uk-button-large uk-button-secondary">Loading...</button>
+  </div>
+</div>
+
+<div style="display: none" id="endscreen" class="uk-overlay uk-position-center">
+  <div class="uk-flex uk-flex-center">
+    <p id="title">Thank You for playing Rabbit Chicken AK47</p>
+  </div>
+  <div class="uk-flex uk-flex-center">
+    <p id="endmessage"></p>
   </div>
 </div>
 

@@ -17,8 +17,8 @@
 function createJumpPath (startPos, endPos, points, maxHeight) {
   var path = [];
 	var i, step, stepY, x, y, z;
-  if (points == null) { points = 10; }
-  if (maxHeight == null) { maxHeight = 20; }
+  if (points == null) { points = 16; }
+  if (maxHeight == null) { maxHeight = 30; }
   for (i = 0; i < points; i = i + 1) {
     step = i / points;
     stepY = (i / points) * Math.PI;
@@ -51,6 +51,9 @@ AFRAME.registerComponent('gamelogic', {
 		this.ak47 = document.querySelector('#ak47');
 		this.avatar = document.querySelector('#avatar');
 		this.chicken = document.querySelector('#chicken');
+    this.decision = null;
+    this.endscreen = document.querySelector('#endscreen');
+    this.endmessage = document.querySelector('#endmessage');
 		this.followme = document.querySelector('#followme');
 		this.heart = document.querySelector('#heart');
     this.logo = document.querySelector('#logo');
@@ -144,10 +147,12 @@ AFRAME.registerComponent('gamelogic', {
 			ak47.setAttribute('class', 'interactive');
 			ak47.addEventListener("click", (function() {
 				this.el.setAttribute('gamelogic', 'state: ' + states.ak47selected);
+        this.decision = states.ak47selected;
 			}).bind(this));
 			heart.setAttribute('class', 'interactive');
 			heart.addEventListener("click", (function() {
 				this.el.setAttribute('gamelogic', 'state: ' + states.heartselected);
+        this.decision = states.heartselected;
 			}).bind(this));
 			raycaster.refreshObjects();
 
@@ -169,7 +174,7 @@ AFRAME.registerComponent('gamelogic', {
 			}
 
       jumpStart = player.getAttribute('position');
-      jumpTarget.y = jumpTarget.y + 33;
+      jumpTarget.y = jumpTarget.y + 52; // magic number
       player.removeAttribute('animation');
       player.removeAttribute('move-along');
       jumpString = createPointStringFromJumpPath(createJumpPath(jumpStart, jumpTarget));
@@ -180,6 +185,7 @@ AFRAME.registerComponent('gamelogic', {
 		} else if (state === states.atak47 || state === states.atheart) {
 			score = 0;
 			chicken.setAttribute('class', 'interactive');
+
 			increaseCounter = function (event) {
 				score = score + 1; // TODO trigger
 				console.log(score);
@@ -188,18 +194,33 @@ AFRAME.registerComponent('gamelogic', {
 				}
 			}.bind(this);
 			scene.addEventListener('click', increaseCounter);
+
 			if (state === states.atak47) {
+        platform3.parentNode.removeChild(platform3);
 				player.setAttribute('spawner', { 'mixin': 'bullet', 'on': 'click' });	// TODO change trigger
 			} else if (state === states.atheart) {
+        platform2.parentNode.removeChild(platform2);
 				player.setAttribute('spawner', { 'mixin': 'heartbullet', 'on': 'click' });	// TODO change trigger
 			}
 
 		// 7. let it rain
 		} else if (state === states.letitrain) {
+      playerPosition = player.getAttribute('position');
+      scene.setAttribute('rain-of-entities', { maxCount: 20, components: ['dynamic-body', 'src|#tex_chicken'], center: { x: playerPosition.x, y: (playerPosition.y + 30), z: playerPosition.z } });
 			player.setAttribute('sound', "src: #ending; autoplay: true");
-			playerPosition = player.getAttribute('position');
 			scene.removeEventListener('click', increaseCounter);
-			scene.setAttribute('rain-of-entities', { maxCount: 10, components: ['dynamic-body', 'src|#tex_chicken'], center: { x: playerPosition.x, y: (playerPosition.y + 30), z: playerPosition.z } });
-		}
+
+      cursor.parentNode.removeChild(cursor);
+
+      if (this.decision === states.ak47selected) {
+        this.endmessage.innerText = 'You opted for violence and killed the Chicken. Therefore it will rain little chickens forever.';
+      } else if (this.decision === states.heartselected) {
+        this.endmessage.innerText = 'You opted for showering the Chicken with love. Therefore it will rain lots of little chickens.';
+      }
+      setTimeout(function () {
+        this.endscreen.classList.add('fadein');
+        this.endscreen.style.display = 'block';
+      }.bind(this), 5000);
+  	}
 	} // end of update()
 });
