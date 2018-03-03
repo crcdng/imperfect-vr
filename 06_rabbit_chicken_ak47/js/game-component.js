@@ -54,6 +54,7 @@ AFRAME.registerComponent('gamelogic', {
     this.ak47 = document.querySelector('#ak47');
     this.avatar = document.querySelector('#avatar');
     this.chicken = document.querySelector('#chicken');
+    this.curtain = document.querySelector('#curtain');
     this.cursor = document.querySelector('#cursor');
     this.decision = null;
     this.followme = document.querySelector('#followme');
@@ -89,8 +90,10 @@ AFRAME.registerComponent('gamelogic', {
 
     this.startbutton.addEventListener('click', function (e) {
       this.startscreen.classList.add('fadeout');
+      this.curtain.classList.add('fadeout');
       setTimeout(function () {
         this.startscreen.style.display = 'none';
+        this.curtain.style.display = 'none';
         this.scene.enterVR();
       }.bind(this), 990); // and remove the ui completely
       this.platform1.setAttribute('sound', 'src: #start; autoplay: true');

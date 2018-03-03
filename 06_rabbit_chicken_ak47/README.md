@@ -1,10 +1,9 @@
-# The Rabbit, the Chicken, the AK-47.
+# Rabbit Chicken AK-47
 
 This is part of the "Imperfect VR" workshop [https://github.com/i3games/imperfect-vr](https://github.com/i3games/imperfect-vr).
 
-**This scene is currently work in progress and may be broken.**
-
-This scene gets a bit more complex than the others. You can move around and interact with some of the inhabitants. A little story unfolds.
+This teaser scene is a bit more complex than the others.
+There is movement and you interact with the scene. A little story unfolds.
 
 In this scene there are more elements and there is also more logic written in JavaScript. In "[04 Imperfect Treasures](https://github.com/i3games/imperfect-vr/tree/master/04_imperfect_treasures)" we already have seen some code inside `<script>` tags. The recommended way in A-Frame however is to write our code as [components](https://aframe.io/docs/master/introduction/writing-a-component.html), which can be shared and reused.
 
@@ -21,6 +20,7 @@ Canter, MIT License
 * 3D-Font generated with [facetype.js](http://gero3.github.io/facetype.js/)
 * components based on [a-invaders](https://github.com/dmarcos/a-invaders): Copyright (c) Diego Marcos and [aframe-fps-example](https://github.com/ngokevin/aframe-fps-example): Copyright (c) Kevin Ngo, MIT License
 * follow logic based on code by Lady Ada Rose
+* start screen made with Uikit by Yootheme: https://getuikit.com/, https://yootheme.com/
 
 ## 3D-Models
 * AK-47: Copyright (c) AJAY896, 3dexport.com
