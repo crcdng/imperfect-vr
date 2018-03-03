@@ -13,19 +13,13 @@ body {
   z-index: 100;
 }
 
-#endmessage {
-  color: black;
-  font-weight: bold;
-  font-size: 2em;
-}
-
-#endscreen, #startscreen {
-  z-index: 120;
-}
-
 #logo {
   width: 60%;
   height: 60%;
+}
+
+#startscreen {
+  z-index: 120;
 }
 
 #startmessage {

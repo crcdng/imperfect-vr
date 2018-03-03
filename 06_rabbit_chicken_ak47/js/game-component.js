@@ -52,24 +52,21 @@ AFRAME.registerComponent('gamelogic', {
 		this.avatar = document.querySelector('#avatar');
 		this.chicken = document.querySelector('#chicken');
     this.decision = null;
-    this.endscreen = document.querySelector('#endscreen');
-    this.endmessage = document.querySelector('#endmessage');
 		this.followme = document.querySelector('#followme');
 		this.heart = document.querySelector('#heart');
     this.logo = document.querySelector('#logo');
 		this.killthebeast = document.querySelector('#killthebeast');
 		this.loveandpeace = document.querySelector('#loveandpeace');
-		this.player = document.querySelector('#player');
 		this.platform1 = document.querySelector('#platform1'); // starting point
 		this.platform2 = document.querySelector('#platform2'); // heart
 		this.platform3 = document.querySelector('#platform3'); // ak47
-    this.previousState = null;
+    this.player = document.querySelector('#player');
 		this.rabbit = document.querySelector('#rabbit');
     this.scene = this.el.sceneEl;
 		this.states = { start: "start", follow: "follow", stopfollow: "stopfollow", rabbithasfallen: "rabbithasfallen",
 			chickenhasrisen: "chickenhasrisen", ak47selected: "ak47selected", heartselected: "heartselected",
 			atak47: "atak47", atheart: "atheart", letitrain: "letitrain" };
-		this.state = this.data.state || this.states.start;
+      this.state = this.data.state || this.states.start;
     this.startbutton = document.getElementById('startbutton');
     this.startmessage = document.querySelector('#startmessage');
     this.startscreen = document.querySelector('#startscreen');
@@ -94,6 +91,7 @@ AFRAME.registerComponent('gamelogic', {
 	update: function (oldData) { // this function is called each time when something is updated
     var ak47 = this.ak47;
     var avatar = this.avatar;
+    var ending = {};
     var followme = this.followme;
     var heart = this.heart;
     var killthebeast = this.killthebeast;
@@ -205,21 +203,50 @@ AFRAME.registerComponent('gamelogic', {
 
 		// 7. let it rain
 		} else if (state === states.letitrain) {
+      scene.removeEventListener('click', increaseCounter);
+      cursor.parentNode.removeChild(cursor);
       playerPosition = player.getAttribute('position');
       scene.setAttribute('rain-of-entities', { maxCount: 20, components: ['dynamic-body', 'src|#tex_chicken'], center: { x: playerPosition.x, y: (playerPosition.y + 30), z: playerPosition.z } });
 			player.setAttribute('sound', "src: #ending; autoplay: true");
-			scene.removeEventListener('click', increaseCounter);
-
-      cursor.parentNode.removeChild(cursor);
 
       if (this.decision === states.ak47selected) {
-        this.endmessage.innerText = 'You opted for violence and killed the Chicken. Therefore it will rain little chickens forever.';
+        ending.text = 'You opted for violence and killed the Chicken. Therefore it will rain little chickens forever...';
+        ending.pos = { x: -28, y: 84, z: -50 };
+        ending.rot = { x: 0, y: 12, z: 0 };
+        ending.color = '#0000ff';
       } else if (this.decision === states.heartselected) {
-        this.endmessage.innerText = 'You opted for showering the Chicken with love. Therefore it will rain lots of little chickens.';
+        ending.text = 'You decided to shower the Chicken with love. Therefore it will rain lots of little chickens...';
+        ending.pos = { x: 41, y: 82, z: -80 };
+        ending.color = '#ff11b4';
+      } else {
+        ending.text = 'Love and Peace.';
       }
-      setTimeout(function () {
-        this.endscreen.classList.add('fadein');
-        this.endscreen.style.display = 'block';
+      ending.text += '\n\nThank you for playing the teaser of Rabbit Chicken AK 47.';
+      ending.text += '\n\nMade with aframe.io by @crcdng.';
+
+
+      setTimeout(function () { // show the endmessage
+
+        var endingEl = document.createElement('a-text');
+        var obj = { opacity: 0 };
+        var tween;
+
+        endingEl.setAttribute('position', ending.pos);
+        endingEl.setAttribute('rotation', ending.rot);
+        endingEl.setAttribute('value', ending.text);
+        endingEl.setAttribute('color', ending.color);
+        endingEl.setAttribute('anchor', 'center');
+        endingEl.setAttribute('align', 'center');
+        endingEl.setAttribute('width', '15');
+        endingEl.setAttribute('wrapCount', '20');
+        endingEl.setAttribute('font', 'assets/fonts/Monoid.fnt');
+        scene.appendChild(endingEl);
+
+        tween = new AFRAME.TWEEN.Tween(obj)
+          .to({opacity: 1}, 5000)
+          .onUpdate(function () {
+          endingEl.setAttribute('text', 'opacity', obj.opacity);
+        }).start();
       }.bind(this), 5000);
   	}
 	} // end of update()
