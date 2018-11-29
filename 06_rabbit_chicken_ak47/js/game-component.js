@@ -122,7 +122,6 @@ AFRAME.registerComponent('gamelogic', {
     var scene = this.scene;
     var state = this.data.state;
     var states = this.states;
-
     // 1. we follow the rabbit
     if (state === states.follow) {
       player.setAttribute('sound', 'src: #select; autoplay: true');
