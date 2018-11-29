@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>The Reality of the Virtual</title>
-    <script src="js/aframe-v0.7.1.js"></script>
+    <script src="js/aframe-v0.8.0.js"></script>
     <!-- required for the template component https://mozilla.github.io/nunjucks/ -->
     <script src="js/nunjucks.js"></script>
     <!-- third party components -->
@@ -40,7 +40,7 @@
       </a-assets>
 
       <!-- replace the standard camera with a new one that supports a fusion cursor -->
-      <a-entity id="player" position="0 0 3.8">
+      <a-entity id="player" position="0 1.68 3.8">
         <a-camera>
           <a-entity id="cursor" cursor="fuseTimeout: 1500"
                     raycaster="objects: .clickable"
@@ -67,26 +67,34 @@
       material="src: #zizek_texture; opacity: 0.65"
       event-set__1="_event: mouseenter; material.opacity: 1"
       event-set__2="_event: mouseleave; material.opacity: 0.65"
-        sound="src: #zizek_talk; on: click; autoplay: false"
+      sound="src: #zizek_talk; on: click; autoplay: false"
       animation="property: rotation; dur: 15000; easing: linear; loop: true; to: 0 -30 0">
       </a-entity>
       <a-sky id="zizek_sky" segments-height="40" segments-width="128" src="#zizek_texture" color="#FFFFFF"></a-sky>
 
-      <!-- interaction 2 - virilio / nyan -->
-      <a-box id="virilio_box" class="clickable" src="#virilio_texture" position="-1 0.5 1" rotation="0 45 0"
+      <!-- interaction 2 - virilio -->
+      <a-box id="virilio_box" class="clickable" material="src: #virilio_texture; opacity: 0.65"
+        position="-1 0.5 1" rotation="0 45 0"
         width="1" height="1" depth="1" color="#F16745" roughness="0.8"
         animation="property: position; dur: 2000; dir: alternate; easing: easeInOutQuad; loop: false; to: -1 8 1; startEvents: click"
+        event-set__1="_event: mouseenter; material.opacity: 1"
+        event-set__2="_event: mouseleave; material.opacity: 0.65"
         sound="src: #virilio_talk; on: click; autoplay: false">
       </a-box>
+
+      <!-- interaction 3 - nyan -->
       <a-entity id="nyan" class="clickable" position="0 5 -14" rotation="0 180 0"
       animation="property: position; dir: alternate; dur: 7000; loop: true; to: 10 3 3"
       sound="src: #dubstep; on: click; autoplay: false">
         <a-collada-model src="#nyan_model"></a-collada-model>
       </a-entity>
 
-      <!-- interaction 3 - the drumpfs -->
-      <a-cylinder id="drumpf_cylinder" class="clickable" position="1 0.75 1" rotation="0 -30 0" radius="0.5" height="1.5" src="#drumpf_texture"
+      <!-- interaction 4 - the drumpfs -->
+      <a-cylinder id="drumpf_cylinder" class="clickable" position="1 0.75 1"
+      rotation="0 -30 0" radius="0.5" height="1.5" material="src: #drumpf_texture; opacity: 0.65"
       animation="property: rotation; dur: 15000; easing:linear; loop: true; to: 0 330 0"
+      event-set__1="_event: mouseenter; material.opacity: 1"
+      event-set__2="_event: mouseleave; material.opacity: 0.65"
       sound="src: #carolina; on: click; autoplay: false">
       </a-cylinder>
       <a-entity template="src: #drumpf_template" data-num="12"></a-entity>
@@ -105,12 +113,6 @@
         // get elements of the scene we want to control
         var drumpf_cylinder = document.querySelector('#drumpf_cylinder');
         var drumpfs = document.querySelector('#drumpfs');
-        var drumpf_items = document.querySelector('.drumpf');
-        var carolina_audio = document.querySelector('#carolina');
-        var nyan = document.querySelector('#nyan');
-        var nyan_audio = document.querySelector('#dubstep');
-        var virilio_box = document.querySelector('#virilio_box');
-        var zizek_audio = document.querySelector('#zizek_talk');
         var zizek_sphere = document.querySelector('#zizek_sphere');
         var zizek_sky = document.querySelector('#zizek_sky');
 
