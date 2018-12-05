@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Basic Scene</title>
+    <!-- This scene is based on https://aframe.io/docs/0.8.0/guides/building-a-basic-scene.html -->
+    <script src="aframe-v0.8.2.js"></script>
+    <script src="aframe-animation-component.js"></script>
+    <script src="aframe-startplay-component.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+        <img id="boxTexture" alt="box texture" src="texture.jpg">
+        <img id="skyTexture" alt="sky texture" src="sechelt.jpg">
+        <img id="groundTexture" alt="ground texture" src="floor.jpg">
+        <audio id="background" src="backgroundnoise.mp3" loop="true"></audio>
+      </a-assets>
+
+      <a-sound src="#background" startplay></a-sound>
+
+      <!-- <a-entity sound="src: #background" startplay></a-entity> -->
+
+      <a-box src="#boxTexture" position="0 2 -5" rotation="0 45 45" scale="2 2 2"
+          animation__position="property: position; to: 0 3.1 -5; dir: alternate; dur: 2000; loop: true"
+          animation__grow="property: scale; startEvents: mouseenter; dur: 300; to: 2.8 2.8 2.8"
+          animation__shrink="property: scale; startEvents: mouseleave; dur: 300; to: 2 2 2"
+          animation__rotate="property: rotation; startEvents: click; dur: 2000; to: 360 405 45"
+          >
+      </a-box>
+      <a-sky src="#skyTexture"></a-sky>
+      <a-light type="ambient" color="#445451"></a-light>
+      <a-light type="point" intensity="2" position="2 4 4"></a-light>
+      <a-text value="Now Make a VR!" color="#BBB" position="-0.9 0.2 -3" scale="1.5 1.5 1.5"></a-text>
+      <!-- <a-plane src="#groundTexture" rotation="-90 0 0" width="30" height="30" repeat="10 10"></a-plane> -->
+      <a-entity position="0 0 3.8">
+        <a-camera>
+          <a-cursor color="#2E3A87"></a-cursor>
+        </a-camera>
+      </a-entity>
+    </a-scene>
+  </body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>The Reality of the Virtual</title>
+    <script src="js/aframe-v0.8.0.js"></script>
+    <!-- required for the template component https://mozilla.github.io/nunjucks/ -->
+    <script src="js/nunjucks.js"></script>
+    <!-- third party components -->
+    <script src="js/aframe-animation-component.js"></script>
+    <script src="js/aframe-event-set-component.js"></script>
+    <script src="js/aframe-layout-component.js"></script>
+    <script src="js/aframe-template-component.js"></script>
+    <script src="js/aframe-look-at-component.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <!-- preload scene assets -->
+      <a-assets timeout="8000">
+        <a-asset-item id="nyan_model" src="assets/nyancat_simple.dae"></a-asset-item>
+        <audio id="zizek_talk" src="assets/zizek.mp3"></audio>
+        <audio id="dubstep" src="assets/bensound-dubstep-compressed.mp3"></audio>
+        <audio id="carolina" src="assets/carolina.mp3"></audio>
+        <audio id="virilio_talk" src="assets/virilio.mp3"></audio>
+        <img id="cardboardvr_texture" alt="cardboardvr texture" src="assets/vr.jpg">
+        <img id="drumpf_texture" alt="drumpf texture" src="assets/drumpfdrumpf.png">
+        <img id="zizek_texture" alt="zizek texture" src="assets/zizek.png">
+        <img id="virilio_texture" alt="virilio texture" src="assets/virilio.jpg">
+        <img id="hell_texture" alt="hell texture" src="assets/hell_square.jpg">
+        <!-- the template component, simplifies creation of a group of items -->
+        <script id="drumpf_template" type="text/x-nunjucks-template">
+          <a-entity id="drumpfs" layout="type: circle; radius: 10" position="0 1 3.8" visible="false"
+            animation="property: rotation; dur: 30000; easing: linear; loop: true; to: 0 360 0">
+            {% for x in range(num) %}
+                <a-plane class="drumpf" look-at="#player" height="5" width="2.5"
+                src="#drumpf_texture" transparent="true"></a-plane>
+            {% endfor %}
+          </a-entity>
+        </script>
+      </a-assets>
+
+      <!-- replace the standard camera with a new one that supports a fusion cursor -->
+      <a-entity id="player" position="0 1.68 3.8">
+        <a-camera>
+          <a-entity id="cursor" cursor="fuseTimeout: 1500"
+                    raycaster="objects: .clickable"
+                    position="0 0 -1"
+                    geometry="primitive: ring; radiusOuter: 0.03; radiusInner: 0.02;"
+                    material="color: black; shader: flat"
+                    event-set__1="_event: mouseenter; material.color: limegreen"
+                    event-set__2="_event: mouseleave; material.color: black"
+                    animation__click="property: scale; startEvents: click; dur: 200; from: 0.2 0.2 0.2; to: 1 1 1; easing: easeInQuad"
+                    animation__fuse="property: scale; startEvents: fusing; dur: 1500; from: 1 1 1; to: 0.2 0.2 0.2; easing: easeInQuad"
+                    >
+          </a-entity>
+        </a-camera>
+      </a-entity>
+
+      <!-- the ground box and plane -->
+      <a-box id="stand_on" src="#hell_texture" depth="4" height="100" width="4" position="0 -50 4"></a-box>
+      <a-plane id="plane" src="#cardboardvr_texture" rotation="-90 0 0" width="4" height="4" color=""></a-plane>
+
+      <!-- interaction 1 - zizek -->
+      <a-entity id="zizek_sphere" class="clickable"
+      position="0 1.25 -1" rotation="0 330 0"
+      geometry="primitive: sphere; radius: 1.25"
+      material="src: #zizek_texture; opacity: 0.65"
+      event-set__1="_event: mouseenter; material.opacity: 1"
+      event-set__2="_event: mouseleave; material.opacity: 0.65"
+      sound="src: #zizek_talk; on: click; autoplay: false"
+      animation="property: rotation; dur: 15000; easing: linear; loop: true; to: 0 -30 0">
+      </a-entity>
+      <a-sky id="zizek_sky" segments-height="40" segments-width="128" src="#zizek_texture" color="#FFFFFF"></a-sky>
+
+      <!-- interaction 2 - virilio -->
+      <a-box id="virilio_box" class="clickable" material="src: #virilio_texture; opacity: 0.65"
+        position="-1 0.5 1" rotation="0 45 0"
+        width="1" height="1" depth="1" color="#F16745" roughness="0.8"
+        animation="property: position; dur: 2000; dir: alternate; easing: easeInOutQuad; loop: false; to: -1 8 1; startEvents: click"
+        event-set__1="_event: mouseenter; material.opacity: 1"
+        event-set__2="_event: mouseleave; material.opacity: 0.65"
+        sound="src: #virilio_talk; on: click; autoplay: false">
+      </a-box>
+
+      <!-- interaction 3 - nyan -->
+      <a-entity id="nyan" class="clickable" position="0 5 -14" rotation="0 180 0"
+      animation="property: position; dir: alternate; dur: 7000; loop: true; to: 10 3 3"
+      sound="src: #dubstep; on: click; autoplay: false">
+        <a-collada-model src="#nyan_model"></a-collada-model>
+      </a-entity>
+
+      <!-- interaction 4 - the drumpfs -->
+      <a-cylinder id="drumpf_cylinder" class="clickable" position="1 0.75 1"
+      rotation="0 -30 0" radius="0.5" height="1.5" material="src: #drumpf_texture; opacity: 0.65"
+      animation="property: rotation; dur: 15000; easing:linear; loop: true; to: 0 330 0"
+      event-set__1="_event: mouseenter; material.opacity: 1"
+      event-set__2="_event: mouseleave; material.opacity: 0.65"
+      sound="src: #carolina; on: click; autoplay: false">
+      </a-cylinder>
+      <a-entity template="src: #drumpf_template" data-num="12"></a-entity>
+    </a-scene>
+
+    <script>
+      var scene = document.querySelector('a-scene');
+
+      if (scene.hasLoaded === true) {
+        run();
+      } else {
+        scene.addEventListener('loaded', run);
+      }
+
+      function run() {
+        // get elements of the scene we want to control
+        var drumpf_cylinder = document.querySelector('#drumpf_cylinder');
+        var drumpfs = document.querySelector('#drumpfs');
+        var zizek_sphere = document.querySelector('#zizek_sphere');
+        var zizek_sky = document.querySelector('#zizek_sky');
+
+        // elements react to clicks
+        drumpf_cylinder.addEventListener('click', function () {
+          var visible = drumpfs.getAttribute('visible');
+          visible = !visible;
+          drumpfs.setAttribute('visible', visible);
+        });
+
+        zizek_sphere.addEventListener('click', function () {
+          var currentColor = zizek_sky.getAttribute('color');
+          if(currentColor === '#FFFFFF') {
+            zizek_sky.setAttribute('color', '#FF2384')
+          } else if(currentColor === '#FF2384') {
+            zizek_sky.setAttribute('color', '#11FE23')
+          } else if(currentColor === '#11FE23') {
+            zizek_sky.setAttribute('color', '#0056FC')
+          } else if(currentColor === '#0056FC') {
+            zizek_sky.setAttribute('color', '#FFFFFF')
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
