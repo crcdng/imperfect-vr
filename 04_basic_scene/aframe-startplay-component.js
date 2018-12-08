@@ -83,10 +83,10 @@ AFRAME.registerComponent('startplay', {
   schema: {
     autohide: { type: 'boolean', default: true },
     autoplay: { type: 'boolean', default: true },
-    color: { type: 'string', default: 'black' },
+    buttonId: { type: 'string', default: 'startplaybtn' },
+    buttonColor: { type: 'string', default: 'black' },
     font: { type: 'asset', default: 'default' },
-    media: { type: 'selector' },
-    position: { type: 'vec3', default: { x: 0, y: 0, z: 0 } },
+    position: { type: 'vec3', default: { x: 0, y: 1, z: 0 } },
     rotation: { type: 'vec3', default: { x: 0, y: 0, z: 0 } },
     size: { type: 'vec2', default: { x: 3, y: 1.5 } },
     text: { type: 'string', default: 'START' },
@@ -98,9 +98,8 @@ AFRAME.registerComponent('startplay', {
    */
   multiple: false,
 
-  createButton (playFunction) {
+  createButton: function (playFunction, sceneElement) {
     const button = document.createElement('a-entity');
-    const text = document.createElement('a-text');
 
     const clickHandler = (event) => {
       playFunction();
@@ -110,17 +109,40 @@ AFRAME.registerComponent('startplay', {
       }
     };
 
+    button.setAttribute('id', this.data.buttonId);
     button.setAttribute('geometry', { primitive: 'plane', height: this.data.size.y, width: this.data.size.x });
     button.setAttribute('position', this.data.position);
     button.setAttribute('rotation', this.data.rotation);
-    button.setAttribute('material', { color: this.data.color });
+    button.setAttribute('material', { color: this.data.buttonColor });
 
-    button.setAttribute('text', { value: this.data.text, align: 'center', width: (this.data.size.x * 2 + 2) });
+    button.setAttribute('text', { value: this.data.text, align: 'center', color: this.data.textColor, width: (this.data.size.x * 2 + 2) });
     button.addEventListener('click', clickHandler);
-    button.appendChild(text);
-    this.sceneEl.appendChild(button);
+    sceneElement.appendChild(button);
   },
+  // return the referenced <audio> or <video> element that should be played
+  getMediaElement: function (hostElement) {
+    const soundComponent = hostElement.components.sound;
+    const srcAttribute = hostElement.getAttribute('src');
 
+    // determine the video / audio element to play
+    let mediaEl;
+    if (soundComponent != null) {
+      const name = hostElement.nodeName.toLowerCase();
+      if (name === "a-sound") {
+        console.log("startplay component: found a sound element that wraps a sound component");
+        mediaEl = document.querySelector(srcAttribute);
+      } else {
+        console.log("startplay component: found an element with sound component", soundComponent);
+        mediaEl = document.querySelector(soundComponent.attrValue.src);
+      }
+    } else if (srcAttribute != null) {
+      console.log("startplay component: found an element with a src attribute");
+      mediaEl = document.querySelector(srcAttribute);
+    } else {
+      throw new Error('startplay component: cannot identify the item to play on element: ', hostElement);
+    }
+    return mediaEl;
+  },
   /**
    * Called once when component is attached. Generally for initial setup.
    */
@@ -128,41 +150,25 @@ AFRAME.registerComponent('startplay', {
     console.log('startplay: init');
 
     const el = this.el;
-    this.sceneEl = document.querySelector('a-scene');
+    this.sceneEl = el.sceneEl;
 
-    const srcEl = document.querySelector(el.getAttribute('src'));
-    const soundComponent = el.components.sound;
-    let playFunction;
+    const mediaEl = this.getMediaElement(el);
+    const playFunction = mediaEl.play.bind(mediaEl); // 'this' needs to be bound to the media element
+    console.log('startplay component: playFunction: ', playFunction);
 
-    // determine the video / audio element to play
-    // The first option is a user-provided target
-    // TODO currently undocumented
-    if (this.data.media != null) {
-      // 'this' must be bound to an HTMLMediaElement
-      playFunction = this.data.media.play.bind(this.data.media);
-    } else if (srcEl != null) {
-      playFunction = srcEl.play.bind(srcEl);
-    } else if (soundComponent != null) {
-      playFunction = soundComponent.playSound;
-    } else {
-      new Error('A-Frame startplay component: cannot identify the medium to play');
-    }
-
-    // TODO temporarily log
     if (this.data.autoplay) {
       const autoplay = playFunction();
       if (autoplay != undefined) {
         autoplay.then(_ => {
-          // TODO temporarily log
           console.log('startplay component: autoplay works');
         }).catch(error => {
-          // TODO temporarily log
           console.log('startplay component: autoplay blocked');
-          this.createButton(playFunction);
+          this.createButton(playFunction, this.sceneEl);
         });
       }
     } else {
-      this.createButton(playFunction);
+      console.log('startplay component: no autoplay');
+      this.createButton(playFunction, this.sceneEl);
     }
   },
 
