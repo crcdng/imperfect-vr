@@ -12,11 +12,12 @@ Imperfect VR is inspired by ["Imperfect Cinema"](http://www.imperfectcinema.com/
 
 * **00 Do it Yourself** - the scene for our coding exercise
 * **01 Hello VR World** - result of our coding exercise
-* **02 360 Degrees** - demonstrates a 360 image / video
-* **03 Basic Scene** - based on the A-Frame documentation [Build with Basic HTML](https://aframe.io/docs/0.5.0/guides/). It has animation, gaze-based interaction (looking at the cube will make it react) and sound.
-* **04 Imperfect Treasures**, based on the [Google Cardboard example](https://developers.google.com/vr/android/get-started). This is similar to the last scene, but has a little bit more logic (code) in it to create a little playful experience.
-* **05 The Reality of the Virtual** featuring Slavoj Žižek, Paul Virilio, Nyan Cat and more. Still a variant of or first "Hello World" scene, with more interaction, more Dubstep, more meaning, more everything.
-* **06 Rabbit Chicken, AK 47** (work in progress). This scene is my playground for more experimentation with storytelling and movement in VR. Expect it to be ... imperfect.
+* **02 360 Image** demonstrates a 360 image 
+* **02 360 Video** demonstrates a 360 image. This might or might work on phones.
+* **04 Basic Scene**, based on the A-Frame documentation [Build a Basic Scene](https://aframe.io/docs/0.8.0/guides/building-a-basic-scene.html). It has animation, gaze-based interaction (looking at the cube will make it react) and sound.
+* **05 Imperfect Treasures**, based on the original Google Cardboard example scene. This is similar to the last scene, but has a little bit more logic (code) in it to create a little playful experience.
+* **06 The Reality of the Virtual** featuring Slavoj Žižek, Paul Virilio, Nyan Cat and more. Still a variant of or first "Hello World" scene, with more interaction, more Dubstep, more meaning, more everything.
+* **07 Rabbit Chicken, AK 47** (work in progress). This scene is my playground for more experimentation with storytelling and movement in VR. Expect it to be ... imperfect.
 
 ## Context and Plans
 
@@ -50,5 +51,5 @@ Temporarily patched 3rd-party components (A-Frame 0.6.1):
 ## Third-Party Licenses
 
 * A-Frame: Copyright (c) 2015 A-Frame Authors, MIT License
-* Uses [k-frame components](https://github.com/ngokevin/k-frame): Copyright (c) 2016 Kevin Ngo, MIT License
+* Uses [k-frame components](https://supermedium.com/superframe/): Copyright (c) 2016 Kevin Ngo, MIT License
 * see also the README's and third-party-licenses in some of the examples.
