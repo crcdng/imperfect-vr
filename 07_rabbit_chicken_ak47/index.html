@@ -5,9 +5,8 @@
   <title>Rabbit Chicken AK47</title>
   <link rel="stylesheet" href="css/uikit.min.css">
   <link rel="stylesheet" href="css/ui.css">
-  <script src="js/aframe-master.js"></script>
+  <script src="js/aframe-v0.9.2.min.js"></script>
   <!-- components-->
-  <script src="js/aframe-animation-component.js"></script>
   <script src="js/aframe-event-set-component.js"></script>
   <!-- ocean-->
   <script src="js/aframe-extras.primitives.js"></script>
@@ -33,7 +32,7 @@
   <script src="js/game-component.js"></script>
 </head>
 <body>
-  <a-scene id="scene" class="fullscreen">
+  <a-scene id="scene" class="fullscreen" physics="debug: true">
     <a-assets timeout="18000">
       <a-asset-item id="mod_ak47" src="assets/models/AK-47.obj"></a-asset-item>
       <a-asset-item id="mod_rabbit" src="assets/models/rabbit-lowpoly.dae"></a-asset-item>
@@ -86,7 +85,7 @@
     animation__osc="property: position; dur: 980; dir: alternate; easing: easeInOutSine; loop: true; to: -1.3 1.9 0"></a-entity>
   </a-entity>
 
-  <a-entity id="player" position="0.78 74.2 11.8" spawner="mixin: laser; on: mousedown">
+  <a-entity id="player" static-body position="0.78 74.2 8.8" spawner="mixin: laser; on: mousedown">
     <a-entity id="camera" camera look-controls wasd-controls>
       <!-- TODO raycaster -->
       <a-entity id="cursor" cursor="fuse: true; fuseTimeout: 1500"
@@ -108,13 +107,13 @@
 
   <a-entity id="chicken" scale="90 90 90" position="0 -550 -550" rotation="0 180 0" collada-model="#mod_chicken"></a-entity>
 
-  <a-entity id="platform1" position="0 33 0"> <!-- starting point -->
+  <a-entity id="platform1" position="0 33 0" static-body> <!-- starting point -->
   <!-- y = (box height + cylinder height) / 2-->
   <a-box width="6" depth="6" height="72"></a-box>
   <a-cylinder position="0 37 0" radius="12" height="2" color="#3c8148" geometry="segmentsRadial: 8"></a-cylinder>
   </a-entity>
 
-  <a-entity id="platform2" position="46 33 -75"> <!-- heart -->
+  <a-entity id="platform2" position="46 33 -75" static-body> <!-- heart -->
   <a-box width="6" depth="6" height="72"></a-box>
   <a-cylinder position="0 37 0" radius="12" height="2" color="#ff7144" geometry="segmentsRadial: 8">
     <a-box id="heart" src="#tex_heart" width="6" height="6" depth="0.2" position="0 7 0" animation__rot="property: rotation; dur: 12000; easing: linear; loop: true; to: 0 -360 0">
@@ -123,7 +122,7 @@
   </a-cylinder>
   </a-entity>
 
-  <a-entity id="platform3" position="-30 33 -43"> <!-- ak47 -->
+  <a-entity id="platform3" position="-30 33 -43" static-body> <!-- ak47 -->
   <a-box width="6" depth="6" height="72"></a-box>
   <a-cylinder position="0 37 0" radius="12" height="2" color="#0582ca" geometry="segmentsRadial: 8">
     <a-entity id="ak47" position="0 3 0" obj-model="obj: #mod_ak47" animation__rot="property: rotation; dur: 14000; easing: linear; loop: true; to: 0 360 0">
@@ -132,7 +131,7 @@
   </a-cylinder>
   </a-entity>
 
-  <a-entity id="platform4" position="30 23 30"> <!-- trees -->
+  <a-entity id="platform4" position="30 23 30" static-body> <!-- trees -->
   <a-box width="6" depth="6" height="28"></a-box>
   <a-cylinder position="0 15 0" radius="27" height="2" color="#deefb7" animation__rot="property: rotation; dur: 16000; easing: linear; loop: true; to: 0 360 0" geometry="segmentsRadial: 8">
     <a-entity id="forest" position="0 5 0">

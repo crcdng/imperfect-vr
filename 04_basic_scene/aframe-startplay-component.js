@@ -154,7 +154,6 @@ AFRAME.registerComponent('startplay', {
 
     const mediaEl = this.getMediaElement(el);
     const playFunction = mediaEl.play.bind(mediaEl); // 'this' needs to be bound to the media element
-    console.log('startplay component: playFunction: ', playFunction);
 
     if (this.data.autoplay) {
       const autoplay = playFunction();

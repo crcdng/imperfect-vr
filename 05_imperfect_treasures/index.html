@@ -3,24 +3,24 @@
   <head>
     <meta charset="utf-8">
     <title>Imperfect Treasure Hunt</title>
-    <script src="js/aframe-v0.8.2.js"></script>
+    <script src="js/aframe-v0.9.2.min.js"></script>
     <script src="js/aframe-sun-sky.js"></script>
+    <script src="js/aframe-particle-system-component.min.js"></script> <!-- version 1.1.3 -->
     <script src="js/aframe-startplay-component.js"></script>
-    <script src="js/aframe-animation-component.js"></script>
-    <script src="js/aframe-particle-system-component.js"></script>
   </head>
   <body>
     <a-scene>
-      <!-- <a-scene stats> --> <!-- uncomment this line and comment the line above to see statistics about the scene -->
+      <!-- uncomment the next line and comment the line above to see statistics about the scene -->
+      <!-- <a-scene stats> -->
       <!-- preload scene assets-->
       <a-assets>
-        <audio id="cube_sound" src="assets/cube_sound.mp3" loop="true"></audio>
+        <audio id="cube_sound" src="assets/cube_sound.mp3" preload="auto"></audio>
         <a-asset-item id="mod_chick" src="assets/chick-lowpoly.glb"></a-asset-item>
         <img id="floor" alt="floor" src="assets/floor.jpg">
       </a-assets>
 
-      <!-- a placeholder for a particle system (dust, rain, snow) we set the system dynamically (see below) -->
-      <a-entity id="particles" position="0 2.25 -15"></a-entity>
+      <!-- a placeholder for a particle system (dust, rain, snow); we set the type system dynamically (see below) -->
+      <a-entity id="particles" position="0 2.25 -15" progress="dataEl: [hide-and-seek]"></a-entity>
 
       <!-- a plane to "stand on" -->
       <a-plane width="6" height="6" rotation="-90 0 0" src="#floor"></a-plane>
@@ -28,89 +28,98 @@
       <!-- replace the standard camera with a new one that has a fuse cursor -->
       <a-entity position="0 0 0">
         <a-camera id="player">
-          <a-entity id="cursor" cursor="fuse: false; fuseTimeout: 500;" geometry="primitive: ring" 
+          <a-entity id="cursor" cursor="fuse: false; fuseTimeout: 500;" geometry="primitive: ring"
             material="color: white; shader: flat" position ="0 0 -1" scale="0.01 0.01 0.01">
           </a-entity>
         </a-camera>
       </a-entity>
 
-      <!-- a figure that changes location when you trigger / look at it -->
+      <!-- a figure that "hides" / changes location when you look at it -->
       <!-- it has sound attached to it -->
-      <a-entity id="chicken" position="2 3 -15">
+      <a-entity id="chicken" position="2 3 -15" hide-and-seek sound="src: #cube_sound; loop: true" startplay="position: 0 1.6 -3">
         <a-entity
-          gltf-model="#mod_chick" sound="src: #cube_sound" startplay="position: 0 1.6 -3"
+          gltf-model="#mod_chick"
           animation__position="property: position; to: 0 0.7 0; dir: alternate; dur: 1000; loop: true"
           animation__grow="property: scale; startEvents: mouseenter; dur: 100; to: 1.3 1.3 1.3"
           animation__shrink="property: scale; startEvents: mouseleave; dur: 300; to: 1 1 1">
         </a-entity>
       </a-entity>
-      <!-- a sky with a sun around the scene -->
-      <a-sun-sky material="side: back"></a-sun-sky> <!-- material="side: back" is a workaround for https://github.com/ngokevin/kframe/issues/147 -->
+      <!-- a sky with a sun that can go down -->
+      <!-- material="side: back" is a workaround for a bug https://github.com/ngokevin/kframe/issues/147 -->
+      <a-sun-sky id="sun" material="sunPosition: -0.2 20.1 -5; side: back" go-down="dataEl: [hide-and-seek]"></a-sun-sky>
     </a-scene>
 
     <script>
-      const scene = document.querySelector('a-scene');
-      // this makes sure everything has loaded
-      if (scene.hasLoaded) { run(); } else { scene.addEventListener('loaded', run); }
-
-      function run() {
-        let score = 0;
-        const chickenEl = document.querySelector('#chicken');
-        const cursorEl = document.querySelector('#cursor');
-        const particles = document.querySelector('#particles');
-        const startPlayButtonEl = document.querySelector('#startplaybtn');
-
-        // compute a random new position around the player
-        function newPosition(angle, radius, height) {
-          // rotate 90 degrees anticlockwise, so 0 angle is the direction of the negative Z axis
-          const finalAngle = angle + Math.PI / 2;
-          return ({ x: Math.cos(finalAngle) * radius, y: height, z: -Math.sin(finalAngle) * radius });
-        }
-
-        function restoreFuseCursor(event) {
-          // the fuse attribute must be set to false for the initial click on the startPlay button 
-          // set it to true after that click
-          if (cursorEl.components.cursor.data.fuse === false) {
-            cursorEl.components.cursor.data.fuse = true;
-            console.log(cursorEl.components.cursor.data.fuse);
+    // the chicken reacts to clicks by "hiding" in another position
+    // and emits the click event to other entities as well
+    AFRAME.registerComponent('hide-and-seek', {
+      init: function () {
+        this.el.addEventListener('click', () => {
+          // compute a new position around the player
+          function newPosition(angle, radius, height) {
+            // rotate 90 degrees anticlockwise, so 0 angle is the direction of the negative Z axis
+            const finalAngle = angle + Math.PI / 2;
+            return ({ x: Math.cos(finalAngle) * radius, y: height, z: -Math.sin(finalAngle) * radius });
           }
-        }
 
-        if (startPlayButtonEl != null) {
-          startPlayButtonEl.addEventListener('click', restoreFuseCursor);
-        } else {
-          // no startPlay - set the fuse attribute to true 
-          cursorEl.components.cursor.data.fuse = true;
-        }
-
-        chickenEl.addEventListener('click', function () {
-          // tell the bird to change its position when triggered
-          const newAngle = Math.random() * Math.PI * 2;
+          this.previousAngle = 0;
+          let newAngle = 0;
+          do {
+            newAngle = Math.random() * Math.PI * 2;
+          } while (Math.abs(newAngle - this.previousAngle) < 0.3);
+          this.previousAngle = newAngle;
           const newRadius = Math.random() * 5 + 18;
           const newHeight = Math.random() * 7 + 2;
           const newPos = newPosition(newAngle, newRadius, newHeight); // compute the new position
-          score = score + 1; // increase the score each time we trigger the chicken
-          // switch the environment: dust -> snow -> rain
-          if (score === 3) {
-            particles.setAttribute('particle-system', 'preset: dust');
-          } else if (score === 6) {
-            particles.setAttribute('particle-system', 'preset: snow');
-          } else if (score === 9) {
-            particles.setAttribute('particle-system', 'preset: rain');
-          }
-          setTimeout(() => { // wait a little then move the bird to its new
-            // position and rotate it so it looks at the center
-            // console.log('old position and rotation: ---------');
-            // console.log(this.getAttribute('position'));
-            // console.log(this.getAttribute('rotation'));
-            this.setAttribute('rotation', '' + 0 + ' ' + ((newAngle / Math.PI) * 180) + ' ' + 0);
-            this.setAttribute('position', '' + newPos.x + ' ' + newPos.y + ' ' + newPos.z);
-            // console.log('new position and rotation:: ---------');
-            // console.log(this.getAttribute('position'));
-            // console.log(this.getAttribute('rotation'));
+
+          setTimeout(() => {
+            // wait a little then move the bird to its new position and rotate it,
+            // so it looks at the center
+            // manipulating the three.js object
+            this.el.object3D.position.set(newPos.x, newPos.y, newPos.z);
+            this.el.object3D.rotation.set(0, newAngle, 0);
           }, 290);
+
+          this.el.emit('chickenclicked'); // emit the news to other entities
         });
       }
+    });
+    // a hackish way for the sun to go down
+    AFRAME.registerComponent('go-down', {
+      schema: {
+        dataEl: {type: 'selector'}
+      },
+      init: function () {
+        this.data.dataEl.addEventListener('chickenclicked', (event) => {
+          const sunPos = this.el.getAttribute('material').sunPosition;
+          sunPos.y = (sunPos.y <= 1.3) ? 0.1 : (sunPos.y - 1.2);
+          this.el.setAttribute('material', 'sunPosition', sunPos);
+        });
+      }
+    });
+    // switch the particle system type: dust -> snow -> rain
+    AFRAME.registerComponent('progress', {
+      schema: {
+        dataEl: {type: 'selector'}
+      },
+      init: function () {
+        this.counter = 0;
+        this.data.dataEl.addEventListener('chickenclicked', (event) => {
+          this.counter = this.counter + 1;
+          // console.log(`chicken clicked: ${this.counter} times`);
+          if (this.counter === 3) {
+            this.el.setAttribute('particle-system', 'preset: dust');
+            this.el.setAttribute('particle-system', 'maxAge', 2);
+          } else if (this.counter === 6) {
+            this.el.setAttribute('particle-system', 'preset: snow');
+            this.el.setAttribute('particle-system', 'maxAge', 1.5);
+          } else if (this.counter === 9) {
+            this.el.setAttribute('particle-system', 'preset: rain');
+            this.el.setAttribute('particle-system', 'maxAge', 1);
+          }
+        });
+      }
+    });
     </script>
   </body>
 </html>

@@ -9,16 +9,14 @@ If there is background sound or video in the scene, the START button will activa
   <head>
     <meta charset="utf-8">
     <title>Imperfect VR</title>
-    <script src="js/aframe-v0.8.2.js"></script>
+    <script src="js/aframe-v0.9.2.min.js"></script>
     <script src="js/nunjucks.js"></script>
-    <script src="js/aframe-animation-component.js"></script>
     <script src="js/aframe-event-set-component.js"></script>
     <script src="js/aframe-layout-component.js"></script>
     <script src="js/aframe-look-at-component.js"></script>
     <script src="js/aframe-mountain-component.js"></script>
     <script src="js/aframe-sun-sky.js"></script>
     <script src="js/aframe-template-component.js"></script>
-    <script src="js/navigate-to-component.js"></script>
   </head>
   <body>
     <a-scene>
@@ -56,7 +54,7 @@ If there is background sound or video in the scene, the START button will activa
         </a-entity>
       </a-entity>
       <!-- the layout component with templates, also using the look-at component -->
-      <a-entity layout="type: circle; radius: 4" position="0 0.5 0" rotation="0 -36 0">
+      <a-entity layout="type: circle; radius: 4" position="0 0.5 0" rotation="0 -68 0">
         <a-entity template="src: #linktemplate" class="panel" data-to="04_basic_scene" data-thumb="#img04" look-at="#player"></a-entity>
         <a-entity template="src: #linktemplate" class="panel" data-to="05_imperfect_treasures" data-thumb="#img05" look-at="#player"></a-entity>
         <a-entity template="src: #linktemplate" class="panel" data-to="06_reality_of_the_virtual" data-thumb="#img06" look-at="#player"></a-entity>
@@ -68,14 +66,29 @@ If there is background sound or video in the scene, the START button will activa
       </a-entity>
       <a-entity position="0 0 0" id="player">
         <a-camera>
-          <a-cursor fuse id="cursor" raycaster="objects: .panel"
+          <a-cursor id="cursor"
             animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
-            animation__fusing="property: scale; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
+            animation__fusing="property: scale; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 2500"
             event-set__1="_event: mouseenter; color: limegreen"
             event-set__2="_event: mouseleave; color: black">
           </a-cursor>
         </a-camera>
       </a-entity>
     </a-scene>
+    <script>
+    AFRAME.registerComponent('navigate-to', {
+      schema: {
+        on: { type: 'string' }, // alternative: { default: 'click' }
+        to: { type: 'string' }
+      },
+      init: function () {
+        this.el.addEventListener(this.data.on, () => {
+	         const data = this.data;
+	         const newUrl = data.to + "/";
+           window.location.href = newUrl;
+        });
+      }
+    });
+    </script>
   </body>
 </html>
