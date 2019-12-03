@@ -32,11 +32,19 @@
   <script src="js/game-component.js"></script>
 </head>
 <body>
-  <a-scene id="scene" class="fullscreen" physics="debug: true">
-    <a-assets timeout="18000">
+  <a-scene id="scene" class="fullscreen" physics="debug: false">
+    <a-assets timeout="50000">
+      <audio id="fall" src="assets/sfx/Whistle.mp3"></audio>
+      <audio id="select" src="assets/sfx/Powerup.mp3"></audio>
+      <audio id="shootbullet" src="assets/sfx/Laser_Shoot.mp3"></audio>
+      <audio id="shootheart" src="assets/sfx/Powerup2.mp3"></audio>
+      <audio id="splash" src="assets/sfx/Explosion.mp3"></audio>
+      <audio id="start" src="assets/music/bensound-cute.mp3"></audio>
+      <audio id="ending" src="assets/music/bensound-scifi.mp3"></audio>
+      <audio id="rise" src="assets/music/bensound-epic.mp3"></audio>
       <a-asset-item id="mod_ak47" src="assets/models/AK-47.obj"></a-asset-item>
-      <a-asset-item id="mod_rabbit" src="assets/models/rabbit-lowpoly.dae"></a-asset-item>
-      <a-asset-item id="mod_chicken" src="assets/models/chick-lowpoly.dae"></a-asset-item>
+      <a-asset-item id="mod_rabbit" src="assets/models/rabbit.glb"></a-asset-item>
+      <a-asset-item id="mod_chicken" src="assets/models/chick-lowpoly.glb"></a-asset-item>
       <a-asset-item id="obj_tree" src="assets/models/lowpolytree.obj"></a-asset-item>
       <a-asset-item id="mtl_tree" src="assets/models/lowpolytree.mtl"></a-asset-item>
       <img id="tex_heart" alt="heart" src="assets/textures/heart.png">
@@ -64,48 +72,36 @@
         <a-entity mixin="tree"></a-entity>
         {% endfor %}
       </script>
-    <audio id="fall" src="assets/sfx/Whistle.mp3"></audio>
-    <audio id="select" src="assets/sfx/Powerup.mp3"></audio>
-    <audio id="shootbullet" src="assets/sfx/Laser_Shoot.mp3"></audio>
-    <audio id="shootheart" src="assets/sfx/Powerup2.mp3"></audio>
-    <audio id="splash" src="assets/sfx/Explosion.mp3"></audio>
-    <audio id="start" src="assets/music/bensound-cute.mp3"></audio>
-    <audio id="ending" src="assets/music/bensound-scifi.mp3"></audio>
-    <audio id="rise" src="assets/music/bensound-epic.mp3"></audio>
+
   </a-assets>
 
   <a-entity id="gamelogic" gamelogic></a-entity> <!-- state machine -->
 
   <a-entity id="avatar" position="0 72.4 6.15">
     <a-entity id="rabbit" class="interactive" scale="0.3 0.3 0.3"
-    rotation="0 90 0" collada-model="#mod_rabbit"
+    rotation="0 90 0" gltf-model="#mod_rabbit"
     event-set__follow="_event: click; _target: #gamelogic; gamelogic.state: follow"></a-entity>
     <a-entity id="followme" text-geometry="value: Follow Me; font: #comic-sans-bold"
     material="color: #FF11B4" position="-1.3 1.4 0"
     animation__osc="property: position; dur: 980; dir: alternate; easing: easeInOutSine; loop: true; to: -1.3 1.9 0"></a-entity>
   </a-entity>
 
-  <a-entity id="player" static-body position="0.78 74.2 8.8" spawner="mixin: laser; on: mousedown">
-    <a-entity id="camera" camera look-controls wasd-controls>
+  <a-entity id="player" static-body position="0.78 72 8.8" spawner="mixin: laser; on: mousedown">
+    <a-camera>
       <!-- TODO raycaster -->
       <a-entity id="cursor" cursor="fuse: true; fuseTimeout: 1500"
-      raycaster="objects: .interactive; far: 1500;" scale="1 1 1" position="0 0 -1"
+      raycaster="objects: .interactive" scale="1 1 1" position="0 0 -1"
       geometry="primitive: ring; radiusOuter: 0.07; radiusInner: 0.05"
-      material="color: rgb(15,0,255); opacity: 0.72; metalness: 0.64; roughness: 0.96">
-      <!-- bug in new animation component, this does not work:
+      material="color: rgb(15,0,255); opacity: 0.72; metalness: 0.64; roughness: 0.96"
       animation__fuse="startEvents: fusing; pauseEvents: mouseleave; easing: easeInQuad; property: scale; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
       animation__click="startEvents: click; pauseEvents: mouseleave; easing: easeInQuad; property: scale; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
       animation__leave="startEvents: mouseleave; easing: easeInQuad; property: scale; to: 1 1 1; dur: 10"
-      -->
-      <!-- using the old animation element // TODO -->
-      <a-animation begin="fusing" end="mouseleave" easing="ease-in" attribute="scale" fill="forwards" from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation>
-      <a-animation begin="click" end="mouseleave" easing="ease-in" attribute="scale" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
-      <a-animation begin="mouseleave" easing="ease-in" attribute="scale" to="1 1 1" dur="10"></a-animation>
+      >
       </a-entity>
-    </a-entity>
+    </a-camera>
   </a-entity>
 
-  <a-entity id="chicken" scale="90 90 90" position="0 -550 -550" rotation="0 180 0" collada-model="#mod_chicken"></a-entity>
+  <a-entity id="chicken" scale="90 90 90" position="0 -550 -550" rotation="0 180 0" gltf-model="#mod_chicken"></a-entity>
 
   <a-entity id="platform1" position="0 33 0" static-body> <!-- starting point -->
   <!-- y = (box height + cylinder height) / 2-->

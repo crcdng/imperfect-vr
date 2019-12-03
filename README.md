@@ -41,7 +41,7 @@ We have to become more knowledgeable in some not so exciting technical areas and
 
 A few pointers:
 
-* You must run the scene from a web server and it must be secured with SSL (Address starts with "https", not with "http"). This means you must know how to install a SSL certificate either on your local laptop or on a public server. (Let’s Encrypt)[https://letsencrypt.org] for public servers or (self-signed certificates)[https://devcenter.heroku.com/articles/ssl-certificate-self] for private LANs are solutions to try. If you use (Github pages)[https://pages.github.com] or (Glitch)[https://glitch.com] for testing your scenes, this is done for you.
+* You must run the scene from a web server and it must be secured with SSL (Address starts with "https", not with "http"). This means you must know how to install a SSL certificate either on your local laptop or on a public server. [Let’s Encrypt](https://letsencrypt.org) for public servers or [self-signed certificates](https://devcenter.heroku.com/articles/ssl-certificate-self) for private LANs are solutions to try. If you use [Github pages](https://pages.github.com) or [Glitch](https://glitch.com) for testing your scenes, this is done for you.
 * When you open a scene on your mobile phone phone there is a mechanism to add it to the home screen and then start it from there. This can help solving some issues.
 * Sometimes getting into full screen mode is still difficult.
 * Scenes with audio or video have a "Start" button that must push before you enter VR. I have to check about about the new Safari thing and will try to update the component accordingly.

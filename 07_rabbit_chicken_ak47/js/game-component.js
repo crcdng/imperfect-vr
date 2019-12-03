@@ -95,13 +95,14 @@ AFRAME.registerComponent('gamelogic', {
         this.startscreen.style.display = 'none';
         this.curtain.style.display = 'none';
         this.scene.enterVR();
-      }.bind(this), 990); // and remove the ui completely
+      }.bind(this), 1990); // and remove the ui completely
       this.platform1.setAttribute('sound', 'src: #start; autoplay: true');
     }.bind(this), false);
     this.startbutton.disabled = false;
     this.startbutton.innerText = 'START';
   },
   update: function (oldData) { // this function is called each time when something is updated
+
     var increaseCounter, jumpStart, jumpString, jumpTarget, jumpTargetState, playerPosition, score;
 
     var ak47 = this.ak47;
@@ -122,6 +123,8 @@ AFRAME.registerComponent('gamelogic', {
     var scene = this.scene;
     var state = this.data.state;
     var states = this.states;
+    console.log(state);
+
     // 1. we follow the rabbit
     if (state === states.follow) {
       player.setAttribute('sound', 'src: #select; autoplay: true');
@@ -131,7 +134,6 @@ AFRAME.registerComponent('gamelogic', {
       rabbit.setAttribute('animation__hop', 'property: position; to: 0 0.3 0; dur: 250; easing: easeInOutSine; loop: true');
       avatar.setAttribute('move-along', 'dur: 3000; points: 0 72.5 6.15, 0 72.5 4.15, 0 72.5 0.15, 0 72.5 -4.15, 0 72.5 -12.15, 0 74 -18.15;');
       avatar.setAttribute('event-set__stopfollow', '_event: move-along-end; _target: #gamelogic; gamelogic.state: ' + states.stopfollow);
-
       // 2. the rabbit has reached its destination hovering in mid-air
     } else if (state === states.stopfollow) {
       player.setAttribute('sound', 'src: #fall; autoplay: true; volume: 0.6');
@@ -146,9 +148,9 @@ AFRAME.registerComponent('gamelogic', {
     } else if (state === states.rabbithasfallen) {
       platform1.setAttribute('sound', 'src: #splash; autoplay: true');
       player.setAttribute('sound', 'src: #rise; autoplay: true; on: sound-ended');
+      chicken.setAttribute('event-set__chickenhasrisen', '_event: animation__rot-complete; _target: #gamelogic; gamelogic.state: ' + states.chickenhasrisen);
       chicken.setAttribute('animation__pos', 'property: position; dur: 14000; easing: easeInSine; to: 0 0 -550');
       chicken.setAttribute('animation__rot', 'property: rotation; dur: 14000; easing: easeInSine; to: 0 -17 0');
-      chicken.setAttribute('event-set__chickenhasrisen', '_event: animation__rot-complete; _target: #gamelogic; gamelogic.state: ' + states.chickenhasrisen);
       avatar.parentNode.removeChild(avatar);
 
       // 4. how to deal with the threatening chicken - player has two choices
