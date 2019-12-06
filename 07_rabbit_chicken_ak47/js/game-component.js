@@ -89,10 +89,10 @@ AFRAME.registerComponent('gamelogic', {
     }
 
     this.startbutton.addEventListener('click', function (e) {
-      const soundComponent = this.platform1.components.sound;
-      const mediaEl = document.querySelector(soundComponent.attrValue.src);
+      const startSoundComponent = this.platform1.components.sound;
+      const mediaEl = document.querySelector(startSoundComponent.attrValue.src);
       if (mediaEl != null) {
-        mediaEl.play.bind(mediaEl)();
+        mediaEl.play.bind(mediaEl)(); // this mut be bound to the media element
       }
       this.startscreen.classList.add('fadeout');
       this.curtain.classList.add('fadeout');
@@ -101,8 +101,8 @@ AFRAME.registerComponent('gamelogic', {
         this.curtain.style.display = 'none';
         this.scene.enterVR();
       }.bind(this), 1990); // and remove the ui completely
-      // this.platform1.setAttribute('sound', 'src: #start; autoplay: true');
     }.bind(this), false);
+
     this.startbutton.disabled = false;
     this.startbutton.innerText = 'START';
   },
@@ -128,6 +128,7 @@ AFRAME.registerComponent('gamelogic', {
     var scene = this.scene;
     var state = this.data.state;
     var states = this.states;
+
     console.log(state);
 
     // 1. we follow the rabbit
@@ -139,8 +140,15 @@ AFRAME.registerComponent('gamelogic', {
       rabbit.setAttribute('animation__hop', 'property: position; to: 0 0.3 0; dur: 250; easing: easeInOutSine; loop: true');
       avatar.setAttribute('move-along', 'dur: 3000; points: 0 72.5 6.15, 0 72.5 4.15, 0 72.5 0.15, 0 72.5 -4.15, 0 72.5 -12.15, 0 74 -18.15;');
       avatar.setAttribute('event-set__stopfollow', '_event: move-along-end; _target: #gamelogic; gamelogic.state: ' + states.stopfollow);
+
       // 2. the rabbit has reached its destination hovering in mid-air
     } else if (state === states.stopfollow) {
+      // this.platform1.getAttribute('sound');
+
+      var entity = document.querySelector('[sound]');
+this.platform1.components.sound.stopSound();
+
+      console.log(this.platform1.getAttribute('sound'));
       player.setAttribute('sound', 'src: #fall; autoplay: true; volume: 0.6');
       player.removeAttribute('follow');
       avatar.removeAttribute('move-along');
@@ -153,9 +161,9 @@ AFRAME.registerComponent('gamelogic', {
     } else if (state === states.rabbithasfallen) {
       platform1.setAttribute('sound', 'src: #splash; autoplay: true');
       player.setAttribute('sound', 'src: #rise; autoplay: true; on: sound-ended');
-      chicken.setAttribute('event-set__chickenhasrisen', '_event: animation__rot-complete; _target: #gamelogic; gamelogic.state: ' + states.chickenhasrisen);
       chicken.setAttribute('animation__pos', 'property: position; dur: 14000; easing: easeInSine; to: 0 0 -550');
       chicken.setAttribute('animation__rot', 'property: rotation; dur: 14000; easing: easeInSine; to: 0 -17 0');
+      chicken.setAttribute('event-set__chickenhasrisen', '_event: animationcomplete__rot; _target: #gamelogic; gamelogic.state: ' + states.chickenhasrisen);
       avatar.parentNode.removeChild(avatar);
 
       // 4. how to deal with the threatening chicken - player has two choices
@@ -262,11 +270,6 @@ AFRAME.registerComponent('gamelogic', {
         endingEl.setAttribute('font', 'assets/fonts/Monoid.fnt');
         scene.appendChild(endingEl);
 
-        new AFRAME.TWEEN.Tween(obj) // TODO old animation system
-          .to({opacity: 1}, 5000)
-          .onUpdate(function () {
-            endingEl.setAttribute('text', 'opacity', obj.opacity);
-          }).start();
       }, 5000);
     }
   } // end of update()
