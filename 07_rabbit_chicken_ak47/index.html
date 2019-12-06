@@ -33,14 +33,16 @@
   <body>
     <a-scene id="scene" class="fullscreen" physics="debug: false">
       <a-assets timeout="50000">
-        <audio id="fall" src="assets/sfx/Whistle.mp3"></audio>
-        <audio id="select" src="assets/sfx/Powerup.mp3"></audio>
-        <audio id="shootbullet" src="assets/sfx/Laser_Shoot.mp3"></audio>
-        <audio id="shootheart" src="assets/sfx/Powerup2.mp3"></audio>
-        <audio id="splash" src="assets/sfx/Explosion.mp3"></audio>
-        <audio id="start" src="assets/music/bensound-cute.mp3"></audio>
-        <audio id="ending" src="assets/music/bensound-scifi.mp3"></audio>
-        <audio id="rise" src="assets/music/bensound-epic.mp3"></audio>
+        <audio id="start" src="assets/music/bensound-cute.mp3" preload="auto"></audio>
+        <audio id="ending" src="assets/music/bensound-scifi.mp3" preload="auto"></audio>
+        <audio id="rise" src="assets/music/bensound-epic.mp3" preload="auto"></audio>
+        
+        <audio id="fall" src="assets/sfx/Whistle.mp3" preload="auto"></audio>
+        <audio id="select" src="assets/sfx/Powerup.mp3" preload="auto"></audio>
+        <audio id="shootbullet" src="assets/sfx/LaserShoot.mp3" preload="auto"></audio>
+        <audio id="shootheart" src="assets/sfx/Powerup2.mp3" preload="auto"></audio>
+        <audio id="splash" src="assets/sfx/Explosion.mp3" preload="auto"></audio>
+
         <a-asset-item
           id="mod_ak47"
           src="assets/models/AK-47.obj"

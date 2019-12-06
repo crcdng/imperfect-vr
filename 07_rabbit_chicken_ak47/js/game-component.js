@@ -92,7 +92,7 @@ AFRAME.registerComponent('gamelogic', {
       const startSoundComponent = this.platform1.components.sound;
       const mediaEl = document.querySelector(startSoundComponent.attrValue.src);
       if (mediaEl != null) {
-        mediaEl.play.bind(mediaEl)(); // this mut be bound to the media element
+        mediaEl.play.bind(mediaEl)(); // this must be bound to the media element
       }
       this.startscreen.classList.add('fadeout');
       this.curtain.classList.add('fadeout');
@@ -143,12 +143,13 @@ AFRAME.registerComponent('gamelogic', {
 
       // 2. the rabbit has reached its destination hovering in mid-air
     } else if (state === states.stopfollow) {
-      // this.platform1.getAttribute('sound');
 
-      var entity = document.querySelector('[sound]');
-this.platform1.components.sound.stopSound();
+      // const startSoundComponent = this.platform1.components.sound;
+      // const mediaEl = document.querySelector(startSoundComponent.attrValue.src);
+      // if (mediaEl != null) {
+      //   mediaEl.pause.bind(mediaEl)(); // this must be bound to the media element
+      // }
 
-      console.log(this.platform1.getAttribute('sound'));
       player.setAttribute('sound', 'src: #fall; autoplay: true; volume: 0.6');
       player.removeAttribute('follow');
       avatar.removeAttribute('move-along');
