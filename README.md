@@ -10,16 +10,16 @@ Imperfect VR is inspired by ["Imperfect Cinema"](http://www.imperfectcinema.com/
 
 More info about the workshop is here http://www.i3games.com/i3Games/imperfectvr.html.
 
-## VR scenes for the workshop
+## The VR scenes for the workshop
 
 * **00 Do it Yourself** - the scene for our coding exercise
-* **01 Hello VR World** - result of our coding exercise
-* **02 360 Image** demonstrates a 360 image
-* **03 360 Video** demonstrates a 360 video. This might or might not work on phones.
-* **04 Basic Scene**, based on the A-Frame documentation [Build a Basic Scene](https://aframe.io/docs/0.9.0/guides/building-a-basic-scene.html). It has animation, gaze-based interaction (looking at the cube will make it react) and sound.
-* **05 Imperfect Treasures**, based on the original Google Cardboard example scene. This is similar to the last scene, but has a little bit more logic (code) in it to create a little playful experience.
-* **06 The Reality of the Virtual** featuring Slavoj Žižek, Paul Virilio, Nyan Cat and more. Still a variant of or first "Hello World" scene, with more interaction, more Dubstep, more meaning, more everything.
-* **07 Rabbit, Chicken, AK 47** (work in progress). This scene is my playground for more experimentation with storytelling and movement in VR. Expect it to be ... imperfect.
+* **01 Hello VR World** - result of our coding exercise: https://i3games.github.io/imperfect-vr/01_hello_vr_world
+* **02 360 Image** demonstrates a 360 image: https://i3games.github.io/imperfect-vr/02_360_image
+* **03 360 Video** demonstrates a 360 video: https://i3games.github.io/imperfect-vr/03_360_video
+* **04 Basic Scene**, based on the original A-Frame documentation [Build a Basic Scene](https://aframe.io/docs/1.0.0/guides/building-a-basic-scene.html). It has animation, gaze-based interaction (looking at the cube will make it react) and sound: https://i3games.github.io/imperfect-vr/04_basic_scene
+* **05 Imperfect Treasures**, based on the original Google Cardboard example scene. This is similar to the last scene, but has a little bit more logic (code) in it to create a little playful experience: https://i3games.github.io/imperfect-vr/05_imperfect_treasures
+* **06 The Reality of the Virtual** featuring Slavoj Žižek, Paul Virilio, Nyan Cat and more. Still a variant of or first "Hello World" scene, with more interaction, more Dubstep, more meaning, more everything: https://i3games.github.io/imperfect-vr/06_reality_of_the_virtual
+* **07 Rabbit, Chicken, AK 47** (teaser). This scene is my playground for more experimentation with storytelling and movement in VR. Expect it to be ... imperfect: https://i3games.github.io/imperfect-vr/07_rabbit_chicken_ak47
 
 ## Some technical and not so technical remarks
 

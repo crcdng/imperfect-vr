@@ -123,7 +123,8 @@ AFRAME.registerComponent('startplay', {
   getMediaElement: function (hostElement) {
     const soundComponent = hostElement.components.sound;
     const srcAttribute = hostElement.getAttribute('src');
-
+    let loop = false;
+    
     // determine the video / audio element to play
     let mediaEl;
     if (soundComponent != null) {
@@ -135,13 +136,15 @@ AFRAME.registerComponent('startplay', {
         console.log("startplay component: found an element with sound component", soundComponent);
         mediaEl = document.querySelector(soundComponent.attrValue.src);
       }
+      if (soundComponent.attrValue.loop != null && soundComponent.attrValue.loop === "true" ) { loop = true; } 
     } else if (srcAttribute != null) {
       console.log("startplay component: found an element with a src attribute");
       mediaEl = document.querySelector(srcAttribute);
     } else {
       throw new Error('startplay component: cannot identify the item to play on element: ', hostElement);
     }
-    return mediaEl;
+    
+    return { el: mediaEl, loop: loop } ;
   },
   /**
    * Called once when component is attached. Generally for initial setup.
@@ -152,7 +155,9 @@ AFRAME.registerComponent('startplay', {
     const el = this.el;
     this.sceneEl = el.sceneEl;
 
-    const mediaEl = this.getMediaElement(el);
+    const mediaEl = this.getMediaElement(el).el;
+    const loop = this.getMediaElement(el).loop;
+    mediaEl.loop = loop;
     const playFunction = mediaEl.play.bind(mediaEl); // 'this' needs to be bound to the media element
 
     if (this.data.autoplay) {

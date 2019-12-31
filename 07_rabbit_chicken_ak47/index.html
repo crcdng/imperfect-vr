@@ -1,289 +1,168 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Rabbit Chicken AK47</title>
-    <link rel="stylesheet" href="css/uikit.min.css" />
-    <link rel="stylesheet" href="css/ui.css" />
-    <script src="js/aframe-v0.9.2.min.js"></script>
-    <!-- components-->
-    <script src="js/aframe-event-set-component.js"></script>
-    <!-- ocean-->
-    <script src="js/aframe-extras.primitives.js"></script>
-    <script src="js/aframe-look-at-component.js"></script>
-    <!-- needed for the template comonent -->
-    <script src="js/nunjucks.js"></script>
-    <!-- physics -->
-    <script src="js/aframe-physics-system.js"></script>
-    <script src="js/aframe-proxy-event-component.js"></script>
 
-    <!-- typo in filename-->
-    <script src="js/aframe-randomizer-components.js"></script>
-    <script src="js/aframe-template-component.js"></script>
-    <script src="js/aframe-text-geometry-component.js"></script>
-    <script src="js/collider.js"></script>
-    <script src="js/gradientsky.js"></script>
-    <script src="js/projectile.js"></script>
-    <script src="js/spawner.js"></script>
-    <!-- my / modified components -->
-    <script src="js/aframe-move-along-component.js"></script>
-    <script src="js/aframe-follower-component.js"></script>
-    <script src="js/rain-of-entities.js"></script>
-  </head>
-  <body>
-    <a-scene id="scene" class="fullscreen" physics="debug: false">
-      <a-assets timeout="50000">
-        <audio id="start" src="assets/music/bensound-cute.mp3" preload="auto"></audio>
-        <audio id="ending" src="assets/music/bensound-scifi.mp3" preload="auto"></audio>
-        <audio id="rise" src="assets/music/bensound-epic.mp3" preload="auto"></audio>
-        
-        <audio id="fall" src="assets/sfx/Whistle.mp3" preload="auto"></audio>
-        <audio id="select" src="assets/sfx/Powerup.mp3" preload="auto"></audio>
-        <audio id="shootbullet" src="assets/sfx/LaserShoot.mp3" preload="auto"></audio>
-        <audio id="shootheart" src="assets/sfx/Powerup2.mp3" preload="auto"></audio>
-        <audio id="splash" src="assets/sfx/Explosion.mp3" preload="auto"></audio>
+<head>
+  <meta charset="utf-8" />
+  <title>Rabbit Chicken AK47</title>
+  <link rel="stylesheet" href="css/uikit.min.css" />
+  <link rel="stylesheet" href="css/ui.css" />
+  <script src="js/aframe-v1.0.3.min.js"></script>
+  <script src="js/aframe-event-set-component.js"></script>
+  <!-- ocean-->
+  <script src="js/aframe-extras.primitives.js"></script>
+  <script src="js/aframe-look-at-component.js"></script>
+  <!-- needed for the template component -->
+  <script src="js/nunjucks.js"></script>
+  <script src="js/aframe-physics-system.js"></script>
+  <script src="js/aframe-proxy-event-component.js"></script>
+  <!-- typo in filename-->
+  <script src="js/aframe-randomizer-components.js"></script>
+  <script src="js/aframe-template-component.js"></script>
+  <script src="js/aframe-text-geometry-component.js"></script>
+  <script src="js/aframe-super-shooter-kit.min.js"></script>
+  <script src="js/gradientsky.js"></script>
+  <!-- my / modified components -->
+  <script src="js/aframe-move-along-component.js"></script>
+  <script src="js/aframe-follower-component.js"></script>
+  <script src="js/rain-of-entities.js"></script>
+</head>
 
-        <a-asset-item
-          id="mod_ak47"
-          src="assets/models/AK-47.obj"
-        ></a-asset-item>
-        <a-asset-item
-          id="mod_rabbit"
-          src="assets/models/rabbit.glb"
-        ></a-asset-item>
-        <a-asset-item
-          id="mod_chicken"
-          src="assets/models/chick-lowpoly.glb"
-        ></a-asset-item>
-        <a-asset-item
-          id="obj_tree"
-          src="assets/models/lowpolytree.obj"
-        ></a-asset-item>
-        <a-asset-item
-          id="mtl_tree"
-          src="assets/models/lowpolytree.mtl"
-        ></a-asset-item>
-        <img id="tex_heart" alt="heart" src="assets/textures/heart.png" />
-        <img id="tex_sky" alt="sky" src="assets/textures/sky.jpg" />
-        <img id="tex_chicken" alt="chicken" src="assets/textures/chicken.png" />
-        <!-- rotation="90 0 0" must be set for the bullet to perform as expected -->
-        <a-mixin
-          id="bullet"
-          geometry="primitive: cylinder; buffer: false; height: 2; radius: 0.655"
-          material="color: grey; metalness: 0.8; opacity: 0.73; roughness: 0.3; side: double"
-          rotation="90 0 0"
-          sound="src: #shootbullet; autoplay: true"
-          projectile="speed: -0.5"
-          collider="target: .enemy"
-        ></a-mixin>
-        <a-mixin
-          id="heartbullet"
-          geometry="primitive: sphere ; buffer: false; radius: 0.655"
-          material="color: red; metalness: 0.8; opacity: 0.73; roughness: 0.3; side: double"
-          rotation="90 0 0"
-          sound="src: #shootheart; autoplay: true"
-          projectile="speed: -0.5"
-          collider="target: .enemy"
-        ></a-mixin>
-        <a-mixin
-          id="tree"
-          obj-model="obj: #obj_tree; mtl: #mtl_tree"
-          scale="2 2 2"
-          random-position="min: -18 0 -18; max: 18 0 18"
-        ></a-mixin>
-        <a-asset-item
-          id="comic-sans-bold"
-          src="assets/fonts/ComicSansMS_Bold.json"
-        ></a-asset-item>
-        <script id="trees_template" type="text/x-nunjucks-template">
+<body>
+  <a-scene id="scene" class="fullscreen" physics="debug: false">
+    <a-assets timeout="50000">     
+      <audio id="fall" src="assets/sfx/Whistle.mp3" preload="auto"></audio>
+      <audio id="select" src="assets/sfx/Powerup.mp3" preload="auto"></audio>
+      <audio id="shootbullet" src="assets/sfx/LaserShoot.mp3" preload="auto"></audio>
+      <audio id="shootheart" src="assets/sfx/Powerup2.mp3" preload="auto"></audio>
+      <audio id="splash" src="assets/sfx/Explosion.mp3" preload="auto"></audio>
+
+      <audio id="start" src="assets/music/bensound-cute.mp3" preload="auto"></audio>
+      <audio id="ending" src="assets/music/bensound-scifi.mp3" preload="auto"></audio>
+      <audio id="rise" src="assets/music/bensound-epic.mp3" preload="auto"></audio>
+
+      <a-asset-item id="mod_ak47" src="assets/models/ak47.glb"></a-asset-item>
+      <a-asset-item id="mod_rabbit" src="assets/models/rabbit.glb"></a-asset-item>
+      <a-asset-item id="mod_chicken" src="assets/models/chick-lowpoly.glb"></a-asset-item>
+      <a-asset-item id="mod_tree" src="assets/models/lowpolytree.glb"></a-asset-item>
+
+      <img id="tex_heart" alt="heart" src="assets/textures/heart.png" />
+      <img id="tex_sky" alt="sky" src="assets/textures/sky.jpg" />
+      <img id="tex_chicken" alt="chicken" src="assets/textures/chicken.png" />
+
+      <a-mixin id="heartbullet" geometry="primitive: sphere ; buffer: false; radius: 0.655"
+        material="color: red; metalness: 0.8; opacity: 0.73; roughness: 0.3; side: double"
+        sound="src: #shootheart; autoplay: true"></a-mixin>
+      <a-mixin id="tree" gltf-model="#mod_tree" scale="2 2 2"
+        random-position="min: -18 0 -18; max: 18 0 18"></a-mixin>
+      <a-asset-item id="comic-sans-bold" src="assets/fonts/ComicSansMS_Bold.json"></a-asset-item>
+      <script id="trees_template" type="text/x-nunjucks-template">
           {% for x in range(num) %}
           <a-entity mixin="tree"></a-entity>
           {% endfor %}
         </script>
-      </a-assets>
+    </a-assets>
 
-      <!-- state machine -->
-      <a-entity id="gamelogic" gamelogic></a-entity>
+    <!-- state machine -->
+    <a-entity id="gamelogic" gamelogic></a-entity>
 
-      <a-entity id="avatar" position="0 72.4 6.15">
-        <a-entity
-          id="rabbit"
-          class="interactive"
-          scale="0.3 0.3 0.3"
-          rotation="0 90 0"
-          gltf-model="#mod_rabbit"
-          event-set__follow="_event: click; _target: #gamelogic; gamelogic.state: follow"
-        ></a-entity>
-        <a-entity
-          id="followme"
-          text-geometry="value: Follow Me; font: #comic-sans-bold"
-          material="color: #FF11B4"
-          position="-1.3 1.4 0"
-          animation__osc="property: position; dur: 980; dir: alternate; easing: easeInOutSine; loop: true; to: -1.3 1.9 0"
-        ></a-entity>
+    <a-entity id="avatar" position="0 72.4 6.15">
+      <a-entity id="rabbit" scale="0.3 0.3 0.3" rotation="0 90 0" class="interactive" event-set__follow="_event: click; _target: #gamelogic; gamelogic.state: follow" gltf-model="#mod_rabbit"></a-entity>
+      <a-entity id="followme" text-geometry="value: Follow Me; font: #comic-sans-bold" material="color: #FF11B4"
+        position="-1.3 1.4 0"
+        animation__osc="property: position; dur: 980; dir: alternate; easing: easeInOutSine; loop: true; to: -1.3 1.9 0">
       </a-entity>
+    </a-entity>
 
-      <a-entity
-        id="player"
-        static-body
-        position="0.78 72 10.8"
-        spawner="mixin: laser; on: mousedown"
-      >
-        <a-camera>
-          <a-entity
-            id="cursor"
-            cursor="fuse: true; fuseTimeout: 1500"
-            raycaster="objects: .interactive"
-            scale="1 1 1"
-            position="0 0 -1"
-            geometry="primitive: ring; radiusOuter: 0.07; radiusInner: 0.05"
-            material="color: rgb(15,0,255); opacity: 0.72; metalness: 0.64; roughness: 0.96"
-            animation__fuse="startEvents: fusing; pauseEvents: mouseleave; easing: easeInQuad; property: scale; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
-            animation__click="startEvents: click; pauseEvents: mouseleave; easing: easeInQuad; property: scale; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
-            animation__leave="startEvents: mouseleave; easing: easeInQuad; property: scale; to: 1 1 1; dur: 10"
-          ></a-entity>
-        </a-camera>
-      </a-entity>
+    <a-entity id="player" static-body position="0.78 72 10.8">
+      <a-camera>
+        <a-entity id="cursor" cursor="fuse: true; fuseTimeout: 1500" raycaster="objects: .interactive" scale="1 1 1"
+          position="0 0 -1" geometry="primitive: ring; radiusOuter: 0.07; radiusInner: 0.05"
+          material="color: rgb(15,0,255); opacity: 0.72; metalness: 0.64; roughness: 0.96"
+          animation__fuse="startEvents: fusing; pauseEvents: mouseleave; easing: easeInQuad; property: scale; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
+          animation__click="startEvents: click; pauseEvents: mouseleave; easing: easeInQuad; property: scale; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
+          animation__leave="startEvents: mouseleave; easing: easeInQuad; property: scale; to: 1 1 1; dur: 10">
+        </a-entity>
+      </a-camera>
+    </a-entity>
 
-      <a-entity
-        id="chicken"
-        scale="90 90 90"
-        position="0 -550 -550"
-        rotation="0 180 0"
-        gltf-model="#mod_chicken"
-      ></a-entity>
+    <a-entity id="chicken" scale="90 90 90" position="0 -550 -550" rotation="0 180 0" gltf-model="#mod_chicken">
+    </a-entity>
 
-      <!-- starting point -->
-      <a-entity id="platform1" position="0 33 0" sound="src: #start"
-        static-body>
-        <a-box width="6" depth="6" height="72"></a-box>
-        <a-cylinder
-          position="0 37 0"
-          radius="12"
-          height="2"
-          color="#3c8148"
-          geometry="segmentsRadial: 8"
-        ></a-cylinder>
-      </a-entity>
+    <!-- starting point -->
+    <a-entity id="platform1" position="0 33 0" sound="src: #start" static-body>
+      <a-box width="6" depth="6" height="72"></a-box>
+      <a-cylinder position="0 37 0" radius="12" height="2" color="#3c8148" geometry="segmentsRadial: 8"></a-cylinder>
+    </a-entity>
 
-      <!-- heart -->
-      <a-entity id="platform2" position="46 33 -75" static-body>
-        <a-box width="6" depth="6" height="72"></a-box>
-        <a-cylinder
-          position="0 37 0"
-          radius="12"
-          height="2"
-          color="#ff7144"
-          geometry="segmentsRadial: 8"
-        >
-          <a-box
-            id="heart"
-            src="#tex_heart"
-            width="6"
-            height="6"
-            depth="0.2"
-            position="0 7 0"
-            animation__rot="property: rotation; dur: 12000; easing: linear; loop: true; to: 0 -360 0"
-          >
-            <a-entity
-              id="loveandpeace"
-              text-geometry="value: Love &amp; Peace; font: #comic-sans-bold"
-              material="color: #ff7144"
-              scale="5 5 5"
-              position="-10 5 0"
-              visible="false"
-            ></a-entity>
-          </a-box>
-        </a-cylinder>
-      </a-entity>
+    <!-- heart -->
+    <a-entity id="platform2" position="46 33 -75" static-body>
+      <a-box width="6" depth="6" height="72"></a-box>
+      <a-cylinder position="0 37 0" radius="12" height="2" color="#ff7144" geometry="segmentsRadial: 8">
+        <a-box id="heart" src="#tex_heart" width="6" height="6" depth="0.2" position="0 7 0"
+          animation__rot="property: rotation; dur: 12000; easing: linear; loop: true; to: 0 -360 0">
+          <a-entity id="loveandpeace" text-geometry="value: Love &amp; Peace; font: #comic-sans-bold"
+            material="color: #ff7144" scale="5 5 5" position="-10 5 0" visible="false"></a-entity>
+        </a-box>
+      </a-cylinder>
+    </a-entity>
 
-      <!-- ak47 -->
-      <a-entity id="platform3" position="-30 33 -43" static-body>
-        <a-box width="6" depth="6" height="72"></a-box>
-        <a-cylinder
-          position="0 37 0"
-          radius="12"
-          height="2"
-          color="#0582ca"
-          geometry="segmentsRadial: 8"
-        >
-          <a-entity
-            id="ak47"
-            position="0 3 0"
-            obj-model="obj: #mod_ak47"
-            animation__rot="property: rotation; dur: 14000; easing: linear; loop: true; to: 0 360 0"
-          >
-            <a-entity
-              id="killthebeast"
-              text-geometry="value: Kill The Beast; font: #comic-sans-bold"
-              material="color: #0582ca"
-              scale="5 5 5"
-              position="-10 10 0"
-              visible="false"
-            ></a-entity>
-          </a-entity>
-        </a-cylinder>
-      </a-entity>
+    <!-- ak47 -->
+    <a-entity id="platform3" position="-30 33 -43" static-body>
+      <a-box width="6" depth="6" height="72"></a-box>
+      <a-cylinder position="0 37 0" radius="12" height="2" color="#0582ca" geometry="segmentsRadial: 8">
+        <a-entity id="ak47" position="0 3 0" gltf-model="#mod_ak47"
+          animation__rot="property: rotation; dur: 14000; easing: linear; loop: true; to: 0 360 0">
+          <a-entity id="killthebeast" text-geometry="value: Kill The Beast; font: #comic-sans-bold"
+            material="color: #0582ca" scale="5 5 5" position="-10 10 0" visible="false"></a-entity>
+        </a-entity>
+      </a-cylinder>
+    </a-entity>
 
-      <a-entity id="platform4" position="30 23 30" static-body>
-        <!-- trees -->
-        <a-box width="6" depth="6" height="28"></a-box>
-        <a-cylinder
-          position="0 15 0"
-          radius="27"
-          height="2"
-          color="#deefb7"
-          animation__rot="property: rotation; dur: 16000; easing: linear; loop: true; to: 0 360 0"
-          geometry="segmentsRadial: 8"
-        >
-          <a-entity id="forest" position="0 5 0">
-            <!-- creating 23 trees-->
-            <a-entity template="src: #trees_template" data-num="23"></a-entity>
-          </a-entity>
-        </a-cylinder>
-      </a-entity>
+    <a-entity id="platform4" position="30 23 30" static-body>
+      <!-- trees -->
+      <a-box width="6" depth="6" height="28"></a-box>
+      <a-cylinder position="0 15 0" radius="27" height="2" color="#deefb7"
+        animation__rot="property: rotation; dur: 16000; easing: linear; loop: true; to: 0 360 0"
+        geometry="segmentsRadial: 8">
+        <a-entity id="forest" position="0 5 0">
+          <!-- creating 23 trees-->
+          <a-entity template="src: #trees_template" data-num="23"></a-entity>
+        </a-entity>
+      </a-cylinder>
+    </a-entity>
 
-      <a-entity id="ocean" position="0 0 0">
-        <a-ocean width="5500" depth="5500" density="15" speed="2"></a-ocean>
-      </a-entity>
+    <a-entity id="ocean" position="0 0 0">
+      <a-ocean width="5500" depth="5500" density="15" speed="2"></a-ocean>
+    </a-entity>
 
-      <a-entity
-        id="sky"
-        geometry="primitive:sphere; radius:3000; phiLength:360; phiStart:0; thetaLength:90"
-        material="shader:flat; side:back; height:2048; src:#tex_sky; width:2048"
-      ></a-entity>
-    </a-scene>
+    <a-entity id="sky" geometry="primitive:sphere; radius:3000; phiLength:360; phiStart:0; thetaLength:90"
+      material="shader:flat; side:back; height:2048; src:#tex_sky; width:2048"></a-entity>
+  </a-scene>
 
-    <!-- start ui-->
+  <!-- start ui-->
 
-    <img id="curtain" src="assets/ui/blur.png" />
+  <img id="curtain" src="assets/ui/blur.png" />
 
-    <div id="startscreen" class="uk-overlay uk-position-center fadein"
-
-    >
-      <div class="uk-flex uk-flex-center">
-        <img id="logo" alt="logo" src="assets/ui/r_c_a.png" />
-      </div>
-      <div class="uk-flex uk-flex-center">
-        <p id="title">Rabbit Chicken AK47</p>
-      </div>
-      <div class="uk-flex uk-flex-center">
-        <p id="startmessage"></p>
-      </div>
-      <div class="uk-flex uk-flex-center">
-        <button
-          disabled
-          id="startbutton"
-          class="uk-button uk-button-default uk-button-large uk-button-secondary"
-        >
-          Loading...
-        </button>
-      </div>
+  <div id="startscreen" class="uk-overlay uk-position-center fadein">
+    <div class="uk-flex uk-flex-center">
+      <img id="logo" alt="logo" src="assets/ui/r_c_a.png" />
     </div>
+    <div class="uk-flex uk-flex-center">
+      <p id="title">Rabbit Chicken AK47</p>
+    </div>
+    <div class="uk-flex uk-flex-center">
+      <p id="startmessage"></p>
+    </div>
+    <div class="uk-flex uk-flex-center">
+      <button disabled id="startbutton" class="uk-button uk-button-default uk-button-large uk-button-secondary">
+        Loading...
+      </button>
+    </div>
+  </div>
 
 
-    <!-- gamelogic -->
-    <script src="js/game-component.js"></script>
-    <!-- <script src="js/aframe-startplay-component.js"></script> -->
-  </body>
+  <!-- gamelogic -->
+  <script src="js/game-component.js"></script>
+</body>
+
 </html>
