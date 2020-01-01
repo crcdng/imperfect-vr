@@ -8,34 +8,6 @@
 // (imagine hundreds of states)
 // also this component is specific to this scene and not reusable for others
 
-// AFRAME.registerComponent('click-to-shoot', {
-//   init: function () {
-//     document.body.addEventListener('mousedown', () => { this.el.emit('shoot'); });
-//   }
-// });
-
-// AFRAME.registerComponent('hit-handler', {
-//   dependencies: ['material'],
-
-//   init: function () {
-//     var color;
-//     var el = this.el;
-
-//     color = new THREE.Color();
-//     color.set('#666');
-//     el.components.material.material.color.copy(color);
-//     el.addEventListener('hit', () => {
-//       color.addScalar(0.05);
-//       el.components.material.material.color.copy(color);
-//     });
-
-//     el.addEventListener('die', () => {
-//       color.setRGB(1, 0, 0);
-//       el.components.material.material.color.copy(color);
-//     });
-//   }
-// });
-
 AFRAME.registerComponent('gamelogic', {
   schema: {
     state: { type: 'string', default: 'start' }
@@ -57,6 +29,7 @@ AFRAME.registerComponent('gamelogic', {
     this.platform2 = document.querySelector('#platform2'); // heart
     this.platform3 = document.querySelector('#platform3'); // ak47
     this.player = document.querySelector('#player');
+    this.camera = document.querySelector('#camera');
     this.rabbit = document.querySelector('#rabbit');
     this.scene = this.el.sceneEl;
     this.states = {
@@ -80,7 +53,6 @@ AFRAME.registerComponent('gamelogic', {
 
     this.startbutton.addEventListener('click', (e) => {
       this.state = this.states.start;
-      console.log(this.state, 1);
       //const startSoundComponent = this.platform1.components.sound;
       //const mediaEl = document.querySelector(startSoundComponent.attrValue.src);
       // if (mediaEl != null) {
@@ -111,6 +83,7 @@ AFRAME.registerComponent('gamelogic', {
     const killthebeast = this.killthebeast;
     const loveandpeace = this.loveandpeace;
     const player = this.player;
+    const camera = this.camera;
     const platform2 = this.platform2;
     const platform3 = this.platform3;
     const rabbit = this.rabbit;
@@ -121,7 +94,7 @@ AFRAME.registerComponent('gamelogic', {
     // 1. we follow the rabbit
     if (state === states.follow) {
       // player.setAttribute('sound', 'src: #select; autoplay: true');
-      rabbit.removeAttribute('event-set__click');
+      rabbit.classList.remove('interactive');
       followme.parentNode.removeChild(followme);
       player.setAttribute('follow', 'target', '#avatar');
       rabbit.setAttribute('animation__hop', 'property: position; to: 0 0.3 0; dur: 250; easing: easeInOutSine; loop: true');
@@ -159,6 +132,7 @@ AFRAME.registerComponent('gamelogic', {
       chicken.removeAttribute('animation__pos');
       chicken.removeAttribute('animation__rot');
       chicken.removeAttribute('event-set__movingend');
+      chicken.setAttribute('hit-handler');
       killthebeast.setAttribute('visible', true);
       loveandpeace.setAttribute('visible', true);
       ak47.setAttribute('class', 'interactive');
@@ -183,13 +157,8 @@ AFRAME.registerComponent('gamelogic', {
       loveandpeace.parentNode.removeChild(loveandpeace);
       platform3.parentNode.removeChild(platform3);
       platform2.parentNode.removeChild(platform2);
-
-      if (state === states.ak47selected) {
-
-      } else if (state === states.heartselected) {
-
-      }
-
+      camera.setAttribute('shooter', '');
+      camera.setAttribute('click-to-shoot', '');
       player.removeAttribute('animation');
       player.removeAttribute('move-along');
 
@@ -207,12 +176,13 @@ AFRAME.registerComponent('gamelogic', {
 
       // 7. let it rain
     } else if (state === states.letitrain) {
+      camera.removeAttribute('shooter');
       scene.removeEventListener('click', increaseCounter);
       cursor.parentNode.removeChild(cursor);
       playerPosition = player.getAttribute('position');
       scene.setAttribute('rain-of-entities', { maxCount: 20, components: ['dynamic-body', 'src|#tex_chicken'], center: { x: playerPosition.x, y: (playerPosition.y + 30), z: playerPosition.z } });
       //player.setAttribute('sound', 'src: #endmessage; autoplay: true');
-      endmessage.pos = { x: playerPosition.x, y: playerPosition.y + 0.5, z: playerPosition.z - 7 };
+      endmessage.pos = { x: playerPosition.x, y: playerPosition.y + 0.5, z: playerPosition.z - 12 };
 
       if (this.decision === states.ak47selected) {
         endmessage.text = 'You opted for violence and killed the Chicken. Therefore it will rain little chickens forever...';

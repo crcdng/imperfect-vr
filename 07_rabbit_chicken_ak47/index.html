@@ -25,11 +25,12 @@
   <script src="js/aframe-move-along-component.js"></script>
   <script src="js/aframe-follower-component.js"></script>
   <script src="js/rain-of-entities.js"></script>
+  <script src="js/shooter.js"></script>
 </head>
 
 <body>
   <a-scene id="scene" class="fullscreen" physics="debug: false">
-    <a-assets timeout="50000">     
+    <a-assets timeout="30000">     
       <audio id="fall" src="assets/sfx/Whistle.mp3" preload="auto"></audio>
       <audio id="select" src="assets/sfx/Powerup.mp3" preload="auto"></audio>
       <audio id="shootbullet" src="assets/sfx/LaserShoot.mp3" preload="auto"></audio>
@@ -74,7 +75,7 @@
     </a-entity>
 
     <a-entity id="player" static-body position="0.78 72 10.8">
-      <a-camera>
+      <a-camera id="camera">
         <a-entity id="cursor" cursor="fuse: true; fuseTimeout: 1500" raycaster="objects: .interactive" scale="1 1 1"
           position="0 0 -1" geometry="primitive: ring; radiusOuter: 0.07; radiusInner: 0.05"
           material="color: rgb(15,0,255); opacity: 0.72; metalness: 0.64; roughness: 0.96"
@@ -85,8 +86,11 @@
       </a-camera>
     </a-entity>
 
-    <a-entity id="chicken" scale="90 90 90" position="0 -550 -550" rotation="0 180 0" gltf-model="#mod_chicken">
+    <a-entity id="chicken" scale="90 90 90" position="0 -550 -550" rotation="0 180 0" gltf-model="#mod_chicken" class="target" target="healthPoints: 10">
     </a-entity>
+
+    <a-entity id="bulletTemplate" bullet geometry="primitive: sphere; radius: 0.1" material="color: orange"></a-entity>
+    <a-entity id="gun" shooter geometry="primitive: box; width: 0.1; height: 0.1; depth: 0.3" material="color: red" click-to-shoot position="0 0 -1"></a-entity>
 
     <!-- starting point -->
     <a-entity id="platform1" position="0 33 0" sound="src: #start" static-body>
@@ -95,7 +99,7 @@
     </a-entity>
 
     <!-- heart -->
-    <a-entity id="platform2" position="46 33 -75" static-body>
+    <a-entity id="platform2" position="46 23 -75" static-body>
       <a-box width="6" depth="6" height="72"></a-box>
       <a-cylinder position="0 37 0" radius="12" height="2" color="#ff7144" geometry="segmentsRadial: 8">
         <a-box id="heart" src="#tex_heart" width="6" height="6" depth="0.2" position="0 7 0"
@@ -107,7 +111,7 @@
     </a-entity>
 
     <!-- ak47 -->
-    <a-entity id="platform3" position="-30 33 -43" static-body>
+    <a-entity id="platform3" position="-30 20 -43" static-body>
       <a-box width="6" depth="6" height="72"></a-box>
       <a-cylinder position="0 37 0" radius="12" height="2" color="#0582ca" geometry="segmentsRadial: 8">
         <a-entity id="ak47" position="0 3 0" gltf-model="#mod_ak47"
