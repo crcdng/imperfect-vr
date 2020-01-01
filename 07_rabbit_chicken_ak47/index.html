@@ -37,9 +37,7 @@
       <audio id="shootheart" src="assets/sfx/Powerup2.mp3" preload="auto"></audio>
       <audio id="splash" src="assets/sfx/Explosion.mp3" preload="auto"></audio>
 
-      <audio id="start" src="assets/music/bensound-cute.mp3" preload="auto"></audio>
-      <audio id="ending" src="assets/music/bensound-scifi.mp3" preload="auto"></audio>
-      <audio id="rise" src="assets/music/bensound-epic.mp3" preload="auto"></audio>
+      <audio id="music" src="assets/music/bensound-scifi.mp3" preload="auto"></audio>
 
       <a-asset-item id="mod_ak47" src="assets/models/ak47.glb"></a-asset-item>
       <a-asset-item id="mod_rabbit" src="assets/models/rabbit.glb"></a-asset-item>
@@ -50,9 +48,6 @@
       <img id="tex_sky" alt="sky" src="assets/textures/sky.jpg" />
       <img id="tex_chicken" alt="chicken" src="assets/textures/chicken.png" />
 
-      <a-mixin id="heartbullet" geometry="primitive: sphere ; buffer: false; radius: 0.655"
-        material="color: red; metalness: 0.8; opacity: 0.73; roughness: 0.3; side: double"
-        sound="src: #shootheart; autoplay: true"></a-mixin>
       <a-mixin id="tree" gltf-model="#mod_tree" scale="2 2 2"
         random-position="min: -18 0 -18; max: 18 0 18"></a-mixin>
       <a-asset-item id="comic-sans-bold" src="assets/fonts/ComicSansMS_Bold.json"></a-asset-item>
@@ -66,6 +61,7 @@
     <!-- state machine -->
     <a-entity id="gamelogic" gamelogic></a-entity>
 
+    <!-- rabbit -->
     <a-entity id="avatar" position="0 72.4 6.15">
       <a-entity id="rabbit" scale="0.3 0.3 0.3" rotation="0 90 0" class="interactive" event-set__follow="_event: click; _target: #gamelogic; gamelogic.state: follow" gltf-model="#mod_rabbit"></a-entity>
       <a-entity id="followme" text-geometry="value: Follow Me; font: #comic-sans-bold" material="color: #FF11B4"
@@ -74,6 +70,7 @@
       </a-entity>
     </a-entity>
 
+    <!-- player / camera --> 
     <a-entity id="player" static-body position="0.78 72 10.8">
       <a-camera id="camera">
         <a-entity id="cursor" cursor="fuse: true; fuseTimeout: 1500" raycaster="objects: .interactive" scale="1 1 1"
@@ -93,7 +90,7 @@
     <a-entity id="gun" shooter geometry="primitive: box; width: 0.1; height: 0.1; depth: 0.3" material="color: red" click-to-shoot position="0 0 -1"></a-entity>
 
     <!-- starting point -->
-    <a-entity id="platform1" position="0 33 0" sound="src: #start" static-body>
+    <a-entity id="platform1" position="0 33 0" static-body>
       <a-box width="6" depth="6" height="72"></a-box>
       <a-cylinder position="0 37 0" radius="12" height="2" color="#3c8148" geometry="segmentsRadial: 8"></a-cylinder>
     </a-entity>
@@ -144,7 +141,6 @@
   </a-scene>
 
   <!-- start ui-->
-
   <img id="curtain" src="assets/ui/blur.png" />
 
   <div id="startscreen" class="uk-overlay uk-position-center fadein">

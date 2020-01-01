@@ -1,12 +1,11 @@
 /* global AFRAME */
 
 // this is the complete game logic 
-// the elements in the scene use the event-set component to send messages to it
-// and it handles the logic
+// the elements in the scene use the event-set component to send messages to it and it handles the logic
 
 // remark: this approach would not work well for more complex scenes
 // (imagine hundreds of states)
-// also this component is specific to this scene and not reusable for others
+// also this component is specific to this particular scene and not reusable for others
 
 AFRAME.registerComponent('gamelogic', {
   schema: {
@@ -21,6 +20,7 @@ AFRAME.registerComponent('gamelogic', {
     this.cursor = document.querySelector('#cursor');
     this.decision = null;
     this.followme = document.querySelector('#followme');
+    this.gamelogic = document.querySelector('#gamelogic');
     this.heart = document.querySelector('#heart');
     this.logo = document.querySelector('#logo');
     this.killthebeast = document.querySelector('#killthebeast');
@@ -53,11 +53,12 @@ AFRAME.registerComponent('gamelogic', {
 
     this.startbutton.addEventListener('click', (e) => {
       this.state = this.states.start;
-      //const startSoundComponent = this.platform1.components.sound;
-      //const mediaEl = document.querySelector(startSoundComponent.attrValue.src);
-      // if (mediaEl != null) {
-      //   mediaEl.play.bind(mediaEl)(); // this must be bound to the media element
-      // }
+      this.gamelogic.setAttribute('sound', 'src: #music; autoplay: true; volume: 0.1;');
+      const startSoundComponent = this.gamelogic.components.sound;
+      const mediaEl = document.querySelector(startSoundComponent.attrValue.src);
+       if (mediaEl != null) {
+         mediaEl.play.bind(mediaEl)(); // this must be bound to the media element
+      }
       this.startscreen.classList.add('fadeout');
       this.curtain.classList.add('fadeout');
       setTimeout(() => {
@@ -70,7 +71,6 @@ AFRAME.registerComponent('gamelogic', {
     this.startbutton.innerText = 'START';
   },
   update: function (oldData) { // this function is called each time when something is updated
-    // console.log(oldData, this.data);
     let increaseCounter, playerPosition, score;
 
     const ak47 = this.ak47;
@@ -79,6 +79,7 @@ AFRAME.registerComponent('gamelogic', {
     const cursor = this.cursor;
     const endmessage = {};
     const followme = this.followme;
+    const gamelogic = this.gamelogic;
     const heart = this.heart;
     const killthebeast = this.killthebeast;
     const loveandpeace = this.loveandpeace;
@@ -93,7 +94,7 @@ AFRAME.registerComponent('gamelogic', {
     const state = this.data.state;
     // 1. we follow the rabbit
     if (state === states.follow) {
-      // player.setAttribute('sound', 'src: #select; autoplay: true');
+      player.setAttribute('sound', 'src: #select; autoplay: true');
       rabbit.classList.remove('interactive');
       followme.parentNode.removeChild(followme);
       player.setAttribute('follow', 'target', '#avatar');
@@ -103,14 +104,7 @@ AFRAME.registerComponent('gamelogic', {
 
       // 2. the rabbit has reached its destination hovering in mid-air
     } else if (state === states.stopfollow) {
-
-      // const startSoundComponent = this.platform1.components.sound;
-      // const mediaEl = document.querySelector(startSoundComponent.attrValue.src);
-      // if (mediaEl != null) {
-      //   mediaEl.pause.bind(mediaEl)(); // this must be bound to the media element
-      // }
-
-      //player.setAttribute('sound', 'src: #fall; autoplay: true; volume: 0.6');
+      rabbit.setAttribute('sound', 'src: #fall; autoplay: true; volume: 0.8');
       player.removeAttribute('follow');
       avatar.removeAttribute('move-along');
       avatar.removeAttribute('event-set__stopfollow');
@@ -120,8 +114,7 @@ AFRAME.registerComponent('gamelogic', {
 
       // 3. the rabbit has fallen :( the chicken rises
     } else if (state === states.rabbithasfallen) {
-      //platform1.setAttribute('sound', 'src: #splash; autoplay: true');
-      //player.setAttribute('sound', 'src: #rise; autoplay: true; on: sound-ended');
+      player.setAttribute('sound', 'src: #splash; autoplay: true');
       chicken.setAttribute('animation__pos', 'property: position; dur: 14000; easing: easeInSine; to: 0 0 -550');
       chicken.setAttribute('animation__rot', 'property: rotation; dur: 14000; easing: easeInSine; to: 0 -17 0');
       chicken.setAttribute('event-set__chickenhasrisen', '_event: animationcomplete__rot; _target: #gamelogic; gamelogic.state: ' + states.chickenhasrisen);
@@ -139,18 +132,24 @@ AFRAME.registerComponent('gamelogic', {
       ak47.addEventListener('click', function () {
         this.el.setAttribute('gamelogic', 'state: ' + states.ak47selected);
         this.decision = states.ak47selected;
+        player.setAttribute('sound', 'src: #select; autoplay: true;');
       }.bind(this));
       heart.setAttribute('class', 'interactive');
       heart.addEventListener('click', function () {
         this.el.setAttribute('gamelogic', 'state: ' + states.heartselected);
         this.decision = states.heartselected;
+        player.setAttribute('sound', 'src: #select; autoplay: true;');
       }.bind(this));
       raycaster.refreshObjects();
 
       // 5. player has made a choice
     } else if (state === states.ak47selected || state === states.heartselected) {
-      //player.removeAttribute('sound');
-      //player.setAttribute('sound', 'src: #select; autoplay: true;');
+      if (state === states.ak47selected) {
+        player.setAttribute('sound', 'src: #shootbullet; on: shoot;');
+      } else if (state === states.heartselected) {
+        player.setAttribute('sound', 'src: #shootheart; on: shoot;');
+      }
+      
       heart.parentNode.removeChild(heart);
       ak47.parentNode.removeChild(ak47);
       killthebeast.parentNode.removeChild(killthebeast);
@@ -166,8 +165,7 @@ AFRAME.registerComponent('gamelogic', {
       chicken.setAttribute('class', 'interactive');
 
       increaseCounter = (event) => {
-        score = score + 1; // TODO trigger
-        console.log(score);
+        score = score + 1; 
         if (score === 10) {
           this.el.setAttribute('gamelogic', 'state: ' + states.letitrain);
         }
@@ -181,7 +179,6 @@ AFRAME.registerComponent('gamelogic', {
       cursor.parentNode.removeChild(cursor);
       playerPosition = player.getAttribute('position');
       scene.setAttribute('rain-of-entities', { maxCount: 20, components: ['dynamic-body', 'src|#tex_chicken'], center: { x: playerPosition.x, y: (playerPosition.y + 30), z: playerPosition.z } });
-      //player.setAttribute('sound', 'src: #endmessage; autoplay: true');
       endmessage.pos = { x: playerPosition.x, y: playerPosition.y + 0.5, z: playerPosition.z - 12 };
 
       if (this.decision === states.ak47selected) {
