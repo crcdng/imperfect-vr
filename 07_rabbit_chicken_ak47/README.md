@@ -7,7 +7,7 @@ There is movement and you interact with the scene. A little story unfolds.
 
 In this scene there are more elements and there is also more logic written in JavaScript. In "[04 Imperfect Treasures](https://github.com/i3games/imperfect-vr/tree/master/04_imperfect_treasures)" we already have seen some code inside `<script>` tags. The recommended way in A-Frame however is to write our code as [components](https://aframe.io/docs/master/introduction/writing-a-component.html), which can be shared and reused.
 
-This scene also uses many components written by other people.
+This scene also uses many components written by other people. 
 
 # Third-Party Licenses
 

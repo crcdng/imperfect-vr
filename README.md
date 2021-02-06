@@ -1,10 +1,12 @@
 # Imperfect VR workshop
 
-This is a collection of examples for my "Imperfect VR" workshop, built with A-Frame.
+This is a collection of examples for my **Imperfect VR** workshop, built with A-Frame.
 
 [The Imperfect VR Manifesto](https://github.com/i3games/imperfect-vr/blob/master/Imperfect%20VR%20Manifesto.pdf) - [Github Repository](https://github.com/i3games/imperfect-vr) - [See it online](https://i3games.github.io/imperfect-vr/)
 
-Imperfect VR means we are not aiming for a perfect reality but will have fun in the virtual. Cheap 3D assets. Blocky textures. Weird sounds. Stumble around with a smartphone strapped to your face. Forget VR mainstream. Motion sickness will not be avoided but guaranteed. This workshop is based on the premise that everyone who can slide a smartphone into a [Cardboard](https://vr.google.com/cardboard/) can make VR experiences, even if you haven't written a single line of code before.
+Imperfect VR means that we create our own virtual realities, not aiming for perfection but rather seeking fun and meaning in virtual spaces. Cheap 3D assets. Blocky textures. Weird sounds. Queer social places. Forget VR mainstream. Let’s rather meet and stumble around with smartphones strapped to our faces. 
+
+ This workshop is based on the premise that everyone who can slide a smartphone into a [Cardboard](https://vr.google.com/cardboard/) can make VR experiences, even if you haven't written a single line of code before.
 
 Imperfect VR is inspired by ["Imperfect Cinema"](http://www.imperfectcinema.com/) by Allister Gall which in turn is inspired by the essay ["For an imperfect cinema"](http://www.ejumpcut.org/archive/onlinessays/JC20folder/ImperfectCinema.html) by Julio García Espinosa.
 
@@ -42,11 +44,9 @@ We have to become more knowledgeable in some not so exciting technical areas and
 A few pointers:
 
 * You must run the scene from a web server and it must be secured with SSL (Address starts with "https", not with "http"). This means you must know how to install a SSL certificate either on your local laptop or on a public server. [Let’s Encrypt](https://letsencrypt.org) for public servers or [self-signed certificates](https://devcenter.heroku.com/articles/ssl-certificate-self) for private LANs are solutions to try. If you use [Github pages](https://pages.github.com) or [Glitch](https://glitch.com) for testing your scenes, this is done for you.
-* When you open a scene on your mobile phone phone there is a mechanism to add it to the home screen and then start it from there. This can help solving some issues.
-* Sometimes getting into full screen mode is still difficult.
-* Scenes with audio or video have a "Start" button that must push before you enter VR. I have to check about about the new Safari thing and will try to update the component accordingly.
 * To enter the fullscreen VR mode you also must push the little VR symbol. Sometimes getting into full screen mode is still difficult.
-* On Android I recommend to install [Firefox](https://play.google.com/store/apps/details?id=org.mozilla.firefox&hl=en_GB), especially for older devices.
+* Scenes with audio or video have a "Start" button that must push before you enter VR. 
+* When you open a scene on your mobile phone phone there is a mechanism to add it to the home screen and then start it from there. This can help to solve some issues.
 
 The main scene used to navigate to the individual scenes currently only makes sense for viewing the scenes on a desktop browser where you can go back and forth without interruption. The upcoming [Web XR Specification](https://immersive-web.github.io/webxr/) will hopefully allow to implement [portals](https://aframe.io/docs/0.9.0/components/link.html).
 
@@ -56,7 +56,9 @@ What I am aiming at are different formats - Imperfect VR jams and Imperfect VR w
 
 A full day or two day workshop would be an option for teaching JavaScript, components etc.
 
-The jams will be like game jams, people coming together for a day or a weekend and creating stuff together. The spirit of all this is captured in the [The Imperfect VR Manifesto](https://github.com/i3games/imperfect-vr/blob/master/Imperfect%20VR%20Manifesto.pdf).  
+The jams can be like hackathons, or game jams, people coming together for a day or a weekend and creating stuff together. Now that we are all virtual and distanced, new online workshop formats are needed.
+
+The spirit of all this is captured in the [The Imperfect VR Manifesto](https://github.com/i3games/imperfect-vr/blob/master/Imperfect%20VR%20Manifesto.pdf).  
 
 *Now make a VR!*
 

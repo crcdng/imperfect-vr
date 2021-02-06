@@ -1,6 +1,6 @@
 /* global AFRAME */
 
-// this is the complete game logic 
+// this is the complete game logic
 // the elements in the scene use the event-set component to send messages to it and it handles the logic
 
 // remark: this approach would not work well for more complex scenes
@@ -56,8 +56,8 @@ AFRAME.registerComponent('gamelogic', {
       this.gamelogic.setAttribute('sound', 'src: #music; autoplay: true; volume: 0.1;');
       const startSoundComponent = this.gamelogic.components.sound;
       const mediaEl = document.querySelector(startSoundComponent.attrValue.src);
-       if (mediaEl != null) {
-         mediaEl.play.bind(mediaEl)(); // this must be bound to the media element
+      if (mediaEl != null) {
+        mediaEl.play.bind(mediaEl)(); // this must be bound to the media element
       }
       this.startscreen.classList.add('fadeout');
       this.curtain.classList.add('fadeout');
@@ -149,7 +149,7 @@ AFRAME.registerComponent('gamelogic', {
       } else if (state === states.heartselected) {
         player.setAttribute('sound', 'src: #shootheart; on: shoot;');
       }
-      
+
       heart.parentNode.removeChild(heart);
       ak47.parentNode.removeChild(ak47);
       killthebeast.parentNode.removeChild(killthebeast);
@@ -165,8 +165,8 @@ AFRAME.registerComponent('gamelogic', {
       chicken.setAttribute('class', 'interactive');
 
       increaseCounter = (event) => {
-        score = score + 1; 
-        if (score === 10) {
+        score = score + 1;
+        if (score === 5) {
           this.el.setAttribute('gamelogic', 'state: ' + states.letitrain);
         }
       };
@@ -178,14 +178,15 @@ AFRAME.registerComponent('gamelogic', {
       scene.removeEventListener('click', increaseCounter);
       cursor.parentNode.removeChild(cursor);
       playerPosition = player.getAttribute('position');
-      scene.setAttribute('rain-of-entities', { maxCount: 20, components: ['dynamic-body', 'src|#tex_chicken'], center: { x: playerPosition.x, y: (playerPosition.y + 30), z: playerPosition.z } });
+      // TODO next iteration - recode rain of chickens
+      // scene.setAttribute('rain-of-entities', { maxCount: 20, components: ['dynamic-body', 'src|#tex_chicken'], center: { x: playerPosition.x, y: (playerPosition.y + 30), z: playerPosition.z } });
       endmessage.pos = { x: playerPosition.x, y: playerPosition.y + 0.5, z: playerPosition.z - 12 };
 
       if (this.decision === states.ak47selected) {
-        endmessage.text = 'You opted for violence and killed the Chicken. Therefore it will rain little chickens forever...';
+        endmessage.text = 'You opted for violence and killed the chicken. Therefore you will be haunted by little chickens forever...';
         endmessage.color = '#0000ff';
       } else if (this.decision === states.heartselected) {
-        endmessage.text = 'You decided to shower the Chicken with love. Therefore it will rain lots of little chickens...';
+        endmessage.text = 'You decided to shower the chicken with love. Therefore lots of little chickens will shower you with their love...';
         endmessage.color = '#ff11b4';
       } else {
         endmessage.text = 'Love and Peace.';
@@ -195,7 +196,6 @@ AFRAME.registerComponent('gamelogic', {
 
       setTimeout(function () { // show the endmessage
         const endmessageEl = document.createElement('a-text');
-        const obj = { opacity: 0 };
 
         endmessageEl.setAttribute('position', endmessage.pos);
         endmessageEl.setAttribute('value', endmessage.text);
@@ -206,7 +206,6 @@ AFRAME.registerComponent('gamelogic', {
         endmessageEl.setAttribute('wrapCount', '20');
         endmessageEl.setAttribute('font', 'assets/fonts/Monoid.fnt');
         scene.appendChild(endmessageEl);
-
       }, 5000);
     }
   } // end of update()

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <title>Basic Scene</title>
   <!-- This scene is based on https://aframe.io/docs/0.9.0/guides/building-a-basic-scene.html -->
-  <script src="aframe-v1.0.3.min.js"></script>
+  <script src="aframe-v1.2.0.min.js"></script>
   <script src="aframe-environment-component.min.js"></script>
   <script src="aframe-startplay-component.js"></script>
 </head>
@@ -16,7 +16,7 @@
     </a-assets>
 
     <a-box src="#boxTexture" position="0 2 -5" rotation="0 45 45" scale="2 2 2"
-    sound="src: #background; volume: 0.5" startplay
+    sound="src: #background; volume: 0.5; loop: true" startplay
     animation__position="property: position; to: 0 3.1 -5; dir: alternate; dur: 2000; loop: true"
     animation__grow="property: scale; startEvents: mouseenter; dur: 300; from: 2 2 2; to: 2.8 2.8 2.8"
     animation__shrink="property: scale; startEvents: mouseleave; dur: 300; from: 2.8 2.8 2.8; to: 2 2 2"

@@ -7,9 +7,9 @@ If there is background sound or video in the scene, the START button will activa
 -->
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Imperfect VR</title>
-    <script src="js/aframe-v1.0.3.min.js"></script>
+    <script src="js/aframe-v1.2.0.min.js"></script>
     <script src="js/nunjucks.js"></script>
     <script src="js/aframe-event-set-component.js"></script>
     <script src="js/aframe-layout-component.js"></script>
@@ -19,16 +19,31 @@ If there is background sound or video in the scene, the START button will activa
     <script src="js/aframe-template-component.js"></script>
   </head>
   <body>
+    <script>
+      AFRAME.registerComponent("navigate-to", {
+        schema: {
+          on: { type: "string" }, // alternative: { default: 'click' }
+          to: { type: "string" },
+        },
+        init: function () {
+          this.el.addEventListener(this.data.on, () => {
+            const data = this.data;
+            const newUrl = data.to + "/";
+            window.location.href = newUrl;
+          });
+        },
+      });
+    </script>
     <a-scene>
       <a-assets>
-        <img id="img00" alt="scene0" src="assets/img00.png">
-        <img id="img01" alt="scene1" src="assets/img01.png">
-        <img id="img02" alt="scene2" src="assets/img02.png">
-        <img id="img03" alt="scene3" src="assets/img03.png">
-        <img id="img04" alt="scene4" src="assets/img04.png">
-        <img id="img05" alt="scene5" src="assets/img05.png">
-        <img id="img06" alt="scene6" src="assets/img06.png">
-        <img id="img07" alt="scene7" src="assets/img07.png">
+        <img id="img00" alt="scene0" src="assets/img00.png" />
+        <img id="img01" alt="scene1" src="assets/img01.png" />
+        <img id="img02" alt="scene2" src="assets/img02.png" />
+        <img id="img03" alt="scene3" src="assets/img03.png" />
+        <img id="img04" alt="scene4" src="assets/img04.png" />
+        <img id="img05" alt="scene5" src="assets/img05.png" />
+        <img id="img06" alt="scene6" src="assets/img06.png" />
+        <img id="img07" alt="scene7" src="assets/img07.png" />
         <audio id="click-sound" src="assets/click.mp3"></audio>
         <script id="linktemplate" type="text/x-nunjucks-template">
           <a-plane height="1.9" width="2.85"
@@ -43,52 +58,93 @@ If there is background sound or video in the scene, the START button will activa
           </a-plane>
         </script>
       </a-assets>
-      <a-sun-sky material="side: back"></a-sun-sky> <!-- material="side: back" is a workaround for https://github.com/ngokevin/kframe/issues/147 -->
+      <a-sun-sky material="side: back"></a-sun-sky>
+      <!-- material="side: back" is a workaround for https://github.com/ngokevin/kframe/issues/147 -->
       <a-mountain color="#33FE77"></a-mountain>
       <a-entity position="8 4 -4">
         <a-entity
-            scale="20 20 20"
-            text="value: Imperfect VR; color: #21FE77; font: assets/Monoid.fnt; fontImage: assets/Monoid.png"
-            animation__position="property: position; to: 0 0 -0.1; dir: alternate; dur: 4000; loop: true"
-            animation__color="property: text.color; to: #FE0011; dir: alternate; easing: easeInSine; dur: 5000; loop: true">
+          scale="20 20 20"
+          text="value: Imperfect VR; color: #21FE77; font: assets/Monoid.fnt; fontImage: assets/Monoid.png"
+          animation__position="property: position; to: 0 0 -0.1; dir: alternate; dur: 4000; loop: true"
+          animation__color="property: text.color; to: #FE0011; dir: alternate; easing: easeInSine; dur: 5000; loop: true"
+        >
         </a-entity>
       </a-entity>
       <!-- the layout component with templates, also using the look-at component -->
-      <a-entity layout="type: circle; radius: 4" position="0 0.5 0" rotation="0 -68 0">
-        <a-entity template="src: #linktemplate" class="panel" data-to="04_basic_scene" data-thumb="#img04" look-at="#player"></a-entity>
-        <a-entity template="src: #linktemplate" class="panel" data-to="05_imperfect_treasures" data-thumb="#img05" look-at="#player"></a-entity>
-        <a-entity template="src: #linktemplate" class="panel" data-to="06_reality_of_the_virtual" data-thumb="#img06" look-at="#player"></a-entity>
-        <a-entity template="src: #linktemplate" class="panel" data-to="07_rabbit_chicken_ak47" data-thumb="#img07" look-at="#player"></a-entity>
-        <a-entity template="src: #linktemplate" class="panel" data-to="00_do_it_yourself" data-thumb="#img00" look-at="#player"></a-entity>
-        <a-entity template="src: #linktemplate" class="panel" data-to="01_hello_vr_world" data-thumb="#img01" look-at="#player"></a-entity>
-        <a-entity template="src: #linktemplate" class="panel" data-to="02_360_image" data-thumb="#img02" look-at="#player"></a-entity>
-        <a-entity template="src: #linktemplate" class="panel" data-to="03_360_video" data-thumb="#img03" look-at="#player"></a-entity>
+      <a-entity
+        layout="type: circle; radius: 4"
+        position="0 0.5 0"
+        rotation="0 -68 0"
+      >
+        <a-entity
+          template="src: #linktemplate"
+          class="panel"
+          data-to="04_basic_scene"
+          data-thumb="#img04"
+          look-at="#player"
+        ></a-entity>
+        <a-entity
+          template="src: #linktemplate"
+          class="panel"
+          data-to="05_imperfect_treasures"
+          data-thumb="#img05"
+          look-at="#player"
+        ></a-entity>
+        <a-entity
+          template="src: #linktemplate"
+          class="panel"
+          data-to="06_reality_of_the_virtual"
+          data-thumb="#img06"
+          look-at="#player"
+        ></a-entity>
+        <a-entity
+          template="src: #linktemplate"
+          class="panel"
+          data-to="07_rabbit_chicken_ak47"
+          data-thumb="#img07"
+          look-at="#player"
+        ></a-entity>
+        <a-entity
+          template="src: #linktemplate"
+          class="panel"
+          data-to="00_do_it_yourself"
+          data-thumb="#img00"
+          look-at="#player"
+        ></a-entity>
+        <a-entity
+          template="src: #linktemplate"
+          class="panel"
+          data-to="01_hello_vr_world"
+          data-thumb="#img01"
+          look-at="#player"
+        ></a-entity>
+        <a-entity
+          template="src: #linktemplate"
+          class="panel"
+          data-to="02_360_image"
+          data-thumb="#img02"
+          look-at="#player"
+        ></a-entity>
+        <a-entity
+          template="src: #linktemplate"
+          class="panel"
+          data-to="03_360_video"
+          data-thumb="#img03"
+          look-at="#player"
+        ></a-entity>
       </a-entity>
       <a-entity position="0 0 0" id="player">
         <a-camera>
-          <a-cursor id="cursor"
+          <a-cursor
+            id="cursor"
             animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
             animation__fusing="property: scale; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 2500"
             event-set__1="_event: mouseenter; color: limegreen"
-            event-set__2="_event: mouseleave; color: black">
+            event-set__2="_event: mouseleave; color: black"
+          >
           </a-cursor>
         </a-camera>
       </a-entity>
     </a-scene>
-    <script>
-    AFRAME.registerComponent('navigate-to', {
-      schema: {
-        on: { type: 'string' }, // alternative: { default: 'click' }
-        to: { type: 'string' }
-      },
-      init: function () {
-        this.el.addEventListener(this.data.on, () => {
-	         const data = this.data;
-	         const newUrl = data.to + "/";
-           window.location.href = newUrl;
-        });
-      }
-    });
-    </script>
   </body>
 </html>
