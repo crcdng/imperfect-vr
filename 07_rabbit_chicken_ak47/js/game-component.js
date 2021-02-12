@@ -114,8 +114,9 @@ AFRAME.registerComponent('gamelogic', {
 
       // 3. the rabbit has fallen :( the chicken rises
     } else if (state === states.rabbithasfallen) {
+      // console.log('rise chicken');
       player.setAttribute('sound', 'src: #splash; autoplay: true');
-      chicken.setAttribute('animation__pos', 'property: position; dur: 14000; easing: easeInSine; to: 0 0 -550');
+      chicken.setAttribute('animation__pos', 'property: position; dur: 14000; easing: easeInSine; to: 0 100 -100');
       chicken.setAttribute('animation__rot', 'property: rotation; dur: 14000; easing: easeInSine; to: 0 -17 0');
       chicken.setAttribute('event-set__chickenhasrisen', '_event: animationcomplete__rot; _target: #gamelogic; gamelogic.state: ' + states.chickenhasrisen);
       avatar.parentNode.removeChild(avatar);

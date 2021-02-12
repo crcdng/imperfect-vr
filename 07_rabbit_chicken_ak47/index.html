@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="css/uikit.min.css" />
   <link rel="stylesheet" href="css/ui.css" />
   <script src="js/aframe-v1.2.0.min.js"></script>
+  <script src="js/aframe-environment-component.min.js"></script>
   <script src="js/aframe-event-set-component.js"></script>
   <script src="js/aframe-look-at-component.js"></script>
   <!-- needed for the template component -->
@@ -83,8 +84,7 @@
       </a-camera>
     </a-entity>
 
-    <a-entity id="chicken" scale="90 90 90" position="0 -550 -550" rotation="0 180 0" gltf-model="#mod_chicken" class="target" target="healthPoints: 10">
-    </a-entity>
+    <a-entity id="chicken" scale="20 20 20" position="0 -100 -100" rotation="0 180 0" gltf-model="#mod_chicken" class="target" target="healthPoints: 5"></a-entity>
 
     <a-entity id="bulletTemplate" bullet geometry="primitive: sphere; radius: 0.1" material="color: orange"></a-entity>
     <a-entity id="gun" shooter geometry="primitive: box; width: 0.1; height: 0.1; depth: 0.3" material="color: red" click-to-shoot position="0 0 -1"></a-entity>
@@ -96,7 +96,7 @@
     </a-entity>
 
     <!-- heart -->
-    <a-entity id="platform2" position="46 23 -75" >
+    <a-entity id="platform2" position="76 23 -75" >
       <a-box width="6" depth="6" height="72"></a-box>
       <a-cylinder position="0 37 0" radius="12" height="2" color="#ff7144" geometry="segmentsRadial: 8">
         <a-box id="heart" src="#tex_heart" width="6" height="6" depth="0.2" position="0 7 0"
@@ -108,7 +108,7 @@
     </a-entity>
 
     <!-- ak47 -->
-    <a-entity id="platform3" position="-30 20 -43" >
+    <a-entity id="platform3" position="-40 20 -43" >
       <a-box width="6" depth="6" height="72"></a-box>
       <a-cylinder position="0 37 0" radius="12" height="2" color="#0582ca" geometry="segmentsRadial: 8">
         <a-entity id="ak47" position="0 3 0" gltf-model="#mod_ak47"
@@ -132,12 +132,12 @@
       </a-cylinder>
     </a-entity>
 
-    <a-entity id="ocean" position="0 0 0">
-      <a-ocean width="5500" depth="5500" density="15" amplitude="10" amplitudeVariance="5" speed="2"></a-ocean>
+    <a-entity id="ocean" position="0 2 0">
+      <a-ocean width="5500" depth="5500" density="15" amplitude="1.8" amplitudeVariance="5" speed="0.5"></a-ocean>
     </a-entity>
 
-    <a-entity id="sky" geometry="primitive:sphere; radius:3000; phiLength:360; phiStart:0; thetaLength:90"
-      material="shader:flat; side:back; height:2048; src:#tex_sky; width:2048"></a-entity>
+    <a-entity environment="preset: dream; fog: 0; dressing: towers; 
+      dressingAmount: 10; dressingScale: 5; ground: noise"></a-entity>
   </a-scene>
 
   <!-- start ui-->
@@ -154,7 +154,7 @@
       <p id="startmessage"></p>
     </div>
     <div class="uk-flex uk-flex-center">
-      <button disabled id="startbutton" class="uk-button uk-button-default uk-button-large uk-button-secondary">
+      <button disabled id="startbutton" class="uk-button uk-button-large uk-button-secondary">
         Loading...
       </button>
     </div>

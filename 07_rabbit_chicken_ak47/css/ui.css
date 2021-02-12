@@ -1,5 +1,5 @@
 body {
-  font-size:100%;
+  font-size:120%;
   line-height:1.5;
   font-family: "Courier New", Courier, monospace;
 }
@@ -27,6 +27,11 @@ body {
 #startmessage {
   color: black;
   font-size: 0.88em;
+}
+
+#startbutton {
+  font-size: 120%;
+  font-weight: bold;
 }
 
 #title {
