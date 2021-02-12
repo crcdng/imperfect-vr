@@ -44,6 +44,9 @@
       <a-asset-item id="mod_rabbit" src="assets/models/rabbit.glb"></a-asset-item>
       <a-asset-item id="mod_chicken" src="assets/models/chick-lowpoly.glb"></a-asset-item>
       <a-asset-item id="mod_tree" src="assets/models/lowpolytree.glb"></a-asset-item>
+      <a-asset-item id="mod_lion" src="assets/models/Lion.gltf"></a-asset-item>
+      <a-asset-item id="mod_wolf" src="assets/models/Wolves.gltf"></a-asset-item>
+      <a-asset-item id="mod_parrot" src="assets/models/Mesh_Parrot.gltf"></a-asset-item>
 
       <img id="tex_heart" alt="heart" src="assets/textures/heart.png" />
       <img id="tex_sky" alt="sky" src="assets/textures/sky.jpg" />
@@ -119,7 +122,7 @@
       </a-cylinder>
     </a-entity>
 
-    <a-entity id="platform4" position="30 23 30" >
+    <a-entity id="platform4" position="30 23 -15" >
       <!-- trees -->
       <a-box width="6" depth="6" height="28"></a-box>
       <a-cylinder position="0 15 0" radius="27" height="2" color="#deefb7"
@@ -132,8 +135,22 @@
       </a-cylinder>
     </a-entity>
 
+    <a-entity id="platform5" position="30 40 30" >
+      <!-- three animals -->
+      <a-cylinder position="0 -25 0" radius="27" height="2" color="#0582ca"
+        animation__pos="property: position; dur: 16000; easing: easeInOutSine; dir: alternate; loop: true; to: 0 25 0"
+        geometry="segmentsRadial: 8">
+      <a-entity animation__rot="property: rotation; dur: 160000; easing: linear; loop: true; to: 0 360 0">
+        <a-entity id="lion" position="0 1 0" scale="3 3 3" gltf-model="#mod_lion"></a-entity>
+        <a-entity id="wolf" position="0 16 0" scale="2 2 2" gltf-model="#mod_wolf"></a-entity>
+        <a-entity id="parrot" position="0 31 0" scale="0.1 0.1 0.1" gltf-model="#mod_parrot"></a-entity>
+      </a-entity>
+
+      </a-cylinder>
+    </a-entity>
+
     <a-entity id="ocean" position="0 2 0">
-      <a-ocean width="5500" depth="5500" density="15" amplitude="1.8" amplitudeVariance="5" speed="0.5"></a-ocean>
+      <a-ocean width="500" depth="500" density="15" amplitude="1.8" amplitudeVariance="5" speed="0.5"></a-ocean>
     </a-entity>
 
     <a-entity environment="preset: dream; fog: 0; dressing: towers; 
