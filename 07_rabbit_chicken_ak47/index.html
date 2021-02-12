@@ -47,6 +47,8 @@
       <a-asset-item id="mod_lion" src="assets/models/Lion.gltf"></a-asset-item>
       <a-asset-item id="mod_wolf" src="assets/models/Wolves.gltf"></a-asset-item>
       <a-asset-item id="mod_parrot" src="assets/models/Mesh_Parrot.gltf"></a-asset-item>
+      <a-asset-item id="mod_island" src="assets/models/1220 Island.gltf"></a-asset-item>
+
 
       <img id="tex_heart" alt="heart" src="assets/textures/heart.png" />
       <img id="tex_sky" alt="sky" src="assets/textures/sky.jpg" />
@@ -145,6 +147,15 @@
         <a-entity id="wolf" position="0 16 0" scale="2 2 2" gltf-model="#mod_wolf"></a-entity>
         <a-entity id="parrot" position="0 32 0" scale="0.1 0.1 0.1" gltf-model="#mod_parrot"></a-entity>
       </a-entity>
+      </a-cylinder>
+    </a-entity>
+
+    <a-entity id="platform6" position="-56 40 45" >
+      <!-- island -->
+      <a-cylinder position="0 -25 0" radius="27" height="2" color="#0582ca"
+      animation__rot="property: rotation; dur: 16000; easing: linear; loop: true; to: 0 360 0"
+      geometry="segmentsRadial: 8">
+        <a-entity id="island" position="0 0 0" scale="1 1 1" gltf-model="#mod_island"></a-entity>
       </a-cylinder>
     </a-entity>
 

@@ -25,7 +25,7 @@ Canter, MIT License
 ## 3D-Models
 * AK-47: Copyright (c) AJAY896, 3dexport.com
 * rabbit, chick: Copyright (c) platyperson, sketchfab.com [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/)
-* lion, wolf, parrot: Copyright (c) Poly by Google [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/)
+* lion, wolf, parrot, island: Copyright (c) Poly by Google [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/)
 
 ## Textures
 * heart: Public Domain
