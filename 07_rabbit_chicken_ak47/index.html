@@ -12,13 +12,11 @@
   <!-- needed for the template component -->
   <script src="js/nunjucks.js"></script>
   <script src="js/aframe-proxy-event-component.js"></script>
-  <!-- typo in filename-->
-  <script src="js/aframe-randomizer-components.js"></script>
   <script src="js/aframe-template-component.js"></script>
   <script src="js/aframe-text-geometry-component.js"></script>
   <script src="js/aframe-super-shooter-kit.min.js"></script>
-  <script src="js/gradientsky.js"></script>
-  <!-- my / modified components -->
+  <!-- modified components -->
+  <script src="js/aframe-randomizer-components.js"></script>
   <script src="js/aframe-move-along-component.js"></script>
   <script src="js/aframe-follower-component.js"></script>
   <script src="js/shooter.js"></script>
@@ -48,10 +46,9 @@
       <a-asset-item id="mod_wolf" src="assets/models/Wolves.gltf"></a-asset-item>
       <a-asset-item id="mod_parrot" src="assets/models/Mesh_Parrot.gltf"></a-asset-item>
       <a-asset-item id="mod_island" src="assets/models/1220 Island.gltf"></a-asset-item>
-
+      <a-asset-item id="mod_human" src="assets/models/Animated Human.gltf"></a-asset-item>
 
       <img id="tex_heart" alt="heart" src="assets/textures/heart.png" />
-      <img id="tex_sky" alt="sky" src="assets/textures/sky.jpg" />
       <img id="tex_chicken" alt="chicken" src="assets/textures/chicken.png" />
 
       <a-mixin id="tree" gltf-model="#mod_tree" scale="2 2 2"
@@ -124,12 +121,13 @@
       </a-cylinder>
     </a-entity>
 
-    <a-entity id="platform4" position="30 23 -18" >
+    <a-entity id="platform4" position="36 23 -22" >
       <!-- trees -->
       <a-box width="6" depth="6" height="28"></a-box>
       <a-cylinder position="0 15 0" radius="27" height="2" color="#deefb7"
         animation__rot="property: rotation; dur: 16000; easing: linear; loop: true; to: 0 360 0"
         geometry="segmentsRadial: 8">
+        <a-entity id="human" position="0 0 0" scale="3 17 3" gltf-model="#mod_human"></a-entity>
         <a-entity id="forest" position="0 5 0">
           <!-- creating 23 trees-->
           <a-entity template="src: #trees_template" data-num="23"></a-entity>

@@ -1,8 +1,4 @@
-/* global AFRAME */
-
-if (typeof AFRAME === 'undefined') {
-  throw new Error('Component attempted to register before AFRAME was available.');
-}
+/* global AFRAME, THREE */
 
 /**
  * Minimal Move-along Component for A-Frame.
@@ -17,11 +13,9 @@ AFRAME.registerComponent('move-along', {
       default: [],
       parse: function (value) {
         if (value == null) { throw Error('move-along: path is null'); }
-        var arr = value.trim().split(',');
-        var result = [];
-        var i;
-
-        for (i = 0; i < arr.length; i = i + 1) {
+        const arr = value.trim().split(',');
+        const result = [];
+        for (let i = 0; i < arr.length; i = i + 1) {
           result.push(AFRAME.utils.coordinates.parse(arr[i]));
         }
         return result;
@@ -30,23 +24,26 @@ AFRAME.registerComponent('move-along', {
   },
 
   init: function () {
-    this.startMoveAlong = (function () {
-      var points = this.data.points;
-      var threePoints = [];
-      var i;
+    this.startMoveAlong = () => {
+      const points = this.data.points;
+      const threePoints = [];
       this.elapsed = 0;
-      for (i = 0; i < points.length; i = i + 1) {
-        threePoints.push(new THREE.Vector3(points[i].x, points[i].y, points[i].z));
+      for (const p of points) {
+        threePoints.push(new THREE.Vector3(p.x, p.y, p.z));
       }
+
+      const geometry = new THREE.BufferGeometry().setFromPoints(points);
+      const material = new THREE.LineBasicMaterial({ color: 0xff0000 });
+      const curveObject = new THREE.Line(geometry, material);
       this.threeConstructor = THREE['CatmullRomCurve3'];
       this.curve = new this.threeConstructor(threePoints);
       this.animate = true; // curve is initialized
-    }).bind(this);
+    };
   },
 
   update: function (oldData) {
-    var data = this.data;
-    var el = this.el;
+    const data = this.data;
+    const el = this.el;
 
     // if the event handler has been changed set the new one
     if (oldData.on != null && data.on !== oldData.on) {
@@ -92,8 +89,8 @@ AFRAME.registerComponent('move-along', {
   },
 
   remove: function () {
-    var data = this.data;
-    var el = this.el;
+    const data = this.data;
+    const el = this.el;
     this.animate = false;
 
     if (data.on != null) {

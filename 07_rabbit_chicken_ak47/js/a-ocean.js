@@ -1,3 +1,5 @@
+/* global AFRAME, THREE */
+
 AFRAME.registerPrimitive('a-ocean', {
   defaultComponents: {
     ocean: {},
@@ -8,9 +10,9 @@ AFRAME.registerPrimitive('a-ocean', {
     depth: 'ocean.depth',
     density: 'ocean.density',
     amplitude: 'ocean.amplitude',
-    amplitudeVariance: 'ocean.amplitudeVariance',
+    amplitudevariance: 'ocean.amplitudevariance',
     speed: 'ocean.speed',
-    speedVariance: 'ocean.speedVariance',
+    speedvariance: 'ocean.speedvariance',
     color: 'ocean.color',
     opacity: 'ocean.opacity'
   }
@@ -27,11 +29,11 @@ AFRAME.registerComponent('ocean', {
 
     // Wave amplitude and variance.
     amplitude: { default: 0.1 },
-    amplitudeVariance: { default: 0.3 },
+    amplitudevariance: { default: 0.3 },
 
     // Wave speed and variance.
     speed: { default: 1 },
-    speedVariance: { default: 2 },
+    speedvariance: { default: 2 },
 
     // Material.
     color: { default: '#7AD2F7', type: 'color' },
@@ -59,8 +61,8 @@ AFRAME.registerComponent('ocean', {
         // z: v.z,
         z: v.getZ(i),
         ang: Math.random() * Math.PI * 2,
-        amp: data.amplitude + Math.random() * data.amplitudeVariance,
-        speed: (data.speed + Math.random() * data.speedVariance) / 1000 // radians / frame
+        amp: data.amplitude + Math.random() * data.amplitudevariance,
+        speed: (data.speed + Math.random() * data.speedvariance) / 1000 // radians / frame
       });
     }
 

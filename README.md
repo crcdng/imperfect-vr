@@ -31,11 +31,15 @@ Each example scene in this repository is self-contained and has all the files it
 
 Everything we use in the workshop is open source. But the environment is changing and the idea of an "open web" is in danger of being superseded again by commercial monopolies.
 
-In (utopical) theory, Virtual Reality on the Web (also called WebVR) would be an open platform on which we can build the next [Metaverse](https://en.wikipedia.org/wiki/Metaverse) together. In practice, a few gatekeepers push against it. There is not so much money to make and it is outside of their gated communities (this happen to be the same entities that run  App stores). Both Google and Apple constantly invent new and different rules about what is appropriate on the browser and implements them without asking. Google blacklists devices and sometimes tries to install "services" as soon as you open a WebVR page. Apple just decided to break WebVR completely by switching off the sensors for Safari. **If you use an iPhone re-enable it under Settings > Safari > Privacy & Security > Motion & Orientation Access.**  
+In (utopical) theory, Virtual Reality on the Web (also called WebVR) would be an open platform on which we can build the next [Metaverse](https://en.wikipedia.org/wiki/Metaverse) together. In practice, a few gatekeepers push against it. There is not so much money to make and it is outside of their gated communities (this happen to be the same entities that run  App stores). Both Google and Apple constantly invent new and different rules about what is appropriate on the browser and implements them without asking. Google blacklists devices and sometimes tries to install "services" as soon as you open a WebVR page. Apple just decided to break WebVR completely by switching off the sensors for Safari. 
 
-This development complicates things.
+**If you use an iPhone (1) make sure that the screen rotates (rotation lock is off).** 
 
-While WebVR also runs on platforms like HTC Vive or Oculus Rift, the very idea behind it is that anyone can slide their mobile phone into a cardboard and off they go. You also don't need someone like Facebook to "curate the platform". In practice that does work more or less and against a certain resistance, as mentioned above.
+![rotation lock](assets/rotationlock.png)
+
+**(2) You might see 2 or 3 pop-ups asking for sensor / motion access.**  
+
+These developments complicate things but I am not ready to give up and leave VR to the walled gardens of tech companies. While WebVR also runs on platforms like HTC Vive or Oculus Rift (on Firefox or Supermedium), the very idea behind it is that anyone can slide their mobile phone into a cardboard - that you can build yourself as well if you want - and off you go. You also don't need someone like Facebook to "curate the platform". In practice that does work more or less and against certain resistance, as mentioned above.
 
 What does this mean?
 
