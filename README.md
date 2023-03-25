@@ -1,4 +1,4 @@
-# Imperfect VR workshop
+# Imperfect VR 
 
 This is a collection of examples for my **Imperfect VR** workshop, built with A-Frame.
 
