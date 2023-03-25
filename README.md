@@ -4,9 +4,23 @@ This is a collection of examples for my **Imperfect VR** workshop, built with A-
 
 [The Imperfect VR Manifesto](https://github.com/i3games/imperfect-vr/blob/master/Imperfect%20VR%20Manifesto.pdf) - [Github Repository](https://github.com/i3games/imperfect-vr) - [See it online](https://i3games.github.io/imperfect-vr/)
 
+## 2023 update
+
+*Does Cardboard VR still work in 2023?* 
+
+While billions are invested in corporate Metaverses and the "AR will save everything" dogma is still around 15 years after I heard it, I believe more than ever in punk, grassroots, low tech **Imperfect VR** as described below. The premise was always that people bring their own phones, put them into a cardboard viewer and become hackers and creators of they own metaverses. With shifting WebXR standards and A-Frame having [dropped cardboard mode](https://aframe.io/blog/aframe-v1.4.0/), I wanted to find out if it is still possible in March 2023.
+ 
+* [A-Frame](https://aframe.io/) is still updated and maintained
+* Android work in a cardboard viewer. I tried an Morto G8 plus Android 10 device. Confirm permissions and install Google VR Services. It shows VR / AR buttons. I could get into VR. 
+* iPhone doesn't work. We had to deal with workarounds on the iPhone since 2016. Now it seems Game Over. I tried iPhone SE with Safari, Chrome, Firefox and even the "XR Viewer" from Mozilla. All I got was fullscreen browser mode. At least you can use the iPhone as a 3D viewer and the 3D Models are located in VR space when you move the phone.  
+
+This means there is still hope.
+
+## What is Imperfect VR
+
 Imperfect VR means that we create our own virtual realities, not aiming for perfection but rather seeking fun and meaning in virtual spaces. Cheap 3D assets. Blocky textures. Weird sounds. Queer social places. Forget VR mainstream. Let’s rather meet and stumble around with smartphones strapped to our faces. 
 
- This workshop is based on the premise that everyone who can slide a smartphone into a [Cardboard](https://vr.google.com/cardboard/) can make VR experiences, even if you haven't written a single line of code before.
+This workshop is based on the premise that everyone who can slide a smartphone into a [Cardboard](https://vr.google.com/cardboard/) can make VR experiences, even if you haven't written a single line of code before.
 
 Imperfect VR is inspired by ["Imperfect Cinema"](http://www.imperfectcinema.com/) by Allister Gall which in turn is inspired by the essay ["For an imperfect cinema"](http://www.ejumpcut.org/archive/onlinessays/JC20folder/ImperfectCinema.html) by Julio García Espinosa.
 
