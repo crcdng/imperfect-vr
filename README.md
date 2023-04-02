@@ -10,7 +10,7 @@ This is a collection of examples for my **Imperfect VR** workshop, built with A-
 
 While billions are invested in corporate Metaverses and the "AR will save everything" dogma is still around 15 years after I heard it, I believe more than ever in punk, grassroots, low tech **Imperfect VR** as described below. The premise was always that people bring their own phones, put them into a cardboard viewer and become hackers and creators of they own metaverses. With shifting WebXR standards and A-Frame having [dropped cardboard mode](https://aframe.io/blog/aframe-v1.4.0/), I wanted to find out if it is still possible in March 2023.
  
-* [A-Frame](https://aframe.io/) is still updated and maintained
+* [A-Frame](https://aframe.io/) is still updated with individual [components](https://github.com/c-frame) maintained by the community 
 * Android works in a cardboard viewer. I tried an Morto G8 plus Android 10 device. Confirm permissions and install Google VR Services. It shows VR / AR buttons. I could get into VR. 
 * iPhone doesn't work. We had to deal with workarounds on the iPhone since 2016. Now it seems Game Over. I tried iPhone SE with Safari, Chrome, Firefox and even the "XR Viewer" from Mozilla. All I got was fullscreen browser mode. At least you can use the iPhone as a 3D viewer, access to the sensors work again, and the 3D Models are located in VR space when you move the phone.  
 
