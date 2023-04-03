@@ -6,7 +6,7 @@ This is a collection of examples for my **Imperfect VR** workshop, built with A-
 
 ## 2023 update
 
-*Does Cardboard VR still work in 2023?* 
+*Does low-tech, DIY, Cardboard VR still work in 2023?* 
 
 While billions are invested in corporate Metaverses and the "AR will save everything" dogma is still around 15 years after I heard it, I believe more than ever in punk, grassroots, low tech **Imperfect VR** as described below. The premise was always that people bring their own phones, put them into a cardboard viewer and become hackers and creators of they own metaverses. With shifting WebXR standards and A-Frame having [dropped cardboard mode](https://aframe.io/blog/aframe-v1.4.0/), I wanted to find out if it is still possible in March 2023.
  
