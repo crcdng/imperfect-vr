@@ -53,7 +53,7 @@
 	  schema: {
 	    color: {default: 'rgb(92, 32, 0)'},
 	    shadowColor: {default: 'rgb(128, 96, 96)'},
-	    sunposition: {type: 'vec3', default: {x: 1, y: 1, z: 1}},
+	    sunPosition: {type: 'vec3', default: {x: 1, y: 1, z: 1}},
 	    worldDepth: {default: 256},
 	    worldWidth: {default: 256}
 	  },
@@ -70,13 +70,14 @@
 	    // Texture.
 	    var canvas = generateTexture(
 	      terrainData, worldWidth, worldDepth, new THREE.Color(data.color),
-	      new THREE.Color(data.shadowColor), data.sunposition);
+	      new THREE.Color(data.shadowColor), data.sunPosition);
 	    var texture = new THREE.CanvasTexture(canvas);
 			texture.wrapS = THREE.ClampToEdgeWrapping;
 			texture.wrapT = THREE.ClampToEdgeWrapping;
 
+		// Fix for deprecated buffer geometry	
 	    // Create geometry.
-	    var geometry = new THREE.PlaneBufferGeometry(7500, 7500, worldWidth - 1, worldDepth - 1);
+	    var geometry = new THREE.PlaneGeometry(7500, 7500, worldWidth - 1, worldDepth - 1);
 	    geometry.rotateX(- Math.PI / 2);
 			var vertices = geometry.attributes.position.array;
 			for (var i = 0, j = 0, l = vertices.length; i < l; i ++, j += 3) {
@@ -187,7 +188,7 @@
 	  mappings: {
 	    color: 'mountain.color',
 	    'shadow-color': 'mountain.shadowColor',
-	    'sun-position': 'mountain.sunposition',
+	    'sun-position': 'mountain.sunPosition',
 	    'world-depth' :'mountain.worldDepth',
 	    'world-width' :'mountain.worldWidth'
 	  }

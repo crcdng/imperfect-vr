@@ -53,7 +53,7 @@ AFRAME.registerComponent('gamelogic', {
 
     this.startbutton.addEventListener('click', (e) => {
       this.state = this.states.start;
-      this.gamelogic.setAttribute('sound', 'src: #music; autoplay: true; volume: 0.1;');
+      this.gamelogic.setAttribute('sound', 'src: #music; autoplay: true; volume: 0.1');
       const startSoundComponent = this.gamelogic.components.sound;
       const mediaEl = document.querySelector(startSoundComponent.attrValue.src);
       if (mediaEl != null) {
@@ -67,8 +67,8 @@ AFRAME.registerComponent('gamelogic', {
       }, 1990); // and remove the ui completely
     }, false);
 
-    this.startbutton.disabled = false;
-    this.startbutton.innerText = 'START';
+    this.startbutton.disabled = true; // TODO
+    this.startbutton.innerText = 'MAINTENANCE\nIN PROGRESS'; // TODO
   },
   update: function (oldData) { // this function is called each time when something is updated
     let increaseCounter, playerPosition, score;

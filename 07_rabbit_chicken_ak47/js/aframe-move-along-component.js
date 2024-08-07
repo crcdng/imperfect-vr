@@ -12,12 +12,28 @@ AFRAME.registerComponent('move-along', {
     points: {
       default: [],
       parse: function (value) {
+  
         if (value == null) { throw Error('move-along: path is null'); }
+        if (typeof value !== "string") { return []; }
+        if (value.length === 0) { return []; }
+        
+        console.log("value: ");
+        console.log(`${value}`);
+        
+        console.log(`typeof value`);
+        console.log(typeof value);
+
         const arr = value.trim().split(',');
+        console.log("arr: ");
+        console.log(arr);
+
         const result = [];
         for (let i = 0; i < arr.length; i = i + 1) {
+          console.log("adding to result");
           result.push(AFRAME.utils.coordinates.parse(arr[i]));
         }
+        console.log(`result:`);
+        console.log(result);
         return result;
       }
     }
@@ -25,10 +41,14 @@ AFRAME.registerComponent('move-along', {
 
   init: function () {
     this.startMoveAlong = () => {
+      const data = this.data;
+      console.log(data);
       const points = this.data.points;
+      console.log(`${points}`);
       const threePoints = [];
       this.elapsed = 0;
       for (const p of points) {
+        console.log(`p ${p}`);
         threePoints.push(new THREE.Vector3(p.x, p.y, p.z));
       }
 
@@ -43,6 +63,7 @@ AFRAME.registerComponent('move-along', {
 
   update: function (oldData) {
     const data = this.data;
+    console.log(data);
     const el = this.el;
 
     // if the event handler has been changed set the new one
