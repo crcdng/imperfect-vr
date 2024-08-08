@@ -2,7 +2,7 @@
 
 This is a collection of examples for my **Imperfect VR** workshop, built with A-Frame.
 
-[The Imperfect VR Manifesto](https://github.com/i3games/imperfect-vr/blob/master/Imperfect%20VR%20Manifesto.pdf) - [Github Repository](https://github.com/i3games/imperfect-vr) - [See it online](https://i3games.github.io/imperfect-vr/)
+[The Imperfect VR Manifesto](https://github.com/crcdng/imperfect-vr/blob/master/Imperfect%20VR%20Manifesto.pdf) - [Github Repository](https://github.com/crcdng/imperfect-vr) - [See it online](https://crcdng.github.io/imperfect-vr/)
 
 ## 2023 update
 
@@ -24,18 +24,18 @@ This workshop is based on the premise that everyone who can slide a smartphone i
 
 Imperfect VR is inspired by ["Imperfect Cinema"](http://www.imperfectcinema.com/) by Allister Gall which in turn is inspired by the essay ["For an imperfect cinema"](http://www.ejumpcut.org/archive/onlinessays/JC20folder/ImperfectCinema.html) by Julio García Espinosa.
 
-More info about the workshop is here http://www.i3games.com/i3Games/imperfectvr.html.
+It was part of my practice-based PhD "Designing Playful Systems" https://www.crcdng.com/static/pdf/MS_ImperfectVR.pdf.
 
 ## The VR scenes for the workshop
 
 * **00 Do it Yourself** - the scene for our coding exercise
-* **01 Hello VR World** - result of our coding exercise: https://i3games.github.io/imperfect-vr/01_hello_vr_world
-* **02 360 Image** demonstrates a 360 image: https://i3games.github.io/imperfect-vr/02_360_image
-* **03 360 Video** demonstrates a 360 video: https://i3games.github.io/imperfect-vr/03_360_video
-* **04 Basic Scene**, based on the original A-Frame documentation [Build a Basic Scene](https://aframe.io/docs/1.0.0/guides/building-a-basic-scene.html). It has animation, gaze-based interaction (looking at the cube will make it react) and sound: https://i3games.github.io/imperfect-vr/04_basic_scene
-* **05 Imperfect Treasures**, based on the original Google Cardboard example scene. This is similar to the last scene, but has a little bit more logic (code) in it to create a little playful experience: https://i3games.github.io/imperfect-vr/05_imperfect_treasures
-* **06 The Reality of the Virtual** featuring Slavoj Žižek, Paul Virilio, Nyan Cat and more. Still a variant of or first "Hello World" scene, with more interaction, more Dubstep, more meaning, more everything: https://i3games.github.io/imperfect-vr/06_reality_of_the_virtual
-* **07 Rabbit, Chicken, AK 47** (teaser). This scene is my playground for more experimentation with storytelling and movement in VR. Expect it to be ... imperfect: https://i3games.github.io/imperfect-vr/07_rabbit_chicken_ak47
+* **01 Hello VR World** - result of our coding exercise: https://crcdng.github.io/imperfect-vr/01_hello_vr_world
+* **02 360 Image** demonstrates a 360 image: https://crcdng.github.io/imperfect-vr/02_360_image
+* **03 360 Video** demonstrates a 360 video: https://crcdng.github.io/imperfect-vr/03_360_video
+* **04 Basic Scene**, based on the original A-Frame documentation [Build a Basic Scene](https://aframe.io/docs/1.0.0/guides/building-a-basic-scene.html). It has animation, gaze-based interaction (looking at the cube will make it react) and sound: https://crcdng.github.io/imperfect-vr/04_basic_scene
+* **05 Imperfect Treasures**, based on the original Google Cardboard example scene. This is similar to the last scene, but has a little bit more logic (code) in it to create a little playful experience: https://crcdng.github.io/imperfect-vr/05_imperfect_treasures
+* **06 The Reality of the Virtual** featuring Slavoj Žižek, Paul Virilio, Nyan Cat and more. Still a variant of or first "Hello World" scene, with more interaction, more Dubstep, more meaning, more everything: https://crcdng.github.io/imperfect-vr/06_reality_of_the_virtual
+* **07 Rabbit, Chicken, AK 47** (teaser). This scene is my playground for more experimentation with storytelling and movement in VR. Expect it to be ... imperfect: https://crcdng.github.io/imperfect-vr/07_rabbit_chicken_ak47
 
 ## Some technical and not so technical remarks
 
@@ -76,7 +76,7 @@ A full day or two day workshop would be an option for teaching JavaScript, compo
 
 The jams can be like hackathons, or game jams, people coming together for a day or a weekend and creating stuff together. Now that we are all virtual and distanced, new online workshop formats are needed.
 
-The spirit of all this is captured in the [The Imperfect VR Manifesto](https://github.com/i3games/imperfect-vr/blob/master/Imperfect%20VR%20Manifesto.pdf).  
+The spirit of all this is captured in the [The Imperfect VR Manifesto](https://github.com/crcdng/imperfect-vr/blob/master/Imperfect%20VR%20Manifesto.pdf).  
 
 *Now make a VR!*
 
