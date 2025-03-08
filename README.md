@@ -1,8 +1,12 @@
 # Imperfect VR 
 
-This is a collection of examples for my **Imperfect VR** workshop, built with A-Frame.
+This is a collection of examples for my **Imperfect VR** workshop, built with [A-Frame](https://aframe.io/).
 
 [The Imperfect VR Manifesto](https://github.com/crcdng/imperfect-vr/blob/master/Imperfect%20VR%20Manifesto.pdf) - [Github Repository](https://github.com/crcdng/imperfect-vr) - [See it online](https://crcdng.github.io/imperfect-vr/)
+
+## 2025 update
+
+I have been updating this project for more than 10 years, moving along with the great people who make A-Frame, and who are still going as well. Imperfect VR was born as a labor of love, as part of my Phd, and as a practical, constructive protest against Virtual Reality being occupied by Big-Tech and High-Tech-Bros arguing for the latest, expensive Hardware. While the interest in this kind of "low tech / high empowerment" approach towards VR has declined, I am still testing every update in cardboard viewers with crappy Android phones. I just activated sponsorship for the project, in case someone wants to support this idea. 
 
 ## 2023 update
 
