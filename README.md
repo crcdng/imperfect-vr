@@ -6,7 +6,9 @@ This is a collection of examples for my **Imperfect VR** workshop, built with [A
 
 ## 2025 update
 
-I have been updating this project for almost 10 years, moving along with the great people who make A-Frame, and who are still going as well. Imperfect VR was born as a labor of love, as part of my Phd, and as a practical, constructive protest against Virtual Reality being occupied by Big-Tech and High-Tech-Bros arguing for "more realism" and the latest expensive Hardware. While the interest in  "low tech / high empowerment" approaches towards VR has declined, I am still doing it and I test every update in cardboard viewers with crappy Android phones. I just activated sponsorship for the project, in case someone wants to support the idea. 
+Imperfect VR started as a workshop at [Electromagnetic Field 2016](https://www.emfcamp.org/schedule/2016/54-imperfect-vr-workshop). I have been updating this project for almost 10 years, moving along with the great folks who make A-Frame, who are still going on as well. Imperfect VR was born as a labor of love, as part of my Phd, and as a practical, constructive counter-narrative against Virtual Reality being occupied by Big-Tech and High-Tech-Bros arguing for "more realism" and the latest expensive hardware. 
+
+While the interest in "low tech / high empowerment" approaches towards VR has declined, I am still doing it for fun and I test every update in cardboard viewers with crappy Android phones. I just activated sponsorship for the project, in case someone thinks the the idea is woth supporting. 
 
 ## 2023 update
 
