@@ -30,7 +30,7 @@ This workshop is based on the premise that everyone who can slide a smartphone i
 
 Imperfect VR is inspired by ["Imperfect Cinema"](http://www.imperfectcinema.com/) by Allister Gall which in turn is inspired by the essay ["For an imperfect cinema"](http://www.ejumpcut.org/archive/onlinessays/JC20folder/ImperfectCinema.html) by Julio García Espinosa.
 
-It was part of my practice-based PhD "Designing Playful Systems" https://www.crcdng.com/static/pdf/MS_ImperfectVR.pdf.
+It was part of my practice-based PhD "Designing Playful Systems".
 
 ## The VR scenes for the workshop
 
@@ -39,7 +39,7 @@ It was part of my practice-based PhD "Designing Playful Systems" https://www.crc
 * **02 360 Image** demonstrates a 360 image: https://crcdng.github.io/imperfect-vr/02_360_image
 * **03 360 Video** demonstrates a 360 video: https://crcdng.github.io/imperfect-vr/03_360_video
 * **04 Basic Scene**, based on the original A-Frame documentation [Build a Basic Scene](https://aframe.io/docs/1.0.0/guides/building-a-basic-scene.html). It has animation, gaze-based interaction (looking at the cube will make it react) and sound: https://crcdng.github.io/imperfect-vr/04_basic_scene
-* **05 Imperfect Treasures**, based on the original Google Cardboard example scene. This is similar to the last scene, but has a little bit more logic (code) in it to create a little playful experience: https://crcdng.github.io/imperfect-vr/05_imperfect_treasures
+* **05 Imperfect Treasures**, based on the original Google Cardboard example scene. This is similar to the last scene, but has a bit more logic (code) in it to create a little playful experience. IMPORTANT: This scene requires a physical controller. https://crcdng.github.io/imperfect-vr/05_imperfect_treasures
 * **06 The Reality of the Virtual** featuring Slavoj Žižek, Paul Virilio, Nyan Cat and more. Still a variant of or first "Hello World" scene, with more interaction, more Dubstep, more meaning, more everything: https://crcdng.github.io/imperfect-vr/06_reality_of_the_virtual
 * **07 Rabbit, Chicken, AK 47** (teaser). This scene is my playground for more experimentation with storytelling and movement in VR. Expect it to be ... imperfect: https://crcdng.github.io/imperfect-vr/07_rabbit_chicken_ak47
 

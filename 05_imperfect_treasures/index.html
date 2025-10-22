@@ -113,19 +113,10 @@
       <!-- a plane to "stand on" -->
       <a-plane width="6" height="6" rotation="-90 0 0" src="#floor"></a-plane>
 
-      <!-- replace the standard camera with a new one that has a fuse cursor -->
+      <!-- this scene requires a physical controller -->
+      <a-entity laser-controls="hand: right"></a-entity>
       <a-entity position="0 0 0">
-        <a-camera id="player">
-          <a-entity
-            id="cursor"
-            cursor
-            geometry="primitive: ring"
-            material="color: white; shader: flat"
-            position="0 0 -1"
-            scale="0.01 0.01 0.01"
-          >
-          </a-entity>
-        </a-camera>
+        <a-camera id="player"></a-camera>
       </a-entity>
 
       <!-- a figure that "hides" / changes location when you look at it -->
