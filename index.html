@@ -9,7 +9,6 @@ If there is background sound or video in the scene, the START button will activa
   <head>
     <meta charset="utf-8" />
     <title>Imperfect VR</title>
-    <!-- note v.1.2.0 here because of aframe-mountain-component -->
     <script src="js/aframe-v1.6.0.min.js"></script>
     <script src="js/nunjucks.js"></script>
     <script src="js/aframe-event-set-component.js"></script>
@@ -59,8 +58,8 @@ If there is background sound or video in the scene, the START button will activa
           </a-plane>
         </script>
       </a-assets>
-      <a-sun-sky material="side: back"></a-sun-sky>
       <!-- material="side: back" is a workaround for https://github.com/ngokevin/kframe/issues/147 -->
+      <a-sun-sky material="side: back"></a-sun-sky>
       <a-mountain color="#33FE77"></a-mountain>
       <a-entity position="8 4 -4">
         <a-entity

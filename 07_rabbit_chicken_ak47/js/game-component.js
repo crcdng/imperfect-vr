@@ -67,7 +67,7 @@ AFRAME.registerComponent('gamelogic', {
       }, 1990); // and remove the ui completely
     }, false);
 
-    this.startbutton.disabled = true; // TODO
+    this.startbutton.disabled = false; // TODO
     this.startbutton.innerText = 'MAINTENANCE\nIN PROGRESS'; // TODO
   },
   update: function (oldData) { // this function is called each time when something is updated

@@ -51,7 +51,7 @@ AFRAME.registerComponent('move-along', {
         console.log(`p ${p}`);
         threePoints.push(new THREE.Vector3(p.x, p.y, p.z));
       }
-
+      console.log(`before bug`);
       const geometry = new THREE.BufferGeometry().setFromPoints(points);
       const material = new THREE.LineBasicMaterial({ color: 0xff0000 });
       const curveObject = new THREE.Line(geometry, material);
@@ -99,7 +99,10 @@ AFRAME.registerComponent('move-along', {
       return;
     }
     ratio = (this.elapsed - delay) / duration;
+                          console.log(ratio);
+
     point = curve.getPointAt(ratio);
+
     el.setAttribute('position', point);
   },
 
